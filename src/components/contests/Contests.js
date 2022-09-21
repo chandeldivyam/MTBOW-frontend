@@ -3,7 +3,7 @@ import Contest from "./Contest";
 
 const Contests = ({ liveContests }) => {
     return (
-        <div className="grid grid-cols-2 justify-center justify-items-center">
+        <div className="grid grid-cols-1 justify-center justify-items-center gap-4 m-4">
             {liveContests.map((contest) => {
                 return <Contest key={contest.id} {...contest} />;
             })}

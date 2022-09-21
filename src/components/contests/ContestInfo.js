@@ -144,40 +144,44 @@ const ContestInfo = () => {
         return <h1>Sorry, you have not participated</h1>;
     }
     return (
-        <>
-            <h1 className="text-center mt-2.5">Create Your Team</h1>
-            <div className="grid grid-cols-3">
-                {creatorsInfo.map((item) => {
-                    return (
-                        <CreatorCard
-                            key={item.id}
-                            {...item}
-                            addToTeam={addToTeam}
-                            removeFromTeam={removeFromTeam}
-                            myTeam={myTeam}
-                        />
-                    );
-                })}
+        <div className="flex justify-center bg-gray-200 min-h-screen">
+            <div className="max-w-lg bg-white">
+                <div className="flex flex-col">
+                    <h1 className="text-center mt-2.5">Create Your Team</h1>
+                    <div className="grid grid-cols-2">
+                        {creatorsInfo.map((item) => {
+                            return (
+                                <CreatorCard
+                                    key={item.id}
+                                    {...item}
+                                    addToTeam={addToTeam}
+                                    removeFromTeam={removeFromTeam}
+                                    myTeam={myTeam}
+                                />
+                            );
+                        })}
+                    </div>
+                    <div className="flex justify-center">
+                        <button
+                            className="inline-block px-6 py-2.5 mt-5 bg-green-500 text-white font-medium text-l leading-tight uppercase rounded-full shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+                            type="button"
+                            onClick={createTeam}
+                        >
+                            PARTICIPATE
+                        </button>
+                    </div>
+                    <div
+                        className={`${
+                            isTeamError
+                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
+                                : "invisible"
+                        }`}
+                    >
+                        Please select 4 creators for the Team!
+                    </div>
+                </div>
             </div>
-            <div className="flex justify-center">
-                <button
-                    className="inline-block px-6 py-2.5 mt-5 bg-green-500 text-white font-medium text-l leading-tight uppercase rounded-full shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-                    type="button"
-                    onClick={createTeam}
-                >
-                    PARTICIPATE
-                </button>
-            </div>
-            <div
-                className={`${
-                    isTeamError
-                        ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                        : "invisible"
-                }`}
-            >
-                Please select 4 creators for the Team!
-            </div>
-        </>
+        </div>
     );
 };
 
