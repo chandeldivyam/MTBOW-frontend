@@ -11,7 +11,7 @@ import { ContestWaiting } from "./ContestWaiting";
 
 const ContestInfo = () => {
     let navigate = useNavigate();
-    const { authenticateUser } = useGlobalContext();
+    const { authenticateUser, balance } = useGlobalContext();
     const { contestId } = useParams();
     const [contestInfo, setContestInfo] = useState({
         event_name: "",
@@ -23,6 +23,7 @@ const ContestInfo = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [myTeam, setMyTeam] = useState([]);
     const [isTeamError, setIsTeamError] = useState(false);
+    const [balanceError, setBalanceError] = useState(false);
     const [isExpired, setIsExpired] = useState(false);
     const [teamExist, setTeamExist] = useState(false);
     const [eventStarted, setEventStarted] = useState(false);
@@ -59,14 +60,20 @@ const ContestInfo = () => {
             setTeamExist(true);
             setMyTeam(team_details.data.rows[0].team);
         }
-        const { name, image_url, event_end_time, event_start_time } =
-            getCreators.data[0];
+        const {
+            name,
+            image_url,
+            event_end_time,
+            event_start_time,
+            participation_fee,
+        } = getCreators.data[0];
         setContestInfo({
             ...contestInfo,
             event_name: name,
             image_url: image_url,
             event_start_time: event_start_time,
             event_end_time: event_end_time,
+            participation_fee,
         });
         if (Date.now() >= Date.parse(event_end_time)) {
             setIsExpired(true);
@@ -91,6 +98,15 @@ const ContestInfo = () => {
             setIsTeamError(true);
             return;
         }
+        setIsTeamError(false);
+        if (
+            balance.topup + balance.promotional + balance.winnings <
+            contestInfo.participation_fee
+        ) {
+            setBalanceError(true);
+            return;
+        }
+        setBalanceError(false);
         axios({
             method: "post",
             url: `http://localhost:3005/api/v1/teams/`,
@@ -147,7 +163,23 @@ const ContestInfo = () => {
         <div className="flex justify-center bg-gray-200 min-h-screen">
             <div className="max-w-lg bg-white">
                 <div className="flex flex-col">
-                    <h1 className="text-center mt-2.5">Create Your Team</h1>
+                    <h1 className="text-center text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight underline my-4">
+                        Create Your Team
+                    </h1>
+                    <div className="flex justify-around">
+                        <div
+                            type="button"
+                            className="focus:outline-none text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600"
+                        >
+                            Invest: ₹{contestInfo.participation_fee}
+                        </div>
+                        <div
+                            type="button"
+                            className="focus:outline-none text-white bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 0"
+                        >
+                            Prize Pool: ₹10000
+                        </div>
+                    </div>
                     <div className="grid grid-cols-2">
                         {creatorsInfo.map((item) => {
                             return (
@@ -161,15 +193,6 @@ const ContestInfo = () => {
                             );
                         })}
                     </div>
-                    <div className="flex justify-center">
-                        <button
-                            className="inline-block px-6 py-2.5 mt-5 bg-green-500 text-white font-medium text-l leading-tight uppercase rounded-full shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-                            type="button"
-                            onClick={createTeam}
-                        >
-                            PARTICIPATE
-                        </button>
-                    </div>
                     <div
                         className={`${
                             isTeamError
@@ -178,6 +201,24 @@ const ContestInfo = () => {
                         }`}
                     >
                         Please select 4 creators for the Team!
+                    </div>
+                    <div
+                        className={`${
+                            balanceError
+                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
+                                : "invisible"
+                        }`}
+                    >
+                        Insufficient Balance!
+                    </div>
+                    <div className="flex justify-center">
+                        <button
+                            className="inline-block px-6 py-2.5 mt-1 mb-4 bg-green-500 text-white font-medium text-l leading-tight uppercase rounded-full shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+                            type="button"
+                            onClick={createTeam}
+                        >
+                            PARTICIPATE
+                        </button>
                     </div>
                 </div>
             </div>

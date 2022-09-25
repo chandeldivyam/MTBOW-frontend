@@ -4,10 +4,12 @@ import Home from "./pages/Home";
 import ContestInfo from "./components/contests/ContestInfo";
 import { ContestResult } from "./pages/ContestResult";
 import { Results } from "./pages/Results";
+import Navbar from "./pages/Navbar";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 function App() {
     return (
         <Router>
+            <Navbar />
             <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />

@@ -3,8 +3,9 @@ import PlayerStat from "./PlayerStat";
 import axios from "axios";
 import Leaderboard from "./Leaderboard";
 import _ from "lodash";
+import { GiPartyPopper } from "react-icons/gi";
 
-const MyTeam = ({ myTeam, creatorsInfo, contestId }) => {
+const MyTeam = ({ myTeam, creatorsInfo, contestId, myRewards }) => {
     const [leaderboard, setLeaderboard] = useState([]);
     const [teamScore, setTeamScore] = useState({});
     const [isLoading, setIsLoading] = useState(true);
@@ -72,6 +73,16 @@ const MyTeam = ({ myTeam, creatorsInfo, contestId }) => {
                                 <h1 className="m-2.5 bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
                                     Rank: {userRank}
                                 </h1>
+                                <div
+                                    className={
+                                        parseInt(myRewards) <= 0
+                                            ? "hidden"
+                                            : "m-2.5 items-center bg-transparent text-green-700 font-semibold py-2 px-4 border border-green-500 rounded inline-flex"
+                                    }
+                                >
+                                    <GiPartyPopper className="mr-2" />
+                                    <h2>Winnings: ₹{myRewards}</h2>
+                                </div>
                             </div>
                             <div className="mt-10">
                                 <h1 className="text-center font-medium leading-tight text-xl mt-0 mb-2 mr-2 text-blue-600">

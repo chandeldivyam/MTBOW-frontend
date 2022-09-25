@@ -45,10 +45,9 @@ export const Results = () => {
         <div className="flex justify-center bg-gray-200 min-h-screen">
             <div className="flex flex-col max-w-lg bg-white pb-3">
                 <div>
-                    <div className="text-center bg-gray-50 text-xl py-20 px-6 font-bold">
-                        My Results
+                    <div className="mt-4 text-center mobile:w-[512px] w-screen">
+                        CLOSED EVENTS!
                     </div>
-                    <div className="mt-4 text-center">CLOSED EVENTS!</div>
                     <AllExpiredContest expiredContests={expiredContests} />
                 </div>
             </div>

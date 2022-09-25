@@ -3,6 +3,7 @@ import axios from "axios";
 import { useGlobalContext } from "../context";
 import { useNavigate, Link } from "react-router-dom";
 import Contests from "../components/contests/Contests";
+import Navbar from "./Navbar";
 
 const Home = () => {
     let navigate = useNavigate();
@@ -46,24 +47,21 @@ const Home = () => {
         return <h1>Loading...</h1>;
     }
     return (
-        <div className="flex justify-center bg-gray-200 min-h-screen">
-            <div className="flex flex-col max-w-lg bg-white pb-3">
-                <div>
-                    <div className="text-center bg-gray-50 text-xl py-20 px-6 font-bold">
-                        MTBOW
-                    </div>
-                    <div className="mt-4 text-center">OPEN EVENTS!</div>
-                    <Contests liveContests={liveContests} />
+        <>
+            <div>
+                <div className="mt-4 text-center mobile:w-[512px] w-screen">
+                    OPEN EVENTS!
                 </div>
-                <Link to="/myResults/">
-                    <div className="flex justify-center">
-                        <div className="bg-transparent text-center mt-5 max-w-xs hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                            My Results
-                        </div>
-                    </div>
-                </Link>
+                <Contests liveContests={liveContests} />
             </div>
-        </div>
+            <Link to="/myResults/">
+                <div className="flex justify-center">
+                    <div className="bg-transparent text-center mt-5 max-w-xs hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                        My Results
+                    </div>
+                </div>
+            </Link>
+        </>
     );
     // return <h1>home</h1>;
 };

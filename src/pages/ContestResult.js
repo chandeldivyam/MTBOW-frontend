@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useGlobalContext } from "../context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import MyTeam from "../components/teams/MyTeam";
+import MyTeam from "../components/teams/MyTeamResult";
 
 export const ContestResult = () => {
     let navigate = useNavigate();
@@ -13,6 +13,7 @@ export const ContestResult = () => {
     const [isExpired, setIsExpired] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [myTeam, setMyTeam] = useState([]);
+    const [myRewards, setMyRewards] = useState("");
     const [contestInfo, setContestInfo] = useState({
         event_name: "",
         image_url: "",
@@ -54,6 +55,7 @@ export const ContestResult = () => {
         }
         if (team_details.data.rowCount > 0) {
             setMyTeam(team_details.data.rows[0].team);
+            setMyRewards(team_details.data.rows[0].reward);
         }
         const { name, image_url, event_end_time, event_start_time } =
             getCreators.data[0];
@@ -90,6 +92,7 @@ export const ContestResult = () => {
                         myTeam={myTeam}
                         creatorsInfo={creatorsInfo}
                         contestId={contestId}
+                        myRewards={myRewards}
                     />
                 </>
             </div>
