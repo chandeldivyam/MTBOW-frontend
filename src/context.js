@@ -16,18 +16,15 @@ const AppProvider = ({ children }) => {
         setBalance({ ...balance, ...fetchBalance.data });
     };
     const authenticateUser = async () => {
-        if (localStorage.getItem("token")) {
-            var config = {
-                method: "get",
-                url: "https://api.mtbow.com/api/v1/auth/me",
-                headers: {
-                    Authorization: localStorage.getItem("token"),
-                },
-            };
-            const user_details = await axios(config);
-            return user_details.data.data.user_id_mongo;
-        }
-        return;
+        var config = {
+            method: "get",
+            url: "https://api.mtbow.com/api/v1/auth/me",
+            headers: {
+                Authorization: localStorage.getItem("token"),
+            },
+        };
+        const user_details = await axios(config);
+        return user_details.data.data.user_id_mongo;
     };
     useEffect(() => {
         getBalance();
