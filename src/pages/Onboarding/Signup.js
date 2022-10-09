@@ -99,12 +99,23 @@ const Signup = () => {
                             <button
                                 onClick={requestOtp}
                                 type="submit"
-                                className="inline-block px-6 py-2.5 my-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded shadow-md"
                             >
                                 Register
                             </button>
                         </div>
                     </form>
+                    <p class="text-sm font-semibold mt-2 pt-1 mb-2">
+                        Already have an account?
+                        <button
+                            onClick={() => {
+                                navigate("/login");
+                            }}
+                            class="text-[#dc5714] ml-3"
+                        >
+                            Login
+                        </button>
+                    </p>
                     <div
                         className={`${
                             nameRegexError
@@ -144,7 +155,7 @@ const Signup = () => {
                     <button
                         onClick={verifyOtp}
                         type="submit"
-                        className="inline-block px-6 py-2.5 my-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                        className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded shadow-md "
                     >
                         Verify OTP
                     </button>
