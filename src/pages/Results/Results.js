@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useGlobalContext } from "../context";
-import { AllExpiredContest } from "../components/results/AllExpiredContest";
+import { useGlobalContext } from "../../context";
+import { AllExpiredContest } from "../../components/results/AllExpiredContest";
 export const Results = () => {
     let navigate = useNavigate();
 
@@ -13,7 +13,7 @@ export const Results = () => {
     const fetchExpiredContests = async () => {
         const expiredContestsResponse = await axios({
             method: "get",
-            url: "http://localhost:3005/api/v1/contests/expired",
+            url: "https://api.mtbow.com/api/v1/contests/expired",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

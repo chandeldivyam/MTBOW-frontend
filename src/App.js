@@ -1,10 +1,12 @@
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Home from "./pages/Home";
+import Login from "./pages/Onboarding/Login";
+import Signup from "./pages/Onboarding/Signup";
+import Home from "./pages/Main/Home";
 import ContestInfo from "./components/contests/ContestInfo";
-import { ContestResult } from "./pages/ContestResult";
-import { Results } from "./pages/Results";
-import Navbar from "./pages/Navbar";
+import { ContestResult } from "./pages/Results/ContestResult";
+import { Results } from "./pages/Results/Results";
+import Payments from "./pages/Payments/Pyaments";
+import Navbar from "./pages/Main/Navbar";
+import Recharge from "./pages/Payments/Recharge";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 function App() {
     return (
@@ -23,6 +25,8 @@ function App() {
                     path="/contestResult/:contestId"
                     element={<ContestResult />}
                 />
+                <Route path="/payments/" element={<Payments />} />
+                <Route path="/recharge" element={<Recharge />} />
             </Routes>
         </Router>
     );

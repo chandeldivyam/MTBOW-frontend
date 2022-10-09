@@ -14,7 +14,7 @@ const MyTeam = ({ myTeam, creatorsInfo, contestId }) => {
         try {
             const leaderboard_data = await axios({
                 method: "get",
-                url: `http://localhost:3005/api/v1/teams/score/${contestId}`,
+                url: `https://api.mtbow.com/api/v1/teams/score/${contestId}`,
                 headers: {
                     Authorization: localStorage.getItem("token"),
                 },

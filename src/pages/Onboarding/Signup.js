@@ -1,53 +1,46 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useGlobalContext } from "../context";
+import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
+    let navigate = useNavigate();
     const [phone, setPhone] = useState("");
+    const [name, setName] = useState("");
     const [otp, setOtp] = useState("");
     const [isOtpSent, setIsOtpSent] = useState(false);
     const [phoneRegexError, setPhoneRegexError] = useState(false);
+    const [nameRegexError, setNameRegexError] = useState(false);
     const [optRegexError, setOtpRegexError] = useState(false);
-    const [badLoginRequest, setBadLoginRequest] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const { authenticateUser } = useGlobalContext();
 
-    useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                setIsLoading(false);
-                navigate("/");
-            })
-            .catch((err) => {
-                setIsLoading(false);
-            });
-    }, []);
-
-    let navigate = useNavigate();
     const requestOtp = async (e) => {
         e.preventDefault();
         if (!phone.match(/^\d{10}$/)) {
+            setIsOtpSent(false);
             setPhoneRegexError(true);
+            return;
+        }
+        if (!name) {
+            setIsOtpSent(false);
+            setNameRegexError(true);
             return;
         }
         axios({
             method: "post",
-            url: "http://localhost:3005/api/v1/auth/login",
+            url: "https://api.mtbow.com/api/v1/auth/register",
             data: {
                 phone,
+                name,
             },
         })
             .then((response) => {
+                console.log(response);
                 localStorage.setItem("userId", response.data.data.userId);
-                setPhoneRegexError(false);
-                setIsOtpSent(!isOtpSent);
             })
             .catch((error) => {
                 console.log(error);
-                setBadLoginRequest(true);
-                return;
             });
+        setIsOtpSent(true);
     };
     const verifyOtp = async (e) => {
         e.preventDefault();
@@ -56,7 +49,7 @@ const Login = () => {
         }
         axios({
             method: "post",
-            url: "http://localhost:3005/api/v1/auth/verifyLogin",
+            url: "https://api.mtbow.com/api/v1/auth/verifySignup",
             data: {
                 otp: otp,
                 userId: localStorage.getItem("userId"),
@@ -77,16 +70,21 @@ const Login = () => {
                 setOtpRegexError(true);
             });
     };
-
-    if (isLoading) {
-        return <h1>Loading...</h1>;
-    }
-
     if (!isOtpSent) {
         return (
-            <div className="flex justify-center">
+            <div className="flex justify-center content-center">
                 <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
                     <form onSubmit={requestOtp}>
+                        <div className="flex flex-col">
+                            <label className="my-1.5">Name</label>
+                            <input
+                                type="text"
+                                placeholder="Harish Singh"
+                                value={name}
+                                className="my-1.5"
+                                onChange={(e) => setName(e.target.value)}
+                            ></input>
+                        </div>
                         <div className="flex flex-col">
                             <label className="my-1.5">Phone Number</label>
                             <input
@@ -99,13 +97,23 @@ const Login = () => {
                         </div>
                         <div className="form-group mb-6">
                             <button
+                                onClick={requestOtp}
                                 type="submit"
                                 className="inline-block px-6 py-2.5 my-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                             >
-                                Login
+                                Register
                             </button>
                         </div>
                     </form>
+                    <div
+                        className={`${
+                            nameRegexError
+                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
+                                : "invisible"
+                        }`}
+                    >
+                        Name can not be empty
+                    </div>
                     <div
                         className={`${
                             phoneRegexError
@@ -113,58 +121,37 @@ const Login = () => {
                                 : "invisible"
                         }`}
                     >
-                        Please enter a valid 10 digit phone number
-                    </div>
-                    <div
-                        className={`${
-                            badLoginRequest
-                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                                : "invisible"
-                        }`}
-                    >
-                        The User does not exist. Please sign up
+                        Please enter a valid phone number
                     </div>
                 </div>
             </div>
         );
     }
-    console.log(isOtpSent);
     return (
-        <div className="flex justify-center">
-            <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-                <form>
-                    <div className="flex flex-col">
-                        <label className="my-1.5">Enter OTP</label>
-                        <input
-                            type="text"
-                            placeholder="XXXXXX"
-                            value={otp}
-                            className="my-1.5"
-                            onChange={(e) => setOtp(e.target.value)}
-                        ></input>
-                    </div>
-                    <div className="form-group mb-6">
-                        <button
-                            onClick={verifyOtp}
-                            type="submit"
-                            className="inline-block px-6 py-2.5 my-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                        >
-                            Verify OTP
-                        </button>
-                    </div>
-                </form>
-                <div
-                    className={`${
-                        optRegexError
-                            ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                            : "invisible"
-                    }`}
-                >
-                    Please enter Valid OTP
+        <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+            <form>
+                <div className="flex flex-col">
+                    <label className="my-1.5">Enter OTP</label>
+                    <input
+                        type="text"
+                        placeholder="XXXXXX"
+                        value={otp}
+                        className="my-1.5"
+                        onChange={(e) => setOtp(e.target.value)}
+                    ></input>
                 </div>
-            </div>
+                <div className="form-group mb-6">
+                    <button
+                        onClick={verifyOtp}
+                        type="submit"
+                        className="inline-block px-6 py-2.5 my-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                    >
+                        Verify OTP
+                    </button>
+                </div>
+            </form>
         </div>
     );
 };
 
-export default Login;
+export default Signup;

@@ -8,17 +8,17 @@ const AppProvider = ({ children }) => {
     const getBalance = async () => {
         const fetchBalance = await axios({
             method: "get",
-            url: "http://localhost:3005/api/v1/wallet/balance",
+            url: "https://api.mtbow.com/api/v1/wallet/balance",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
         });
-        setBalance({ ...getBalance, ...fetchBalance.data });
+        setBalance({ ...balance, ...fetchBalance.data });
     };
     const authenticateUser = async () => {
         var config = {
             method: "get",
-            url: "http://localhost:3005/api/v1/auth/me",
+            url: "https://api.mtbow.com/api/v1/auth/me",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -30,7 +30,7 @@ const AppProvider = ({ children }) => {
         getBalance();
     }, []);
     return (
-        <AppContext.Provider value={{ authenticateUser, balance }}>
+        <AppContext.Provider value={{ authenticateUser, balance, getBalance }}>
             {children}
         </AppContext.Provider>
     );

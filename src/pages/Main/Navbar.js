@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import mtbow_logo from "../Static/mtbow-logo.svg";
-import Sidebar from "../components/navbar/Sidebar";
-import { useGlobalContext } from "../context";
+import mtbow_logo from "../../Static/mtbow-logo.svg";
+import Sidebar from "../../components/navbar/Sidebar";
+import { useGlobalContext } from "../../context";
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { balance } = useGlobalContext();
@@ -32,14 +33,19 @@ const Navbar = () => {
                             : "flex justify-center items-center col-span-2"
                     }
                 >
-                    <div className="rounded-lg border border-gray-200 flex justify-center items-center m-2 min-w-[50%] max-h-[50%]">
+                    <button
+                        onClick={() => {
+                            navigate("/payments");
+                        }}
+                        className="rounded-lg border border-gray-200 flex justify-center items-center m-2 min-w-[50%] max-h-[50%]"
+                    >
                         <span className="align-middle">
                             ₹
                             {balance.topup +
                                 balance.promotional +
                                 balance.winnings}
                         </span>
-                    </div>
+                    </button>
                 </div>
             </div>
         );

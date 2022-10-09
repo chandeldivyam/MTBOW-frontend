@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../../context";
 import { useNavigate, Link } from "react-router-dom";
-import Contests from "../components/contests/Contests";
+import Contests from "../../components/contests/Contests";
 import Navbar from "./Navbar";
 
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
     const fetchLiveContests = async () => {
         const liveContestsResponse = await axios({
             method: "get",
-            url: "http://localhost:3005/api/v1/contests/live",
+            url: "https://api.mtbow.com/api/v1/contests/live",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

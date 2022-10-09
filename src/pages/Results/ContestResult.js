@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../../context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import MyTeam from "../components/teams/MyTeamResult";
+import MyTeam from "../../components/teams/MyTeamResult";
 
 export const ContestResult = () => {
     let navigate = useNavigate();
@@ -24,7 +24,7 @@ export const ContestResult = () => {
     const teamData = async () => {
         const team_details = await axios({
             method: "get",
-            url: `http://localhost:3005/api/v1/teams/${contestId}`,
+            url: `https://api.mtbow.com/api/v1/teams/${contestId}`,
             data: { contest_id: parseInt(contestId) },
             headers: {
                 Authorization: localStorage.getItem("token"),
@@ -36,7 +36,7 @@ export const ContestResult = () => {
     const getAllCreators = async () => {
         const getCreators = await axios({
             method: "get",
-            url: `http://localhost:3005/api/v1/contests/contestInfo/${contestId}`,
+            url: `https://api.mtbow.com/api/v1/contests/contestInfo/${contestId}`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
