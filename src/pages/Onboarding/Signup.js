@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const Signup = () => {
     let navigate = useNavigate();
@@ -72,96 +73,107 @@ const Signup = () => {
     };
     if (!isOtpSent) {
         return (
-            <div className="flex justify-center content-center">
-                <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-                    <form onSubmit={requestOtp}>
-                        <div className="flex flex-col">
-                            <label className="my-1.5">Name</label>
-                            <input
-                                type="text"
-                                placeholder="Harish Singh"
-                                value={name}
-                                className="my-1.5"
-                                onChange={(e) => setName(e.target.value)}
-                            ></input>
+            <>
+                <Navbar />
+                <div className="flex justify-center mobile:w-[512px] w-screen mt-8">
+                    <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+                        <form onSubmit={requestOtp}>
+                            <div className="flex flex-col">
+                                <input
+                                    type="text"
+                                    placeholder="Name"
+                                    value={name}
+                                    className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
+                                    onChange={(e) => setName(e.target.value)}
+                                ></input>
+                            </div>
+                            <div className="flex flex-col">
+                                <input
+                                    type="text"
+                                    placeholder="Phone Number"
+                                    className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                ></input>
+                            </div>
+                            <div className="form-group mb-6">
+                                <button
+                                    onClick={requestOtp}
+                                    type="submit"
+                                    className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded shadow-md"
+                                >
+                                    Register
+                                </button>
+                            </div>
+                        </form>
+                        <p class="text-sm font-semibold mt-2 pt-1 mb-2">
+                            Already have an account?
+                            <button
+                                onClick={() => {
+                                    navigate("/login");
+                                }}
+                                class="text-[#dc5714] ml-3"
+                            >
+                                Login
+                            </button>
+                        </p>
+                        <div
+                            className={`${
+                                nameRegexError
+                                    ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
+                                    : "invisible"
+                            }`}
+                        >
+                            Name can not be empty
                         </div>
+                        <div
+                            className={`${
+                                phoneRegexError
+                                    ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
+                                    : "invisible"
+                            }`}
+                        >
+                            Please enter a valid phone number
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    }
+    return (
+        <>
+            <Navbar />
+            <div className="flex justify-center mobile:w-[512px] w-screen mt-8">
+                <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+                    <form>
                         <div className="flex flex-col">
-                            <label className="my-1.5">Phone Number</label>
+                            <h2 className="font-bold text-xl">
+                                Verify Phone Number
+                            </h2>
+                            <h2 className="text-slate-400 my-3">
+                                OTP has been sent to +91-{phone}
+                            </h2>
                             <input
                                 type="text"
-                                placeholder="9826098260"
-                                className="my-1.5"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
+                                placeholder="XXXXXX"
+                                value={otp}
+                                className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
+                                onChange={(e) => setOtp(e.target.value)}
                             ></input>
                         </div>
                         <div className="form-group mb-6">
                             <button
-                                onClick={requestOtp}
+                                onClick={verifyOtp}
                                 type="submit"
-                                className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded shadow-md"
+                                className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded shadow-md "
                             >
-                                Register
+                                Verify OTP
                             </button>
                         </div>
                     </form>
-                    <p class="text-sm font-semibold mt-2 pt-1 mb-2">
-                        Already have an account?
-                        <button
-                            onClick={() => {
-                                navigate("/login");
-                            }}
-                            class="text-[#dc5714] ml-3"
-                        >
-                            Login
-                        </button>
-                    </p>
-                    <div
-                        className={`${
-                            nameRegexError
-                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                                : "invisible"
-                        }`}
-                    >
-                        Name can not be empty
-                    </div>
-                    <div
-                        className={`${
-                            phoneRegexError
-                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                                : "invisible"
-                        }`}
-                    >
-                        Please enter a valid phone number
-                    </div>
                 </div>
             </div>
-        );
-    }
-    return (
-        <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-            <form>
-                <div className="flex flex-col">
-                    <label className="my-1.5">Enter OTP</label>
-                    <input
-                        type="text"
-                        placeholder="XXXXXX"
-                        value={otp}
-                        className="my-1.5"
-                        onChange={(e) => setOtp(e.target.value)}
-                    ></input>
-                </div>
-                <div className="form-group mb-6">
-                    <button
-                        onClick={verifyOtp}
-                        type="submit"
-                        className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded shadow-md "
-                    >
-                        Verify OTP
-                    </button>
-                </div>
-            </form>
-        </div>
+        </>
     );
 };
 

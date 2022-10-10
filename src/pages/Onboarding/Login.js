@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../context";
+import Navbar from "./Navbar";
 import axios from "axios";
 
 const Login = () => {
@@ -84,97 +85,113 @@ const Login = () => {
 
     if (!isOtpSent) {
         return (
-            <div className="flex justify-center">
-                <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-                    <form onSubmit={requestOtp}>
-                        <div className="flex flex-col">
-                            <label className="my-1.5">Phone Number</label>
-                            <input
-                                type="text"
-                                placeholder="9826098260"
-                                className="my-1.5"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
-                            ></input>
-                        </div>
-                        <div className="form-group mb-6">
+            <>
+                <Navbar />
+                <div className="flex justify-center mobile:w-[512px] w-screen mt-8">
+                    <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+                        <form onSubmit={requestOtp}>
+                            <div className="flex flex-col">
+                                <h2 className="font-bold text-xl">
+                                    Enter your Phone Number
+                                </h2>
+                                <h2 className="text-slate-400 my-3">
+                                    We will send an OTP
+                                </h2>
+                                <input
+                                    type="text"
+                                    placeholder="Phone number"
+                                    className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                ></input>
+                            </div>
+                            <div className="form-group mb-6">
+                                <button
+                                    type="submit"
+                                    className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded shadow-md"
+                                >
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+                        <p class="text-sm font-semibold mt-2 pt-1 mb-2">
+                            Don't have an account?
                             <button
-                                type="submit"
-                                className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded shadow-md"
+                                onClick={() => {
+                                    navigate("/signup");
+                                }}
+                                class="text-[#dc5714] ml-3"
                             >
-                                Login
+                                Register
                             </button>
-                        </div>
-                    </form>
-                    <p class="text-sm font-semibold mt-2 pt-1 mb-2">
-                        Don't have an account?
-                        <button
-                            onClick={() => {
-                                navigate("/signup");
-                            }}
-                            class="text-[#dc5714] ml-3"
+                        </p>
+                        <div
+                            className={`${
+                                phoneRegexError
+                                    ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
+                                    : "invisible"
+                            }`}
                         >
-                            Register
-                        </button>
-                    </p>
-                    <div
-                        className={`${
-                            phoneRegexError
-                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                                : "invisible"
-                        }`}
-                    >
-                        Please enter a valid 10 digit phone number
-                    </div>
-                    <div
-                        className={`${
-                            badLoginRequest
-                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                                : "invisible"
-                        }`}
-                    >
-                        The User does not exist. Please sign up
+                            Please enter a valid 10 digit phone number
+                        </div>
+                        <div
+                            className={`${
+                                badLoginRequest
+                                    ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
+                                    : "invisible"
+                            }`}
+                        >
+                            The User does not exist. Please sign up
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>
         );
     }
     console.log(isOtpSent);
     return (
-        <div className="flex justify-center">
-            <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-                <form>
-                    <div className="flex flex-col">
-                        <label className="my-1.5">Enter OTP</label>
-                        <input
-                            type="text"
-                            placeholder="XXXXXX"
-                            value={otp}
-                            className="my-1.5"
-                            onChange={(e) => setOtp(e.target.value)}
-                        ></input>
+        <>
+            <Navbar />
+            <div className="flex justify-center mobile:w-[512px] w-screen mt-8">
+                <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+                    <form>
+                        <div className="flex flex-col">
+                            <h2 className="font-bold text-xl">
+                                Verify Phone Number
+                            </h2>
+                            <h2 className="text-slate-400 my-3">
+                                OTP has been sent to +91-{phone}
+                            </h2>
+                            <input
+                                type="text"
+                                placeholder="XXXXXX"
+                                value={otp}
+                                className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
+                                onChange={(e) => setOtp(e.target.value)}
+                            ></input>
+                        </div>
+                        <div className="form-group mb-6">
+                            <button
+                                onClick={verifyOtp}
+                                type="submit"
+                                className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded"
+                            >
+                                Verify OTP
+                            </button>
+                        </div>
+                    </form>
+                    <div
+                        className={`${
+                            optRegexError
+                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
+                                : "invisible"
+                        }`}
+                    >
+                        Please enter Valid OTP
                     </div>
-                    <div className="form-group mb-6">
-                        <button
-                            onClick={verifyOtp}
-                            type="submit"
-                            className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded"
-                        >
-                            Verify OTP
-                        </button>
-                    </div>
-                </form>
-                <div
-                    className={`${
-                        optRegexError
-                            ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                            : "invisible"
-                    }`}
-                >
-                    Please enter Valid OTP
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
