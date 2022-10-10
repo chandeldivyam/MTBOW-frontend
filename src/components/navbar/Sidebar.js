@@ -70,14 +70,14 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <BsFileRuled />
                         <span className="ml-5">Terms and Conditions</span>
                     </button>
+                    <button
+                        className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center mb-7"
+                        onClick={logout}
+                    >
+                        <MdLogout />
+                        <span className="ml-5">Logout</span>
+                    </button>
                 </div>
-                <button
-                    className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center mb-7"
-                    onClick={logout}
-                >
-                    <MdLogout />
-                    <span className="ml-5">Logout</span>
-                </button>
             </div>
         </div>
     );
