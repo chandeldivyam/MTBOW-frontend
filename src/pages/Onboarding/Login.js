@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../context";
 import Navbar from "./Navbar";
 import axios from "axios";
+import Loading from "../Main/Loading";
 
 const Login = () => {
     const [phone, setPhone] = useState("");
@@ -80,7 +81,7 @@ const Login = () => {
     };
 
     if (isLoading) {
-        return <h1>Loading...</h1>;
+        return <Loading />;
     }
 
     if (!isOtpSent) {

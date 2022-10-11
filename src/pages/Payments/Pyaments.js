@@ -6,6 +6,7 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
 import { GiPodiumWinner } from "react-icons/gi";
 import { AiOutlineRightCircle } from "react-icons/ai";
+import Loading from "../Main/Loading";
 
 const Payments = () => {
     const { authenticateUser, balance, getBalance } = useGlobalContext();
@@ -26,7 +27,7 @@ const Payments = () => {
     }, []);
 
     if (isLoading === true) {
-        return <h1>Loading...</h1>;
+        return <Loading />;
     }
 
     return (

@@ -8,6 +8,7 @@ import { useGlobalContext } from "../../context";
 import { useNavigate } from "react-router-dom";
 import { ContestExpired } from "./ContestExpired";
 import { ContestWaiting } from "./ContestWaiting";
+import Loading from "../../pages/Main/Loading";
 
 const ContestInfo = () => {
     let navigate = useNavigate();
@@ -139,7 +140,7 @@ const ContestInfo = () => {
     }, []);
 
     if (isLoading) {
-        return <h1>loading...</h1>;
+        return <Loading />;
     }
     if (isExpired) {
         return <ContestExpired />;
@@ -169,7 +170,7 @@ const ContestInfo = () => {
                     <div className="flex justify-around">
                         <div
                             type="button"
-                            className="focus:outline-none text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600"
+                            className="focus:outline-none text-white bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-green-600"
                         >
                             Invest: ₹{contestInfo.participation_fee}
                         </div>
@@ -213,7 +214,7 @@ const ContestInfo = () => {
                     </div>
                     <div className="flex justify-center">
                         <button
-                            className="inline-block px-6 py-2.5 mt-1 mb-4 bg-green-500 text-white font-medium text-l leading-tight uppercase rounded-full shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+                            className="inline-block px-6 py-2.5 mb-4 text-[#dc5714] font-medium text-l leading-tight uppercase rounded-full shadow-xl hover:shadow-lg transition duration-150 ease-in-out"
                             type="button"
                             onClick={createTeam}
                         >

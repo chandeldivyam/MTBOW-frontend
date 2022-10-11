@@ -17,7 +17,7 @@ const PlayerStat = ({ browser_id, channel_image, channel_name, points }) => {
                 </div>
             </div>
             <h2 className="text-center">{channel_name}</h2>
-            <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center">
+            <div className="bg-transparent text-[#dc5714] font-semibold py-2 px-4 border border-[#dc5714] rounded text-center">
                 Points: {points}
             </div>
         </div>

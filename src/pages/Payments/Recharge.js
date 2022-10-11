@@ -3,6 +3,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useGlobalContext } from "../../context";
 import { cashfreeSandbox } from "cashfree-dropjs";
 import axios from "axios";
+import Loading from "../Main/Loading";
 
 const Recharge = () => {
     const [amount, setAmount] = useState("");
@@ -96,7 +97,7 @@ const Recharge = () => {
     };
 
     if (isLoading) {
-        return <h1>Loading...</h1>;
+        return <Loading />;
     }
     if (paymentStatus === "FAILED") {
         return (

@@ -3,6 +3,7 @@ import PlayerStat from "./PlayerStat";
 import axios from "axios";
 import Leaderboard from "./Leaderboard";
 import _ from "lodash";
+import Loading from "../../pages/Main/Loading";
 
 const MyTeam = ({ myTeam, creatorsInfo, contestId }) => {
     const [leaderboard, setLeaderboard] = useState([]);
@@ -41,7 +42,7 @@ const MyTeam = ({ myTeam, creatorsInfo, contestId }) => {
         setIsLoading(false);
     }, []);
     if (isLoading) {
-        return <h1>Loading...</h1>;
+        return <Loading />;
     }
     return (
         <div className="flex justify-center bg-gray-200 min-h-screen">
@@ -66,15 +67,15 @@ const MyTeam = ({ myTeam, creatorsInfo, contestId }) => {
                         </div>
                         <div>
                             <div className="flex justify-center flex-col">
-                                <h1 className="m-2.5 bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                                <h1 className="m-2.5 font-semibold py-2 px-4 rounded bg-[#dc5714] text-white">
                                     Total Points: {_.sum(_.values(teamScore))}
                                 </h1>
-                                <h1 className="m-2.5 bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 rounded">
+                                <h1 className="m-2.5 font-semibold py-2 px-4 rounded bg-[#dc5714] text-white">
                                     Rank: {userRank}
                                 </h1>
                             </div>
                             <div className="mt-10">
-                                <h1 className="text-center font-medium leading-tight text-xl mt-0 mb-2 mr-2 text-blue-600">
+                                <h1 className="text-center font-medium leading-tight text-xl mt-0 mb-2 mr-2 text-[#dc5714]">
                                     LEADERBOARD
                                 </h1>
                                 {leaderboard.map((item) => {

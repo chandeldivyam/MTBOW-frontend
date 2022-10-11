@@ -10,7 +10,7 @@ export const ContestExpired = () => {
             </h1>
             <Link to="/myResults/">
                 <div className="flex justify-center">
-                    <div className="bg-transparent text-center mt-5 max-w-xs hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                    <div className="bg-transparent text-center mt-5 max-w-xs hover:bg-[#dc5714] text-[#dc5714] font-semibold hover:text-white py-2 px-4 border border-[#dc5714] hover:border-transparent rounded">
                         My Results
                     </div>
                 </div>

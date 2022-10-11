@@ -4,10 +4,11 @@ import { useGlobalContext } from "../../context";
 import { useNavigate, Link } from "react-router-dom";
 import Contests from "../../components/contests/Contests";
 import Navbar from "./Navbar";
+import Loading from "./Loading";
 
 const Home = () => {
     let navigate = useNavigate();
-    const { authenticateUser } = useGlobalContext();
+    const { authenticateUser, getBalance } = useGlobalContext();
     const [isLoading, setIsLoading] = useState(true);
     const [userName, setUserName] = useState("");
     const [liveContests, setLiveContests] = useState([]);
@@ -33,6 +34,7 @@ const Home = () => {
                 console.log(error);
                 navigate("/login");
             });
+        getBalance();
         fetchLiveContests()
             .then((res) => {
                 setLiveContests(res);
@@ -44,19 +46,19 @@ const Home = () => {
     }, []);
 
     if (isLoading) {
-        return <h1>Loading...</h1>;
+        return <Loading />;
     }
     return (
         <>
             <div>
-                <div className="mt-4 text-center mobile:w-[512px] w-screen">
+                <div className="mt-4 text-center text-2xl font-bold underline mobile:w-[512px] w-screen">
                     OPEN EVENTS!
                 </div>
                 <Contests liveContests={liveContests} />
             </div>
             <Link to="/myResults/">
                 <div className="flex justify-center">
-                    <div className="bg-transparent text-center mt-5 max-w-xs hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                    <div className="bg-transparent text-center mt-5 max-w-xs hover:bg-[#dc5714] text-[#dc5714] font-semibold hover:text-white py-2 px-4 border border-[#dc5714] hover:border-transparent rounded">
                         My Results
                     </div>
                 </div>

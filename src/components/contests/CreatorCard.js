@@ -1,4 +1,5 @@
 import React from "react";
+import { BiLinkExternal } from "react-icons/bi";
 
 const CreatorCard = ({
     id,
@@ -34,12 +35,12 @@ const CreatorCard = ({
                 <button
                     className={
                         myTeam.includes(browser_id)
-                            ? `bg-red-500 text-white active:bg-blue-600 uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`
+                            ? `bg-red-600 text-white uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`
                             : `${
                                   myTeam.length < 4
-                                      ? "bg-blue-500"
+                                      ? "bg-[#dc5714]"
                                       : "bg-gray-500"
-                              } text-white active:bg-blue-600 uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`
+                              } text-white uppercase text-xs px-4 py-2 rounded shadow outline-none mr-1 mb-1 ease-linear transition-all duration-150`
                     }
                     type="button"
                     onClick={onClickHandler}
@@ -54,11 +55,11 @@ const CreatorCard = ({
                         : "Add to Team"}
                 </button>
                 <button
-                    className="bg-blue-500 text-white uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="text-[#dc5714] uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 inline-flex items-center justify-center"
                     type="button"
                     onClick={() => window.open(channel_url)}
                 >
-                    Visit Channel
+                    Visit Channel <BiLinkExternal className="ml-2" />
                 </button>
             </div>
         </div>
