@@ -198,7 +198,7 @@ const ContestInfo = () => {
                         className={`${
                             isTeamError
                                 ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                                : "invisible"
+                                : "hidden"
                         }`}
                     >
                         Please select 4 creators for the Team!
@@ -207,14 +207,14 @@ const ContestInfo = () => {
                         className={`${
                             balanceError
                                 ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                                : "invisible"
+                                : "hidden"
                         }`}
                     >
                         Insufficient Balance!
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-2">
                         <button
-                            className="inline-block px-6 py-2.5 mb-4 text-[#dc5714] font-medium text-l leading-tight uppercase rounded-full shadow-xl hover:shadow-lg transition duration-150 ease-in-out"
+                            className="inline-block px-6 pb-2.5 mb-10 text-[#dc5714] font-medium text-l leading-tight uppercase rounded-full shadow-xl hover:shadow-lg transition duration-150 ease-in-out"
                             type="button"
                             onClick={createTeam}
                         >
