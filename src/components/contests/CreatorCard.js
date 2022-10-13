@@ -37,7 +37,7 @@ const CreatorCard = ({
                         myTeam.includes(browser_id)
                             ? `bg-red-600 text-white uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`
                             : `${
-                                  myTeam.length < 4
+                                  myTeam.length < 11
                                       ? "bg-[#dc5714]"
                                       : "bg-gray-500"
                               } text-white uppercase text-xs px-4 py-2 rounded shadow outline-none mr-1 mb-1 ease-linear transition-all duration-150`
@@ -45,7 +45,7 @@ const CreatorCard = ({
                     type="button"
                     onClick={onClickHandler}
                     disabled={
-                        myTeam.length >= 4 && !myTeam.includes(browser_id)
+                        myTeam.length >= 11 && !myTeam.includes(browser_id)
                             ? true
                             : ""
                     }

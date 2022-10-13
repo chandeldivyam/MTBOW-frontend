@@ -83,7 +83,7 @@ export const ContestResult = () => {
     }, []);
     return (
         <div className="flex justify-center bg-gray-200 min-h-screen">
-            <div className="flex flex-col max-w-lg bg-white pb-3">
+            <div className="flex flex-col bg-white pb-3 mobile:w-[512px] w-screen">
                 <>
                     <h1 className="font-medium text-center leading-tight text-2xl mt-2 mb-2 text-[#dc5714]">
                         {contestInfo.event_name}

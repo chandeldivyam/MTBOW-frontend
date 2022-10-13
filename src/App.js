@@ -26,7 +26,7 @@ function App() {
                     element={<ContestResult />}
                 />
                 <Route path="/payments/" element={<Payments />} />
-                <Route path="/recharge" element={<Recharge />} />
+                {/* <Route path="/recharge" element={<Recharge />} /> */}
             </Routes>
         </Router>
     );

@@ -95,7 +95,7 @@ const ContestInfo = () => {
     };
 
     const createTeam = async () => {
-        if (myTeam.length !== 4) {
+        if (myTeam.length !== 11) {
             setIsTeamError(true);
             return;
         }
@@ -152,6 +152,7 @@ const ContestInfo = () => {
                     myTeam={myTeam}
                     creatorsInfo={creatorsInfo}
                     contestId={contestId}
+                    event_end_time={contestInfo.event_end_time}
                 />
             );
         }
@@ -201,7 +202,7 @@ const ContestInfo = () => {
                                 : "hidden"
                         }`}
                     >
-                        Please select 4 creators for the Team!
+                        Please select 11 creators for the Team!
                     </div>
                     <div
                         className={`${
