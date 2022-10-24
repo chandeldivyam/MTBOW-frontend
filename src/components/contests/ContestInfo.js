@@ -9,6 +9,13 @@ import { useNavigate } from "react-router-dom";
 import { ContestExpired } from "./ContestExpired";
 import { ContestWaiting } from "./ContestWaiting";
 import Loading from "../../pages/Main/Loading";
+import { message, Button, Divider, Table } from "antd";
+import {
+    contest_points_data,
+    contest_points_columns,
+    rewards_columns,
+    rewards_data,
+} from "../../Static/data";
 
 const ContestInfo = () => {
     let navigate = useNavigate();
@@ -28,6 +35,7 @@ const ContestInfo = () => {
     const [isExpired, setIsExpired] = useState(false);
     const [teamExist, setTeamExist] = useState(false);
     const [eventStarted, setEventStarted] = useState(false);
+    const [showRules, setShowRules] = useState(true);
 
     const teamData = async () => {
         const team_details = await axios({
@@ -90,13 +98,18 @@ const ContestInfo = () => {
         setMyTeam([...myTeam, member]);
     };
     const removeFromTeam = (member) => {
-        const newTeam = myTeam.filter((item) => item != member);
+        const newTeam = myTeam.filter((item) => item !== member);
         setMyTeam(newTeam);
     };
 
     const createTeam = async () => {
         if (myTeam.length !== 11) {
             setIsTeamError(true);
+            message.error({
+                className: "mt-[100px] z-10",
+                duration: 4,
+                content: "Please select 11 creators for the Team!",
+            });
             return;
         }
         setIsTeamError(false);
@@ -105,6 +118,11 @@ const ContestInfo = () => {
             contestInfo.participation_fee
         ) {
             setBalanceError(true);
+            message.error({
+                className: "mt-[100px] z-10",
+                duration: 4,
+                content: "Insufficient Balance!",
+            });
             return;
         }
         setBalanceError(false);
@@ -164,7 +182,60 @@ const ContestInfo = () => {
     return (
         <div className="flex justify-center bg-gray-200 min-h-screen">
             <div className="max-w-lg bg-white">
-                <div className="flex flex-col">
+                <div className="max-w-lg bg-white">
+                    <div class="flex my-4 mobile:w-[512px] w-screen">
+                        <div
+                            className={
+                                showRules
+                                    ? "w-1/2 border-b-4 border-[#dc5714] text-[#dc5714] text-center text-lg pb-2"
+                                    : "w-1/2 border-b-4 border-gray-400 text-gray-400 text-center text-lg pb-2"
+                            }
+                            onClick={() => setShowRules(true)}
+                        >
+                            Info
+                        </div>
+                        <div
+                            className={
+                                !showRules
+                                    ? "w-1/2 border-b-4 border-[#dc5714] text-[#dc5714] text-center text-lg pb-2"
+                                    : "w-1/2 border-b-4 border-gray-400 text-gray-400 text-center text-lg pb-2"
+                            }
+                            onClick={() => setShowRules(false)}
+                        >
+                            Team
+                        </div>
+                    </div>
+                </div>
+                <div className={showRules ? "hidden" : "flex flex-col"}>
+                    <div className="grid grid-cols-2">
+                        {creatorsInfo.map((item) => {
+                            return (
+                                <CreatorCard
+                                    key={item.id}
+                                    {...item}
+                                    addToTeam={addToTeam}
+                                    removeFromTeam={removeFromTeam}
+                                    myTeam={myTeam}
+                                />
+                            );
+                        })}
+                    </div>
+                    <div className="flex justify-center mt-2 sticky bottom-0 z-10">
+                        <Button
+                            className={
+                                myTeam.length === 11
+                                    ? "inline-block bg-white px-6 mb-8 text-[#dc5714] font-medium text-l leading-tight uppercase rounded-full shadow-xl hover:shadow-lg transition duration-150 ease-in-out"
+                                    : "inline-block bg-white px-6 mb-8 text-slate-300 font-medium text-l leading-tight uppercase rounded-full shadow-xl"
+                            }
+                            type="button"
+                            onClick={createTeam}
+                            disabled={myTeam.length === 11 ? false : true}
+                        >
+                            PARTICIPATE
+                        </Button>
+                    </div>
+                </div>
+                <div className={showRules ? "flex flex-col" : "hidden"}>
                     <h1 className="text-center text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight underline my-4">
                         Create Your Team
                     </h1>
@@ -182,46 +253,34 @@ const ContestInfo = () => {
                             Prize Pool: ₹10000
                         </div>
                     </div>
-                    <div className="grid grid-cols-2">
-                        {creatorsInfo.map((item) => {
-                            return (
-                                <CreatorCard
-                                    key={item.id}
-                                    {...item}
-                                    addToTeam={addToTeam}
-                                    removeFromTeam={removeFromTeam}
-                                    myTeam={myTeam}
-                                />
-                            );
-                        })}
-                    </div>
-                    <div
-                        className={`${
-                            isTeamError
-                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                                : "hidden"
-                        }`}
-                    >
-                        Please select 11 creators for the Team!
-                    </div>
-                    <div
-                        className={`${
-                            balanceError
-                                ? "bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700"
-                                : "hidden"
-                        }`}
-                    >
-                        Insufficient Balance!
-                    </div>
-                    <div className="flex justify-center mt-2">
-                        <button
-                            className="inline-block px-6 pb-2.5 mb-10 text-[#dc5714] font-medium text-l leading-tight uppercase rounded-full shadow-xl hover:shadow-lg transition duration-150 ease-in-out"
-                            type="button"
-                            onClick={createTeam}
-                        >
-                            PARTICIPATE
-                        </button>
-                    </div>
+                    <Divider>Rules</Divider>
+                    <ul className="list-disc">
+                        <li className="ml-10 mr-2 my-1">
+                            The team should consist of 11 creators
+                        </li>
+                        <li className="ml-10 mr-2 my-1">
+                            Participation will only be accepted before{" "}
+                            {new Date(contestInfo.event_start_time).toString()}
+                        </li>
+                        <li className="ml-10 mr-2 my-1">
+                            The contest will end at{" "}
+                            {new Date(contestInfo.event_end_time).toString()}
+                        </li>
+                    </ul>
+                    <Divider>Scoring</Divider>
+                    <Table
+                        className="ml-5 mr-2"
+                        columns={contest_points_columns}
+                        pagination={false}
+                        dataSource={contest_points_data}
+                    />
+                    <Divider>Rewards</Divider>
+                    <Table
+                        className="ml-5 mr-2"
+                        columns={rewards_columns}
+                        pagination={false}
+                        dataSource={rewards_data}
+                    />
                 </div>
             </div>
         </div>

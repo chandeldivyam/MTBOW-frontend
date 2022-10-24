@@ -25,7 +25,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         );
     }
     return (
-        <div className="bg-white text-black mobile:w-[512px] w-[100%] h-screen fixed">
+        <div className="bg-white text-black mobile:w-[512px] w-[100%] h-screen fixed z-40">
             <div className="flex justify-between h-[10%] mx-3">
                 <img
                     src={mtbow_logo}

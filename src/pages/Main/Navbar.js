@@ -14,7 +14,7 @@ const Navbar = () => {
     }
     if (!isSidebarOpen) {
         return (
-            <div className="grid grid-cols-5 items-center border-b-2 shadow-[0_0_5px_0_rgba(0,0,0,0.1)] sticky top-0 bg-white">
+            <div className="grid grid-cols-5 items-center border-b-2 shadow-[0_0_5px_0_rgba(0,0,0,0.1)] sticky top-0 bg-white z-40">
                 <Sidebar
                     isSidebarOpen={isSidebarOpen}
                     setIsSidebarOpen={setIsSidebarOpen}
