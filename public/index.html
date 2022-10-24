@@ -21,26 +21,33 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
         <title>MTBOW</title>
-    </head>
-    <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div
-            style="
+        <style>
+            .backgroundDiv {
                 display: flex;
                 justify-content: center;
                 background-color: lightgray;
                 height: 90vh;
-            "
-        >
-            <div
-                id="root"
-                style="
-                    max-width: 512px;
-                    background-color: white;
-                    height: 90vh;
-                    overflow: scroll;
-                "
-            ></div>
+            }
+            .mainDiv {
+                max-width: 512px;
+                background-color: white;
+                height: 90vh;
+                overflow: scroll;
+            }
+            @media screen and (min-width: 512px) {
+                .backgroundDiv {
+                    height: 100vh;
+                }
+                .mainDiv {
+                    height: 100vh;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div class="backgroundDiv">
+            <div id="root" class="mainDiv"></div>
         </div>
         <!--
       This HTML file is a template.
