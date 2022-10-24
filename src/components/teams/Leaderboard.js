@@ -1,11 +1,12 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
+import { Avatar } from "antd";
 
 const Leaderboard = ({ user_id, rank, total_points, name }) => {
     return (
         <div className="flex border-2 border-gray-200 m-2.5 p-2 justify-between items-center">
             <div className="flex items-center">
-                <FaUserCircle size={28} className="mr-3" />
+                <Avatar src="https://joeschmoe.io/api/v1/random" />
                 <div className="flex flex-col">
                     <h2 className="text-xs text-gray-500">{name}</h2>
                     <h2 className="inline-flex items-center">

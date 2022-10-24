@@ -8,6 +8,7 @@ import { useGlobalContext } from "../../context";
 import { useNavigate } from "react-router-dom";
 import { ContestExpired } from "./ContestExpired";
 import { ContestWaiting } from "./ContestWaiting";
+import { GiTargetPrize } from "react-icons/gi";
 import Loading from "../../pages/Main/Loading";
 import { message, Button, Divider, Table } from "antd";
 import {
@@ -183,7 +184,7 @@ const ContestInfo = () => {
         <div className="flex justify-center bg-gray-200 min-h-screen">
             <div className="max-w-lg bg-white">
                 <div className="max-w-lg bg-white">
-                    <div class="flex my-4 mobile:w-[512px] w-screen">
+                    <div className="flex my-4 mobile:w-[512px] w-screen">
                         <div
                             className={
                                 showRules
@@ -236,21 +237,46 @@ const ContestInfo = () => {
                     </div>
                 </div>
                 <div className={showRules ? "flex flex-col" : "hidden"}>
-                    <h1 className="text-center text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight underline my-4">
-                        Create Your Team
-                    </h1>
-                    <div className="flex justify-around">
-                        <div
-                            type="button"
-                            className="focus:outline-none text-white bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-green-600"
-                        >
-                            Invest: ₹{contestInfo.participation_fee}
+                    <div className="grid smobile:gap-6 grid-cols-2 justify-items-center">
+                        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white">
+                            <div className="smobile:p-4 flex items-center">
+                                <div className="p-3 rounded-full text-green-500 bg-green-100 mr-4">
+                                    <svg
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                        className="w-5 h-5"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+                                            clip-rule="evenodd"
+                                        ></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p className="mb-2 text-sm font-medium text-gray-600">
+                                        Prize Pool
+                                    </p>
+                                    <p className="text-sm font-semibold text-gray-700 smobile:text-lg">
+                                        ₹ 10000
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div
-                            type="button"
-                            className="focus:outline-none text-white bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 0"
-                        >
-                            Prize Pool: ₹10000
+                        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white">
+                            <div className="smobile:p-4 flex items-center">
+                                <div className="p-3 rounded-full text-yellow-500 bg-yellow-100 mr-4">
+                                    <GiTargetPrize size={16} />
+                                </div>
+                                <div>
+                                    <p className="mb-2 text-sm font-medium text-gray-600">
+                                        Entry
+                                    </p>
+                                    <p className="text-sm font-semibold text-gray-700 smobile:text-lg">
+                                        ₹ {contestInfo.participation_fee}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <Divider>Rules</Divider>
