@@ -10,7 +10,7 @@ import { ContestExpired } from "./ContestExpired";
 import { ContestWaiting } from "./ContestWaiting";
 import { GiTargetPrize } from "react-icons/gi";
 import Loading from "../../pages/Main/Loading";
-import { message, Button, Divider, Table } from "antd";
+import { message, Button, Divider, Table, Progress, Popconfirm } from "antd";
 import {
     contest_points_data,
     contest_points_columns,
@@ -221,19 +221,54 @@ const ContestInfo = () => {
                             );
                         })}
                     </div>
-                    <div className="flex justify-center mt-2 sticky bottom-0 z-10">
-                        <Button
-                            className={
-                                myTeam.length === 11
-                                    ? "inline-block bg-white px-6 mb-8 text-[#dc5714] font-medium text-l leading-tight uppercase rounded-full shadow-xl hover:shadow-lg transition duration-150 ease-in-out"
-                                    : "inline-block bg-white px-6 mb-8 text-slate-300 font-medium text-l leading-tight uppercase rounded-full shadow-xl"
-                            }
-                            type="button"
-                            onClick={createTeam}
-                            disabled={myTeam.length === 11 ? false : true}
-                        >
-                            PARTICIPATE
-                        </Button>
+                    <div className="flex justify-center mt-2 sticky bottom-0 z-10 pb-10">
+                        <div className="inline-flex max-h-[32px]">
+                            <div className="bg-white rounded-full">
+                                <Progress
+                                    className={
+                                        myTeam.length < 11
+                                            ? "max-h-[32px]"
+                                            : "hidden"
+                                    }
+                                    type="circle"
+                                    percent={(myTeam.length * 100) / 11}
+                                    format={(percent) => `${myTeam.length}/11`}
+                                    // strokeColor="rgb(203 213 225)"
+                                    width={32}
+                                />
+                            </div>
+                            <div className="bg-white rounded-full">
+                                <Progress
+                                    className={
+                                        myTeam.length === 11
+                                            ? "text-[#dc5714] max-h-[32px]"
+                                            : "hidden"
+                                    }
+                                    type="circle"
+                                    percent={(myTeam.length * 100) / 11}
+                                    format={() => `11/11`}
+                                    width={32}
+                                />
+                            </div>
+                            <Popconfirm
+                                title="Participate with current selection?"
+                                onConfirm={createTeam}
+                            >
+                                <Button
+                                    className={
+                                        myTeam.length === 11
+                                            ? "inline-block bg-white px-6 mb-8 text-[#dc5714] font-medium text-l leading-tight uppercase rounded-full shadow-xl ml-2 hover:shadow-lg transition duration-150 ease-in-out"
+                                            : "inline-block bg-white px-6 mb-8 text-slate-300 font-medium text-l leading-tight uppercase rounded-full shadow-xl ml-2"
+                                    }
+                                    type="button"
+                                    disabled={
+                                        myTeam.length === 11 ? false : true
+                                    }
+                                >
+                                    PARTICIPATE
+                                </Button>
+                            </Popconfirm>
+                        </div>
                     </div>
                 </div>
                 <div className={showRules ? "flex flex-col" : "hidden"}>
