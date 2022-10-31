@@ -8,7 +8,8 @@ import { useGlobalContext } from "../../context";
 import { useNavigate } from "react-router-dom";
 import { ContestExpired } from "./ContestExpired";
 import { ContestWaiting } from "./ContestWaiting";
-import { GiTargetPrize } from "react-icons/gi";
+import { GiTargetPrize, GiHumanPyramid } from "react-icons/gi";
+import { AiOutlineClockCircle } from "react-icons/ai";
 import Loading from "../../pages/Main/Loading";
 import { message, Button, Divider, Table, Progress, Popconfirm } from "antd";
 import {
@@ -16,6 +17,7 @@ import {
     contest_points_columns,
     rewards_columns,
     rewards_data,
+    rewards_data_under5,
 } from "../../Static/data";
 
 const ContestInfo = () => {
@@ -58,7 +60,7 @@ const ContestInfo = () => {
                 Authorization: localStorage.getItem("token"),
             },
         });
-        const { is_expired } = getCreators.data[0];
+        const { is_expired } = getCreators.data.contest_details[0];
         if (is_expired) {
             setIsExpired(true);
             setIsLoading(false);
@@ -76,7 +78,8 @@ const ContestInfo = () => {
             event_end_time,
             event_start_time,
             participation_fee,
-        } = getCreators.data[0];
+        } = getCreators.data.contest_details[0];
+        const participants = parseInt(getCreators.data.participants);
         setContestInfo({
             ...contestInfo,
             event_name: name,
@@ -84,6 +87,7 @@ const ContestInfo = () => {
             event_start_time: event_start_time,
             event_end_time: event_end_time,
             participation_fee,
+            participants,
         });
         if (Date.now() >= Date.parse(event_end_time)) {
             setIsExpired(true);
@@ -91,7 +95,7 @@ const ContestInfo = () => {
         if (Date.now() >= Date.parse(event_start_time)) {
             setEventStarted(true);
         }
-        setCreatorsInfo(getCreators.data);
+        setCreatorsInfo(getCreators.data.contest_details);
         setIsLoading(false);
     };
 
@@ -272,7 +276,7 @@ const ContestInfo = () => {
                     </div>
                 </div>
                 <div className={showRules ? "flex flex-col" : "hidden"}>
-                    <div className="grid smobile:gap-6 grid-cols-2 justify-items-center">
+                    <div className="grid smobile:gap-2 grid-cols-2 justify-items-center">
                         <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white">
                             <div className="smobile:p-4 flex items-center">
                                 <div className="p-3 rounded-full text-green-500 bg-green-100 mr-4">
@@ -282,9 +286,9 @@ const ContestInfo = () => {
                                         className="w-5 h-5"
                                     >
                                         <path
-                                            fill-rule="evenodd"
+                                            fillRule="evenodd"
                                             d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
-                                            clip-rule="evenodd"
+                                            clipRule="evenodd"
                                         ></path>
                                     </svg>
                                 </div>
@@ -293,7 +297,14 @@ const ContestInfo = () => {
                                         Prize Pool
                                     </p>
                                     <p className="text-sm font-semibold text-gray-700 smobile:text-lg">
-                                        ₹ 10000
+                                        ₹{" "}
+                                        {contestInfo.participants < 5
+                                            ? "250"
+                                            : `${
+                                                  (contestInfo.participants +
+                                                      1) *
+                                                  contestInfo.participation_fee
+                                              }`}
                                     </p>
                                 </div>
                             </div>
@@ -309,6 +320,49 @@ const ContestInfo = () => {
                                     </p>
                                     <p className="text-sm font-semibold text-gray-700 smobile:text-lg">
                                         ₹ {contestInfo.participation_fee}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white">
+                            <div className="smobile:p-4 flex items-center">
+                                <div className="p-3 rounded-full text-red-500 bg-red-100 mr-4">
+                                    <AiOutlineClockCircle size={16} />
+                                </div>
+                                <div>
+                                    <p className="mb-2 text-sm font-medium text-gray-600">
+                                        Duration
+                                    </p>
+                                    <p className="text-sm font-semibold text-gray-700 smobile:text-lg">
+                                        {moment
+                                            .duration(
+                                                moment(
+                                                    contestInfo.event_end_time
+                                                ).diff(
+                                                    moment(
+                                                        contestInfo.event_start_time
+                                                    )
+                                                ),
+                                                "milliseconds"
+                                            )
+                                            .humanize()}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="min-w-0 rounded-lg shadow-xs overflow-hidden bg-white">
+                            <div className="smobile:p-4 flex items-center">
+                                <div className="p-3 rounded-full text-purple-500 bg-purple-100 mr-4">
+                                    <GiHumanPyramid size={16} />
+                                </div>
+                                <div>
+                                    <p className="mb-2 text-sm font-medium text-gray-600">
+                                        Participants
+                                    </p>
+                                    <p className="text-sm font-semibold text-gray-700 smobile:text-lg">
+                                        {contestInfo.participants < 5
+                                            ? "5"
+                                            : `${contestInfo.participants}`}
                                     </p>
                                 </div>
                             </div>
@@ -337,10 +391,24 @@ const ContestInfo = () => {
                     />
                     <Divider>Rewards</Divider>
                     <Table
-                        className="ml-5 mr-2"
+                        className={
+                            contestInfo.participants >= 5
+                                ? "ml-5 mr-2"
+                                : "hidden"
+                        }
                         columns={rewards_columns}
                         pagination={false}
                         dataSource={rewards_data}
+                    />
+                    <Table
+                        className={
+                            contestInfo.participants < 5
+                                ? "ml-5 mr-2"
+                                : "hidden"
+                        }
+                        columns={rewards_columns}
+                        pagination={false}
+                        dataSource={rewards_data_under5}
                     />
                 </div>
             </div>

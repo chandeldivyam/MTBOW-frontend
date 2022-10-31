@@ -41,7 +41,7 @@ export const ContestResult = () => {
                 Authorization: localStorage.getItem("token"),
             },
         });
-        const { is_expired } = getCreators.data[0];
+        const { is_expired } = getCreators.data.contest_details[0];
         if (!is_expired) {
             setIsExpired(false);
             setIsLoading(false);
@@ -58,7 +58,7 @@ export const ContestResult = () => {
             setMyRewards(team_details.data.rows[0].reward);
         }
         const { name, image_url, event_end_time, event_start_time } =
-            getCreators.data[0];
+            getCreators.data.contest_details[0];
         setContestInfo({
             ...contestInfo,
             event_name: name,
@@ -66,7 +66,7 @@ export const ContestResult = () => {
             event_start_time: event_start_time,
             event_end_time: event_end_time,
         });
-        setCreatorsInfo(getCreators.data);
+        setCreatorsInfo(getCreators.data.contest_details);
         setIsLoading(false);
     };
 

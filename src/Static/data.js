@@ -24,31 +24,31 @@ export const contest_points_data = [
         points: "+1",
     },
     {
-        key: "1",
+        key: "2",
         type: "Views",
         change: "-10",
         points: "-1",
     },
     {
-        key: "2",
+        key: "3",
         type: "Likes",
         change: "+1",
         points: "+1",
     },
     {
-        key: "2",
+        key: "4",
         type: "Likes",
         change: "-1",
         points: "-1",
     },
     {
-        key: "3",
+        key: "5",
         type: "Comments",
         change: "+1",
         points: "+2",
     },
     {
-        key: "3",
+        key: "6",
         type: "Comments",
         change: "-1",
         points: "-2",
@@ -83,5 +83,18 @@ export const rewards_data = [
         key: "3",
         rank: "Top 50 percentile",
         winning: "40% of total pool distributed equally",
+    },
+];
+
+export const rewards_data_under5 = [
+    {
+        key: "1",
+        rank: "#1",
+        winning: "70% of total pool",
+    },
+    {
+        key: "2",
+        rank: "#2",
+        winning: "30% of total pool",
     },
 ];
