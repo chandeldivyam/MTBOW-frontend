@@ -58,7 +58,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <GiPodiumWinner />
                         <span className="ml-5">Results</span>
                     </button>
-                    <button className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
+                    {/* <button className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
                         <MdRule />
                         <span className="ml-5">Contest Rules</span>
                     </button>
@@ -69,7 +69,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                     <button className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
                         <BsFileRuled />
                         <span className="ml-5">Terms and Conditions</span>
-                    </button>
+                    </button> */}
                     <button
                         className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center mb-7"
                         onClick={logout}
