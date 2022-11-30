@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes, FaBars, FaHome } from "react-icons/fa";
-import { GiPodiumWinner } from "react-icons/gi";
+import { GiPodiumWinner, GiWallet } from "react-icons/gi";
 import mtbow_logo from "../../Static/mtbow-logo.svg";
 import { MdContactPhone, MdRule, MdLogout } from "react-icons/md";
 import { BsFileRuled } from "react-icons/bs";
@@ -70,6 +70,16 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <BsFileRuled />
                         <span className="ml-5">Terms and Conditions</span>
                     </button> */}
+                    <button
+                        onClick={() => {
+                            navigate("/payments");
+                            setIsSidebarOpen(false);
+                        }}
+                        className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center"
+                    >
+                        <GiWallet />
+                        <span className="ml-5">Wallet</span>
+                    </button>
                     <button
                         className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center mb-7"
                         onClick={logout}

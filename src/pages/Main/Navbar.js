@@ -3,6 +3,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import mtbow_logo from "../../Static/mtbow-logo.svg";
 import Sidebar from "../../components/navbar/Sidebar";
 import { useGlobalContext } from "../../context";
+import { AiOutlineWallet } from "react-icons/ai";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -25,6 +26,9 @@ const Navbar = () => {
                         isSidebarOpen ? "hidden" : `max-w-[100%] col-span-2`
                     }
                     alt="mtbow logo"
+                    onClick={() => {
+                        navigate("/");
+                    }}
                 />
                 <div
                     className={
@@ -39,7 +43,8 @@ const Navbar = () => {
                         }}
                         className="rounded-lg border border-gray-200 flex justify-center items-center m-2 min-w-[50%] max-h-[50%]"
                     >
-                        <span className="align-middle">
+                        <AiOutlineWallet />
+                        <span className="align-middle ml-2">
                             ₹
                             {balance.topup +
                                 balance.promotional +
