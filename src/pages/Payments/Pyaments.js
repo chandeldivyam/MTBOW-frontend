@@ -84,7 +84,12 @@ const Payments = () => {
                 </div>
             </div>
             <div className="flex flex-col bg-gray-50 mx-10 rounded-3xl px-5">
-                <div className="flex px-5 py-4 justify-between border-b-2">
+                <div
+                    className="flex px-5 py-4 justify-between border-b-2"
+                    onClick={() => {
+                        navigate("/transactions");
+                    }}
+                >
                     <h2 className="text-lg">Transactions</h2>
                     <AiOutlineRightCircle size={22} />
                 </div>

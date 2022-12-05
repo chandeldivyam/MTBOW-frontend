@@ -7,6 +7,7 @@ import { Results } from "./pages/Results/Results";
 import Payments from "./pages/Payments/Pyaments";
 import Navbar from "./pages/Main/Navbar";
 import Recharge from "./pages/Payments/Recharge";
+import Transactions from "./pages/Payments/Transactions";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                 />
                 <Route path="/payments/" element={<Payments />} />
                 <Route path="/recharge" element={<Recharge />} />
+                <Route path="/transactions" element={<Transactions />} />
             </Routes>
         </Router>
     );
