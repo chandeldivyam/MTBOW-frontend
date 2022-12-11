@@ -392,7 +392,7 @@ const ContestInfo = () => {
                     <Divider>Rewards</Divider>
                     <Table
                         className={
-                            contestInfo.participants >= 5
+                            (contestInfo.participants >= 5 && Number(contestInfo.participation_fee) > 0)
                                 ? "ml-5 mr-2"
                                 : "hidden"
                         }
@@ -402,7 +402,7 @@ const ContestInfo = () => {
                     />
                     <Table
                         className={
-                            contestInfo.participants < 5
+                            (Number(contestInfo.participation_fee) === 0 || contestInfo.participants < 5)
                                 ? "ml-5 mr-2"
                                 : "hidden"
                         }
