@@ -67,6 +67,9 @@ const Payments = () => {
                 <button
                     type="button"
                     className="text-white bg-[#dc5714] font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center "
+                    onClick={() => {
+                        navigate("/withdraw");
+                    }}
                 >
                     <MdOutlineLogout className="mr-1" />
                     Withdraw
@@ -93,11 +96,19 @@ const Payments = () => {
                     <h2 className="text-lg">Transactions</h2>
                     <AiOutlineRightCircle size={22} />
                 </div>
-                <div className="flex px-5 py-4 justify-between border-b-2">
+                <div className="flex px-5 py-4 justify-between border-b-2"
+                    onClick={() => {
+                        navigate("/kyc");
+                    }}
+                >
                     <h2 className="text-lg">KYC</h2>
                     <AiOutlineRightCircle size={22} />
                 </div>
-                <div className="flex px-5 py-4 justify-between">
+                <div className="flex px-5 py-4 justify-between"
+                        onClick={() => {
+                            navigate("/account");
+                        }}    
+                    >
                     <h2 className="text-lg">Account Verification</h2>
                     <AiOutlineRightCircle size={22} />
                 </div>
