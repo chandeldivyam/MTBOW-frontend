@@ -411,6 +411,19 @@ const ContestInfo = () => {
                         dataSource={rewards_data_under5}
                     />
                 </div>
+                <div className="flex justify-center mt-2 sticky bottom-0 z-10 pb-10">
+                    <Button
+                        className={
+                            showRules
+                                ? "inline-block bg-white px-6 mb-8 text-[#dc5714] font-medium text-l leading-tight uppercase rounded-full shadow-xl ml-2 hover:shadow-lg transition duration-150 ease-in-out"
+                                : "hidden"
+                        }
+                        type="button"
+                        onClick={() => setShowRules(!showRules)}
+                        >
+                            Create Team
+                    </Button>
+                </div>
             </div>
         </div>
     );
