@@ -298,13 +298,9 @@ const ContestInfo = () => {
                                     </p>
                                     <p className="text-sm font-semibold text-gray-700 smobile:text-lg">
                                         ₹{" "}
-                                        {contestInfo.participants < 5
+                                        {(contestInfo.participants < 5 || Number(contestInfo.participation_fee) === 0 )
                                             ? "250"
-                                            : `${
-                                                  (contestInfo.participants +
-                                                      1) *
-                                                  contestInfo.participation_fee
-                                              }`}
+                                            : `${(contestInfo.participants + 1) * contestInfo.participation_fee}`}
                                     </p>
                                 </div>
                             </div>
