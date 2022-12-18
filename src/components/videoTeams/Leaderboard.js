@@ -1,0 +1,219 @@
+import React, { useEffect, useState } from 'react';
+import Avatar from 'avataaars'
+import {List} from 'antd'
+import { useNavigate } from "react-router-dom";
+
+const randomAvatarGenerator = () => {
+    const configsKeys = Object.keys(configs);
+    const options = { }
+    const keys = [...configsKeys]
+    keys.forEach(key => {
+        const configArray = configs[key];
+        options[key] = configArray[Math.floor(Math.random()*configArray.length)];
+    })    
+    return options; 
+}
+
+const Leaderboard = ({leaderboard, contest_id}) => {
+    let navigate = useNavigate();
+    return(
+        <List
+            itemLayout="horizontal"
+            dataSource={leaderboard}
+            renderItem={(item) => (
+            <List.Item className='border-2 border-gray-200 m-2.5 p-2' 
+            onClick={() => {
+                navigate(`/videoTeamOther/${contest_id}/${item.user_id}`)
+            }}
+            extra={<div className='text-lg'>#{item.rank}</div>}>
+                <List.Item.Meta
+                avatar={<Avatar style={{width: '50px', height: '50px'}} avatarStyle='Circle' {...randomAvatarGenerator() }/>}
+                title={<a href="https://ant.design">{item.name}</a>}
+                description={<div>Total Points: {item.total_points}</div>}
+                />
+            </List.Item>
+        )}
+  />
+    )
+}
+
+const configs = {
+    topType: [
+      'NoHair',
+      'Eyepatch',
+      'Hat',
+      'Hijab',
+      'Turban',
+      'WinterHat1',
+      'WinterHat2',
+      'WinterHat3',
+      'WinterHat4',
+      'LongHairBigHair',
+      'LongHairBob',
+      'LongHairBun',
+      'LongHairCurly',
+      'LongHairCurvy',
+      'LongHairDreads',
+      'LongHairFrida',
+      'LongHairFro',
+      'LongHairFroBand',
+      'LongHairNotTooLong',
+      'LongHairShavedSides',
+      'LongHairMiaWallace',
+      'LongHairStraight',
+      'LongHairStraight2',
+      'LongHairStraightStrand',
+      'ShortHairDreads01',
+      'ShortHairDreads02'
+    ],
+    accessoriesType: [
+      'Blank',
+      'Kurt',
+      'Prescription01',
+      'Prescription02',
+      'Round',
+      'Sunglasses',
+      'Wayfarers'
+    ],
+    hatColor: [
+      'Black',
+      'Blue01',
+      'Blue02',
+      'Blue03',
+      'Gray01',
+      'Gray02',
+      'Heather',
+      'PastelBlue',
+      'PastelGreen',
+      'PastelOrange',
+      'PastelRed',
+      'PastelYellow',
+      'Pink',
+      'Red',
+      'White'
+    ],
+    hairColor: [
+      'Auburn',
+      'Black',
+      'Blonde',
+      'BlondeGolden',
+      'Brown',
+      'BrownDark',
+      'PastelPink',
+      'Platinum',
+      'Red',
+      'SilverGray'
+    ],
+    facialHairType: [
+      'Blank',
+      'BeardMedium',
+      'BeardLight',
+      'BeardMajestic',
+      'MoustacheFancy',
+      'MoustacheMagnum'
+    ],
+    facialHairColor: [
+      'Auburn',
+      'Black',
+      'Blonde',
+      'BlondeGolden',
+      'Brown',
+      'BrownDark',
+      'Platinum',
+      'Red'
+    ],
+    clotheType: [
+      'BlazerShirt',
+      'BlazerSweater',
+      'CollarSweater',
+      'GraphicShirt',
+      'Hoodie',
+      'Overall',
+      'ShirtCrewNeck',
+      'ShirtScoopNeck',
+      'ShirtVNeck'
+    ],
+    clotheColor: [
+      'Black',
+      'Blue01',
+      'Blue02',
+      'Blue03',
+      'Gray01',
+      'Gray02',
+      'Heather',
+      'PastelBlue',
+      'PastelGreen',
+      'PastelOrange',
+      'PastelRed',
+      'PastelYellow',
+      'Pink',
+      'Red',
+      'White'
+    ],
+    graphicType: [
+      'Bat',
+      'Cumbia',
+      'Deer',
+      'Diamond',
+      'Hola',
+      'Pizza',
+      'Resist',
+      'Selena',
+      'Bear',
+      'SkullOutline',
+      'Skull'
+    ],
+    eyeType: [
+      'Close',
+      'Cry',
+      'Default',
+      'Dizzy',
+      'EyeRoll',
+      'Happy',
+      'Hearts',
+      'Side',
+      'Squint',
+      'Surprised',
+      'Wink',
+      'WinkWacky'
+    ],
+    eyebrowType: [
+      'Angry',
+      'AngryNatural',
+      'Default',
+      'DefaultNatural',
+      'FlatNatural',
+      'RaisedExcited',
+      'RaisedExcitedNatural',
+      'SadConcerned',
+      'SadConcernedNatural',
+      'UnibrowNatural',
+      'UpDown',
+      'UpDownNatural'
+    ],
+    mouthType: [
+      'Concerned',
+      'Default',
+      'Disbelief',
+      'Eating',
+      'Grimace',
+      'Sad',
+      'ScreamOpen',
+      'Serious',
+      'Smile',
+      'Tongue',
+      'Twinkle',
+      'Vomit'
+    ],
+    skinColor: [
+      'Tanned',
+      'Yellow',
+      'Pale',
+      'Light',
+      'Brown',
+      'DarkBrown',
+      'Black'
+    ]
+}
+
+export default Leaderboard

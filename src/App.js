@@ -2,7 +2,9 @@ import Login from "./pages/Onboarding/Login";
 import Signup from "./pages/Onboarding/Signup";
 import Home from "./pages/Main/Home";
 import ContestInfo from "./components/contests/ContestInfo";
+import VideoContestInfo from "./components/videoContests/VideoContestInfo";
 import { ContestResult } from "./pages/Results/ContestResult";
+import VideoContestResult from "./pages/Results/VideoContestResult";
 import { Results } from "./pages/Results/Results";
 import Payments from "./pages/Payments/Pyaments";
 import Navbar from "./pages/Main/Navbar";
@@ -12,6 +14,7 @@ import PanKyc from "./pages/Payments/PanKyc";
 import AccountVerification from "./pages/Payments/AccountVerification";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Withdraw from "./pages/Payments/Withdraw";
+import VideoTeamOther from "./components/videoTeams/VideoTeamOther";
 function App() {
     return (
         <Router>
@@ -24,10 +27,22 @@ function App() {
                     path="/contestInfo/:contestId"
                     element={<ContestInfo />}
                 />
+                <Route
+                    path="/videoContestInfo/:videoContestId"
+                    element={<VideoContestInfo />}
+                />
                 <Route path="/myResults/" element={<Results />} />
                 <Route
                     path="/contestResult/:contestId"
                     element={<ContestResult />}
+                />
+                <Route
+                    path="/videoContestResult/:contestId"
+                    element={<VideoContestResult />}
+                />
+                <Route
+                    path="/videoTeamOther/:videoContestId/:userId"
+                    element={<VideoTeamOther />}
                 />
                 <Route path="/payments/" element={<Payments />} />
                 <Route path="/recharge" element={<Recharge />} />
