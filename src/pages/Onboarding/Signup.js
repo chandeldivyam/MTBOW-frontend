@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import { message } from "antd"
 
 const Signup = () => {
     let navigate = useNavigate();
@@ -35,13 +36,20 @@ const Signup = () => {
             },
         })
             .then((response) => {
-                console.log(response);
                 localStorage.setItem("userId", response.data.data.userId);
+                setIsOtpSent(true);
             })
             .catch((error) => {
-                console.log(error);
+                if(error.response.data.success === false){
+                    message.info({
+                        className: "mt-[100px] z-10",
+                        duration: 4,
+                        content: error.response.data.message,
+                    });
+                }
+                setIsOtpSent(false);
+                return
             });
-        setIsOtpSent(true);
     };
     const verifyOtp = async (e) => {
         e.preventDefault();

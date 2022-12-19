@@ -17,6 +17,8 @@ const randomAvatarGenerator = () => {
 const Leaderboard = ({leaderboard, contest_id}) => {
     let navigate = useNavigate();
     return(
+        <>
+        <p className='text-center text-slate-400'>Click on the player to view their teams</p>
         <List
             itemLayout="horizontal"
             dataSource={leaderboard}
@@ -28,12 +30,13 @@ const Leaderboard = ({leaderboard, contest_id}) => {
             extra={<div className='text-lg'>#{item.rank}</div>}>
                 <List.Item.Meta
                 avatar={<Avatar style={{width: '50px', height: '50px'}} avatarStyle='Circle' {...randomAvatarGenerator() }/>}
-                title={<a href="https://ant.design">{item.name}</a>}
+                title={<h1>{item.name}</h1>}
                 description={<div>Total Points: {item.total_points}</div>}
                 />
             </List.Item>
         )}
   />
+        </>
     )
 }
 
@@ -165,7 +168,6 @@ const configs = {
     ],
     eyeType: [
       'Close',
-      'Cry',
       'Default',
       'Dizzy',
       'EyeRoll',
