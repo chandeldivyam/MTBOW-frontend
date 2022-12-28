@@ -28,7 +28,7 @@ const VideoCard = ({video_id, channel_title, video_title, video_thumbnail, chann
     const contentListNoTitle = {
         video: (<>
                 <div className="grid grid-cols-2 gap-3 mb-3">
-                  <img className="w-max-[75%] h-[100%]" src={video_thumbnail} alt={video_title} />
+                  <img className="self-center w-max-[75%]" src={video_thumbnail} alt={video_title} />
                   <div className="self-center text-slate-600 text-xs smobile:text-sm mobile:text-base">{video_title}</div>
                 </div>
                 <Meta
