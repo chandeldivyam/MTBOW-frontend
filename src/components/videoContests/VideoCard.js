@@ -23,17 +23,17 @@ const VideoCard = ({video_id, channel_title, video_title, video_thumbnail, chann
         {
             key: "watch",
             tab: "Watch"
-        },
-        {
-          key: "creator",
-          tab: "Creator"
         }
     ];
     const contentListNoTitle = {
         video: (<>
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <img className="w-max-[75%] h-[100%]" src={video_thumbnail} alt={video_title} />
+                  <div className="self-center text-slate-600 text-xs smobile:text-sm mobile:text-base">{video_title}</div>
+                </div>
                 <Meta
-                avatar={<Avatar src={video_thumbnail} />}
-                description={video_title}
+                avatar={<Avatar src={channel_thumbnail} />}
+                title={channel_title}
                 />
             </>
             
@@ -43,20 +43,14 @@ const VideoCard = ({video_id, channel_title, video_title, video_thumbnail, chann
             src={`https://www.youtube.com/embed/${video_id}`} 
             frameBorder="0" 
             allow="fullscreen" >
-        </iframe>),
-        creator: (
-            <Meta
-              avatar={<Avatar src={channel_thumbnail} />}
-              title={channel_title}
-            />
-          )
-      };
+        </iframe>)
+    };
       
     
     return(
         <>
       <Card
-        className="border-5 border-slate-600 mx-6"
+        className={myTeam.includes(video_id) ? "shadow-xl mx-8 my-3 scale-110 rounded-xl shadow-current" : "mx-6 bg-gray-200 rounded-xl shadow-md scale-80"}
         tabList={tabListNoTitle}
         activeTabKey={activeTabKey2}
         tabBarExtraContent={<button

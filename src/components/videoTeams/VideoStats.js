@@ -10,23 +10,27 @@ const VideoStats = ({video_id, video_title, video_thumbnail, like_points, view_p
     const tabListNoTitle = [
         {
           key: "name",
-          tab: "Name"
+          tab: "Title"
         },
         {
             key: "watch",
             tab: "Watch"
-        },
-        {
-          key: "points",
-          tab: "Points"
         }
     ];
     const contentListNoTitle = {
         name: (<>
+                <div className="mb-3">{video_title}</div>
                 <Meta
                 title={<div>Total: {comment_points+view_points+like_points}</div>}
                 avatar={<Avatar src={video_thumbnail} />}
-                description={video_title}
+                description={<div className="">
+                <div className="grid grid-cols-3 justify-items-start gap-3">
+                <Statistic title="Views" value={view_points} />
+                <Statistic title="Likes" value={like_points} />
+                <Statistic title="Comments" value={comment_points} />
+              </div>
+                </div>
+              }
                 />
             </>
             
@@ -36,17 +40,7 @@ const VideoStats = ({video_id, video_title, video_thumbnail, like_points, view_p
             src={`https://www.youtube.com/embed/${video_id}`} 
             frameBorder="0" 
             allow="fullscreen" >
-        </iframe>),
-        points: (
-            <Meta
-              title={"Points From"}
-              description={<div className="grid grid-cols-3 justify-items-center">
-                <Statistic title="Likes" value={like_points} />
-                <Statistic title="Comments" value={comment_points} />
-                <Statistic title="Views" value={view_points} />
-              </div>}
-            />
-          )
+        </iframe>)
     };
     return(
         <>

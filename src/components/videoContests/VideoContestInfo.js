@@ -348,8 +348,8 @@ const VideoContestInfo = () => {
                                     </p>
                                     <p className="text-sm font-semibold text-gray-700 smobile:text-lg">
                                         {contestInfo.participants < 5
-                                            ? "5"
-                                            : `${contestInfo.participants}`}
+                                            ? "5 / 100"
+                                            : `${contestInfo.participants} / 100`}
                                     </p>
                                 </div>
                             </div>
@@ -362,11 +362,11 @@ const VideoContestInfo = () => {
                         </li>
                         <li className="ml-10 mr-2 my-1">
                             Participation will only be accepted before{" "}
-                            {new Date(contestInfo.event_start_time).toString()}
+                            {new Date(contestInfo.event_start_time).toLocaleString()}
                         </li>
                         <li className="ml-10 mr-2 my-1">
                             The contest will end at{" "}
-                            {new Date(contestInfo.event_end_time).toString()}
+                            {new Date(contestInfo.event_end_time).toLocaleString()}
                         </li>
                     </ul>
                     <Divider>Scoring</Divider>
