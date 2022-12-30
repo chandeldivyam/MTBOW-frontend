@@ -8,6 +8,7 @@ const Signup = () => {
     let navigate = useNavigate();
     const [phone, setPhone] = useState("");
     const [name, setName] = useState("");
+    const [referralCodeUsed, setReferralCodeUsed] = useState("")
     const [otp, setOtp] = useState("");
     const [isOtpSent, setIsOtpSent] = useState(false);
     const [phoneRegexError, setPhoneRegexError] = useState(false);
@@ -33,6 +34,7 @@ const Signup = () => {
             data: {
                 phone,
                 name,
+                referral_code_used: referralCodeUsed.trim()
             },
         })
             .then((response) => {
@@ -62,6 +64,7 @@ const Signup = () => {
             data: {
                 otp: otp,
                 userId: localStorage.getItem("userId"),
+                referral_code_used: referralCodeUsed.trim()
             },
         })
             .then((response) => {
@@ -74,8 +77,13 @@ const Signup = () => {
                 navigate("/");
             })
             .catch((error) => {
-                console.log("I am in the catch");
-                console.log(error);
+                if(error.response.data.success === false){
+                    message.info({
+                        className: "mt-[100px] z-10",
+                        duration: 4,
+                        content: error.response.data.message,
+                    });
+                }
                 setOtpRegexError(true);
             });
     };
@@ -102,6 +110,15 @@ const Signup = () => {
                                     className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
+                                ></input>
+                            </div>
+                            <div className="flex flex-col">
+                                <input
+                                    type="text"
+                                    placeholder="Referral Code (Optional)"
+                                    className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
+                                    value={referralCodeUsed}
+                                    onChange={(e) => setReferralCodeUsed(e.target.value)}
                                 ></input>
                             </div>
                             <div className="form-group mb-6">
