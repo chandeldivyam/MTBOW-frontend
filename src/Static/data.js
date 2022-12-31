@@ -90,11 +90,26 @@ export const rewards_data_under5 = [
     {
         key: "1",
         rank: "#1",
-        winning: "70% of total pool",
+        winning: "₹105",
     },
     {
         key: "2",
         rank: "#2",
-        winning: "30% of total pool",
+        winning: "₹75",
     },
+    {
+        key: "3",
+        rank: "#3",
+        winning: "₹40",
+    },
+    {
+        key: "4",
+        rank: "#4",
+        winning: "₹40",
+    },
+    {
+        key: "5",
+        rank: "#5",
+        winning: "₹40",
+    }
 ];

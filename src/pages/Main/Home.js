@@ -5,7 +5,9 @@ import { useNavigate, Link } from "react-router-dom";
 import Contests from "../../components/contests/Contests";
 import Navbar from "./Navbar";
 import Loading from "./Loading";
+import { GiCrown } from "react-icons/gi";
 import VideoContests from "../../components/videoContests/VideoContests";
+import { Alert } from 'antd';
 
 const Home = () => {
     let navigate = useNavigate();
@@ -73,7 +75,12 @@ const Home = () => {
                     OPEN EVENTS!
                 </div>
                 <Contests className={liveContests.length ? "" : "hidden"} liveContests={liveContests} />
-                <VideoContests liveVideoContests={liveVideoContests} />
+                <VideoContests liveVideoContests={liveVideoContests.liveVideoContest} />
+                <Alert message={<span className="align-middle">Would you dare to challenge <span className="font-semibold">{liveVideoContests.previousWinner}</span>? Our Current champion!</span>} 
+                    type="success" 
+                    showIcon
+                    icon={<GiCrown size={32}/>}
+                    />
             </div>
             <Link to="/myResults/">
                 <div className="flex justify-center">
