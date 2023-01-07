@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes, FaBars, FaHome } from "react-icons/fa";
-import { GiPodiumWinner, GiWallet } from "react-icons/gi";
+import { GiPodiumWinner, GiWallet, GiTakeMyMoney } from "react-icons/gi";
 import mtbow_logo from "../../Static/mtbow-logo.svg";
 import { MdContactPhone, MdRule, MdLogout } from "react-icons/md";
 import { BsFileRuled } from "react-icons/bs";
@@ -58,18 +58,6 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <GiPodiumWinner />
                         <span className="ml-5">Results</span>
                     </button>
-                    {/* <button className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
-                        <MdRule />
-                        <span className="ml-5">Contest Rules</span>
-                    </button>
-                    <button className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
-                        <MdContactPhone />
-                        <span className="ml-5">Contact Us</span>
-                    </button>
-                    <button className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
-                        <BsFileRuled />
-                        <span className="ml-5">Terms and Conditions</span>
-                    </button> */}
                     <button
                         onClick={() => {
                             navigate("/payments");
@@ -79,6 +67,16 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                     >
                         <GiWallet />
                         <span className="ml-5">Wallet</span>
+                    </button>
+                    <button
+                        onClick={() => {
+                            navigate("/refer");
+                            setIsSidebarOpen(false);
+                        }}
+                        className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center"
+                    >
+                        <GiTakeMyMoney />
+                        <span className="ml-5">Refer & Earn</span>
                     </button>
                     <button
                         className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center mb-7"

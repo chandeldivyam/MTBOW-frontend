@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useGlobalContext } from "../../context";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Contests from "../../components/contests/Contests";
 import Navbar from "./Navbar";
 import Loading from "./Loading";
 import { GiCrown } from "react-icons/gi";
 import VideoContests from "../../components/videoContests/VideoContests";
-import { Alert } from 'antd';
+import { Alert, Space, Button } from 'antd';
 
 const Home = () => {
     let navigate = useNavigate();
@@ -82,13 +82,12 @@ const Home = () => {
                     icon={<GiCrown size={32}/>}
                     />
             </div>
-            <Link to="/myResults/">
-                <div className="flex justify-center">
-                    <div className="bg-transparent text-center mt-5 max-w-xs hover:bg-[#dc5714] text-[#dc5714] font-semibold hover:text-white py-2 px-4 border border-[#dc5714] hover:border-transparent rounded">
-                        My Results
-                    </div>
-                </div>
-            </Link>
+            <div className="flex justify-center mt-4">
+                <Space warp align="center">
+                    <Button type="primary" onClick={() => {navigate("/myResults/")}}>Results</Button>
+                    <Button type="primary" onClick={() => {navigate("/refer")}}>Refer</Button>
+                </Space>
+            </div>
         </>
     );
     // return <h1>home</h1>;

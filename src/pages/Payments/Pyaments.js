@@ -4,7 +4,7 @@ import { useGlobalContext } from "../../context";
 import { BiWallet, BiGift } from "react-icons/bi";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
-import { GiPodiumWinner } from "react-icons/gi";
+import { GiPodiumWinner, GiTakeMyMoney } from "react-icons/gi";
 import { AiOutlineRightCircle } from "react-icons/ai";
 import Loading from "../Main/Loading";
 
@@ -76,15 +76,23 @@ const Payments = () => {
                 </button>
             </div>
             <div className="grid grid-cols-2 my-8 px-4 justify-items-center items-center">
-                <div className="flex">
+                <div className="grid grid-cols-2">
                     <div className="row-span-2 mr-3 my-1 w-[55px] items-center bg-transparent text-yellow-700 font-semibold py-2 px-4 border border-yellow-500 rounded">
                         <BiGift size={22} />
                     </div>
-                    <div className="text-slate-400">
-                        Promotional
-                        <p className="text-black">₹{balance.promotional}</p>
-                    </div>
+                    <div className="text-slate-400">Promotional</div>
+                    <div>₹{balance.promotional}</div>
                 </div>
+                <button
+                    type="button"
+                    className="text-white bg-[#dc5714] font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center "
+                    onClick={() => {
+                        navigate("/refer");
+                    }}
+                >
+                    <GiTakeMyMoney className="mr-1" />
+                    Refer
+                </button>
             </div>
             <div className="flex flex-col bg-gray-50 mx-10 rounded-3xl px-5">
                 <div

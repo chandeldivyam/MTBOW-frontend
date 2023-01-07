@@ -15,6 +15,7 @@ import AccountVerification from "./pages/Payments/AccountVerification";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Withdraw from "./pages/Payments/Withdraw";
 import VideoTeamOther from "./components/videoTeams/VideoTeamOther";
+import Refer from "./pages/Main/Refer";
 function App() {
     return (
         <Router>
@@ -50,6 +51,7 @@ function App() {
                 <Route path="/kyc" element={<PanKyc />} />
                 <Route path="/account" element={<AccountVerification />} />
                 <Route path="/withdraw" element={<Withdraw />} />
+                <Route path="/refer" element={<Refer />} />
             </Routes>
         </Router>
     );
