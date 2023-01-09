@@ -64,6 +64,15 @@ const Withdraw = () => {
             setButtonLoading(false)
             return;
         }
+        if(Number(values.amount) < 30){
+            message.error({
+                className: "mt-[50px] z-10",
+                duration: 4,
+                content: "Amount Needs to be Greater than ₹30",
+                });
+            setButtonLoading(false)
+            return;
+        }
         await axios({
             method: "post",
             url: "https://api.mtbow.com/api/v1/payments/withdraw",

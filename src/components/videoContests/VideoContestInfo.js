@@ -8,7 +8,7 @@ import { GiTargetPrize, GiHumanPyramid } from "react-icons/gi";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import Loading from "../../pages/Main/Loading";
 import { ContestExpired } from "../contests/ContestExpired";
-import { message, Button, Divider, Table, Progress, Popconfirm } from "antd";
+import { message, Button, Divider, Table, Progress, Popconfirm, Collapse, Avatar, Card } from "antd";
 import {
     contest_points_data,
     contest_points_columns,
@@ -39,6 +39,7 @@ const VideoContestInfo = () => {
     const [teamExist, setTeamExist] = useState(false);
     const [eventStarted, setEventStarted] = useState(false);
     const [showRules, setShowRules] = useState(true);
+    const { Meta } = Card;
 
     const teamData = async () => {
         const team_details = await axios({
@@ -150,6 +151,40 @@ const VideoContestInfo = () => {
             });
     };
 
+    const collapseButtonHandler = (video_id) => {
+        return(
+            <button
+            className={
+                myTeam.includes(video_id)
+                    ? `bg-red-600 text-white uppercase text-xs ml-2 px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`
+                    : `${
+                            myTeam.length < 11
+                                ? "bg-green-600"
+                                : "bg-gray-500"
+                        } text-white uppercase text-xs ml-2 px-4 py-2 rounded shadow outline-none mr-1 mb-1 ease-linear transition-all duration-150`
+            }
+            onClick={(event) => {
+                event.stopPropagation();
+                if (!myTeam.includes(video_id)) {
+                    addToTeam(video_id);
+                    return;
+                }
+                removeFromTeam(video_id);
+                return;
+            }}
+            disabled={
+                myTeam.length >= 11 && !myTeam.includes(video_id)
+                    ? true
+                    : ""
+            }
+        >
+            {myTeam.includes(video_id)
+                ? "-"
+                : "+"}
+            </button>
+        )
+    }
+
     useEffect(() => {
         authenticateUser()
             .then((res) => {
@@ -203,19 +238,29 @@ const VideoContestInfo = () => {
                     </div>
                 </div>
                 <div className={showRules ? "hidden" : "flex flex-col"}>
-                    <div className="grid grid-cols-1 gap-y-5">
+                    <Collapse defaultActiveKey={[videoInfo[0].video_id]} accordion={true}>
                         {videoInfo.map((item) => {
                             return(
-                                <VideoCard 
-                                    key={item.video_id}
-                                    {...item}
-                                    addToTeam={addToTeam}
-                                    removeFromTeam={removeFromTeam}
-                                    myTeam={myTeam}
-                                />
+                                <Collapse.Panel 
+                                    key={item.video_id} 
+                                    header={<Meta
+                                        avatar={<Avatar src={item.channel_thumbnail} />}
+                                        title={item.channel_title}
+                                        className="pt-2"
+                                        />}
+                                    extra={collapseButtonHandler(item.video_id)}
+                                >
+                                    <VideoCard 
+                                        key={item.video_id}
+                                        {...item}
+                                        addToTeam={addToTeam}
+                                        removeFromTeam={removeFromTeam}
+                                        myTeam={myTeam}
+                                    />  
+                                </Collapse.Panel>
                             )
                         })}
-                    </div>
+                    </Collapse>
                     <div className="flex justify-center mt-2 sticky bottom-0 z-10 pb-10">
                         <div className="inline-flex max-h-[32px]">
                             <div className="bg-white rounded-full">
