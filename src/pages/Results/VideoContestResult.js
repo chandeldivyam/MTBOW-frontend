@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MyTeamResult from "../../components/videoTeams/MyTeamResult";
 import Loading from "../Main/Loading";
+import OtherTeamResult from "../../components/videoTeams/OtherTeamResult";
 
 const VideoContestResult = () => {
     let navigate = useNavigate();
@@ -51,9 +52,9 @@ const VideoContestResult = () => {
         }
         setIsExpired(true);
         const team_details = await teamData();
-        if (team_details.data.rowCount <= 0) {
-            navigate("/");
-        }
+        // if (team_details.data.rowCount <= 0) {
+        //     navigate("/");
+        // }
         if (team_details.data.rowCount > 0) {
             setMyTeam(team_details.data.rows[0].video_team);
             setMyRewards(team_details.data.rows[0].reward);
@@ -82,6 +83,19 @@ const VideoContestResult = () => {
     }, []);
     if(isLoading){
         <Loading />
+    }
+    if(myTeam.length === 0){
+        return(
+            <>
+                <h1 className="font-medium text-center leading-tight text-2xl mt-2 mb-2 text-[#dc5714]">
+                            {videoInfo.event_name}
+                </h1>
+                <OtherTeamResult 
+                    videoInfo={videoInfo}
+                    contestId={contestId}
+                />
+            </>
+        )
     }
     return(
         <div className="flex justify-center bg-gray-200 min-h-screen">

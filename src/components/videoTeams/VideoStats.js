@@ -38,7 +38,7 @@ const VideoStats = ({video_id, video_title, video_thumbnail, like_points, view_p
             
           ),
           watch: (<iframe 
-            className="w-[100%]"
+            className="w-[100%] h-[100%]"
             src={`https://www.youtube.com/embed/${video_id}`} 
             frameBorder="0" 
             allow="fullscreen" >
@@ -60,7 +60,7 @@ const VideoStats = ({video_id, video_title, video_thumbnail, like_points, view_p
           </Tabs.TabPane>
           <Tabs.TabPane tab="Watch" key="watch">
             <iframe 
-              className="w-[100%]"
+              className="w-[100%] h-[100%]"
               src={`https://www.youtube.com/embed/${video_id}`} 
               frameBorder="0" 
               allow="fullscreen" >
@@ -98,20 +98,6 @@ const VideoStats = ({video_id, video_title, video_thumbnail, like_points, view_p
                 </Space>
           </Tabs.TabPane>
         </Tabs>
-    )
-    return(
-        <>
-      <Card
-        className="border-5 border-slate-600 mx-6"
-        tabList={tabListNoTitle}
-        activeTabKey={activeTabKey2}
-        onTabChange={(key) => {
-          onTab2Change(key);
-        }}
-      >
-        {contentListNoTitle[activeTabKey2]}
-      </Card>
-    </>
     )
 }
 

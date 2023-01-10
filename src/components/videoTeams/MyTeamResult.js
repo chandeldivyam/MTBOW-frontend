@@ -5,13 +5,14 @@ import _ from "lodash";
 import { GiPartyPopper } from "react-icons/gi";
 import Loading from "../../pages/Main/Loading";
 import VideoStats from "./VideoStats";
+import { Avatar } from "antd"
 const MyTeamResult = ({ myTeam, videoInfo, contestId, myRewards }) => {
     const [leaderboard, setLeaderboard] = useState([]);
     const [teamScore, setTeamScore] = useState({});
     const [scoreDistribution, setScoreDistribution] = useState({})
     const [isLoading, setIsLoading] = useState(true);
     const [userRank, setUserRank] = useState("");
-    const [showStats, setShowStats] = useState(true);
+    const [showStats, setShowStats] = useState(false);
     const getLeaderboard = async () => {
         try {
             const leaderboard_data = await axios({
@@ -45,14 +46,17 @@ const MyTeamResult = ({ myTeam, videoInfo, contestId, myRewards }) => {
     };
     useEffect(() => {
         getLeaderboard();
-        console.log(contestId)
     }, []);
     if (isLoading || videoInfo.length === 0) {
         return <Loading />;
     }
     return(
         <div>
-            <div class="flex my-4">
+            <div className="flex items-center justify-center">
+                <Avatar size={60} src={videoInfo[0].image_url} className="mr-2"/>
+                <h1 className="ml-2 text-lg">{videoInfo[0].name}</h1>
+            </div>
+            <div className="flex my-4">
                 <div
                     className={
                         showStats
