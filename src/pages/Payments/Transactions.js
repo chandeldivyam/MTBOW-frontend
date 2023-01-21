@@ -14,7 +14,7 @@ const Transactions = () => {
     const getTransactions = async () => {
         const transactions = await axios({
             method: "get",
-            url: `http://localhost:3005/api/v1/payments/transactions`,
+            url: `https://api.mtbow.com/api/v1/payments/transactions`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
