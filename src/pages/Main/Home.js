@@ -40,23 +40,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                setUserName(res);
-                localStorage.setItem("user_id", res);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
         getBalance();
-        fetchLiveContests()
-            .then((res) => {
-                setLiveContests(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
         fetchLiveVideoContests()
             .then((res) => {
                 setLiveVideoContests(res)

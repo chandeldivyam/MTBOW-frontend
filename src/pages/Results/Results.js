@@ -38,21 +38,6 @@ export const Results = () => {
         return expiredVideoContestsResponse.data;
     }
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                localStorage.setItem("user_id", res);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
-        fetchExpiredContests()
-            .then((res) => {
-                setExpiredContests(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
         fetchExpiredVideoContests()
             .then((res) => {
                 setExpiredVideoContests(res.allExpiredContests)

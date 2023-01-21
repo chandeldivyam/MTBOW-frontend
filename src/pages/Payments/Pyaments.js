@@ -14,16 +14,8 @@ const Payments = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                localStorage.setItem("user_id", res);
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
         getBalance();
+        setIsLoading(false);
     }, []);
 
     if (isLoading === true) {

@@ -36,7 +36,7 @@ const OtherTeamResult = ({videoInfo, contestId}) => {
                 <Avatar size={60} src={videoInfo[0].image_url} className="mr-2"/>
                 <h1 className="ml-2 text-lg">{videoInfo[0].name}</h1>
             </div>
-            <div class="flex my-4">
+            <div className="flex my-4">
                 <div
                     className={
                         showStats

@@ -44,7 +44,7 @@ const VideoContest = ({ id, name, image_url, event_start_time, participation_fee
                                 : `LIVE`}
                         </div>
                     </div>  
-                    <div class="text-white col-span-4 bg-gradient-to-br from-pink-500 to-orange-400 font-medium rounded-lg text-sm px-2 py-2 text-center">
+                    <div className="text-white col-span-4 bg-gradient-to-br from-pink-500 to-orange-400 font-medium rounded-lg text-sm px-2 py-2 text-center">
                         Participate
                     </div>
                 </div>

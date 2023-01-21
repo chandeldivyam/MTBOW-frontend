@@ -28,14 +28,6 @@ const Transactions = () => {
     };
 
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                localStorage.setItem("user_id", res);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
         getTransactions();
     }, []);
 

@@ -102,7 +102,7 @@ const MyTeam = ({ myTeam, creatorsInfo, contestId, myRewards }) => {
     // );
     return (
         <div>
-            <div class="flex my-4">
+            <div className="flex my-4">
                 <div
                     className={
                         showStats

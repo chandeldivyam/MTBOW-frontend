@@ -64,7 +64,7 @@ const MyTeam = ({myTeam, videoInfo, videoContestId, event_end_time}) => {
             <div className="col-span-2">
                 <Countdown event_end_time={event_end_time} />
             </div>
-            <div class="flex my-4">
+            <div className="flex my-4">
                 <div
                     className={
                         showStats
