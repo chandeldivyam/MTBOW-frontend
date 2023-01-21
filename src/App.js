@@ -16,12 +16,15 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Withdraw from "./pages/Payments/Withdraw";
 import VideoTeamOther from "./components/videoTeams/VideoTeamOther";
 import Refer from "./pages/Main/Refer";
+import ProtectedRoute from "./components/utils/ProtectedRoute"
+import { initializeGa } from "./components/utils/gaHelper";
 function App() {
+    initializeGa()
     return (
         <Router>
             <Navbar />
             <Routes>
-                <Route exact path="/" element={<Home />} />
+                <Route exact path="/" element={<ProtectedRoute path="/"><Home /></ProtectedRoute>} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route
@@ -30,28 +33,28 @@ function App() {
                 />
                 <Route
                     path="/videoContestInfo/:videoContestId"
-                    element={<VideoContestInfo />}
+                    element={<ProtectedRoute path="/videoContestInfo/:videoContestId"><VideoContestInfo /></ProtectedRoute>}
                 />
-                <Route path="/myResults/" element={<Results />} />
+                <Route path="/myResults/" element={<ProtectedRoute path="/myResults/"><Results /></ProtectedRoute>} />
                 <Route
                     path="/contestResult/:contestId"
                     element={<ContestResult />}
                 />
                 <Route
                     path="/videoContestResult/:contestId"
-                    element={<VideoContestResult />}
+                    element={<ProtectedRoute path="/videoContestResult/:contestId"><VideoContestResult /></ProtectedRoute>}
                 />
                 <Route
                     path="/videoTeamOther/:videoContestId/:userId"
-                    element={<VideoTeamOther />}
+                    element={<ProtectedRoute path="/videoTeamOther/:videoContestId/:userId"><VideoTeamOther /></ProtectedRoute>}
                 />
-                <Route path="/payments/" element={<Payments />} />
-                <Route path="/recharge" element={<Recharge />} />
-                <Route path="/transactions" element={<Transactions />} />
-                <Route path="/kyc" element={<PanKyc />} />
-                <Route path="/account" element={<AccountVerification />} />
-                <Route path="/withdraw" element={<Withdraw />} />
-                <Route path="/refer" element={<Refer />} />
+                <Route path="/payments/" element={<ProtectedRoute path="/payments/"><Payments /></ProtectedRoute>} />
+                <Route path="/recharge" element={<ProtectedRoute path="/recharge"><Recharge /></ProtectedRoute>} />
+                <Route path="/transactions" element={<ProtectedRoute path="/transactions"><Transactions /></ProtectedRoute>} />
+                <Route path="/kyc" element={<ProtectedRoute path="/kyc"><PanKyc /></ProtectedRoute>} />
+                <Route path="/account" element={<ProtectedRoute path="/account"><AccountVerification /></ProtectedRoute>} />
+                <Route path="/withdraw" element={<ProtectedRoute path="/withdraw"><Withdraw /></ProtectedRoute>} />
+                <Route path="/refer" element={<ProtectedRoute path="/refer"><Refer /></ProtectedRoute>} />
             </Routes>
         </Router>
     );

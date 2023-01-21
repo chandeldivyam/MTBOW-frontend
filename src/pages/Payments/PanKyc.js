@@ -18,21 +18,13 @@ const PanKyc = () => {
     const [apiResult, setApiResult] = useState(false)
 
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                localStorage.setItem("user_id", res);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
         checkPan()
     }, []);
 
     const checkPan = async() => {
         const pan_info = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/payments/checkPan`,
+            url: `http://localhost:3005/api/v1/payments/checkPan`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -66,7 +58,7 @@ const PanKyc = () => {
         }
         await axios({
             method: "post",
-            url: "https://api.mtbow.com/api/v1/payments/validatePan",
+            url: "http://localhost:3005/api/v1/payments/validatePan",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

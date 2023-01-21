@@ -20,7 +20,7 @@ const Home = () => {
     const fetchLiveContests = async () => {
         const liveContestsResponse = await axios({
             method: "get",
-            url: "https://api.mtbow.com/api/v1/contests/live",
+            url: "http://localhost:3005/api/v1/contests/live",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -31,7 +31,7 @@ const Home = () => {
     const fetchLiveVideoContests = async() => {
         const liveVideoContestsResponse = await axios({
             method: "get",
-            url: "https://api.mtbow.com/api/v1/videocontests/live",
+            url: "http://localhost:3005/api/v1/videocontests/live",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -40,23 +40,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                setUserName(res);
-                localStorage.setItem("user_id", res);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
         getBalance();
-        fetchLiveContests()
-            .then((res) => {
-                setLiveContests(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
         fetchLiveVideoContests()
             .then((res) => {
                 setLiveVideoContests(res)

@@ -17,21 +17,13 @@ const Withdraw = () => {
     const [apiResult, setApiResult] = useState(false)
 
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                localStorage.setItem("user_id", res);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
         checkWithdrawStatus()
     }, []);
 
     const checkWithdrawStatus = async() => {
         const withdraw_info = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/payments/checkWithdrawal`,
+            url: `http://localhost:3005/api/v1/payments/checkWithdrawal`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -75,7 +67,7 @@ const Withdraw = () => {
         }
         await axios({
             method: "post",
-            url: "https://api.mtbow.com/api/v1/payments/withdraw",
+            url: "http://localhost:3005/api/v1/payments/withdraw",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

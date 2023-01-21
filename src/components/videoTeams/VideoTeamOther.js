@@ -23,7 +23,7 @@ const VideoTeamOther = () => {
     const getTeamDetails = async() => {
         const team_details = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/videoteams/scoreOthers/${videoContestId}/${userId}`,
+            url: `http://localhost:3005/api/v1/videoteams/scoreOthers/${videoContestId}/${userId}`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             }
@@ -34,7 +34,7 @@ const VideoTeamOther = () => {
     const getAllVideos = async() => {
         const getVideos = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/videocontests/contestInfo/${videoContestId}`,
+            url: `http://localhost:3005/api/v1/videocontests/contestInfo/${videoContestId}`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -58,14 +58,6 @@ const VideoTeamOther = () => {
     }
 
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                localStorage.setItem("user_id", res);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
         getAllVideos();
     }, []);
 

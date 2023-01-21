@@ -19,15 +19,7 @@ const Recharge = () => {
     let payment_div = document.getElementById("payment_div");
 
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                localStorage.setItem("user_id", res);
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
+        setIsLoading(false);
     }, []);
 
     const requestPayment = async (e) => {
@@ -40,7 +32,7 @@ const Recharge = () => {
         setAmountError(false);
         const redirection_url = await axios({
             method: "POST",
-            url: `https://api.mtbow.com/api/v1/payments/recharge`,
+            url: `http://localhost:3005/api/v1/payments/recharge`,
             data: { amount: parseInt(amount) },
             headers: {
                 Authorization: localStorage.getItem("token"),

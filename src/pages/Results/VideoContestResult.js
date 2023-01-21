@@ -26,7 +26,7 @@ const VideoContestResult = () => {
     const teamData = async () => {
         const team_details = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/videoteams/${contestId}`,
+            url: `http://localhost:3005/api/v1/videoteams/${contestId}`,
             data: { contest_id: parseInt(contestId) },
             headers: {
                 Authorization: localStorage.getItem("token"),
@@ -38,7 +38,7 @@ const VideoContestResult = () => {
     const getAllVideos = async () => {
         const getVideos = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/videocontests/contestInfo/${contestId}`,
+            url: `http://localhost:3005/api/v1/videocontests/contestInfo/${contestId}`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -71,14 +71,6 @@ const VideoContestResult = () => {
         setIsLoading(false);
     }
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                localStorage.setItem("user_id", res);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
         getAllVideos();
     }, []);
     if(isLoading){

@@ -20,7 +20,7 @@ export const Results = () => {
     const fetchExpiredContests = async () => {
         const expiredContestsResponse = await axios({
             method: "get",
-            url: "https://api.mtbow.com/api/v1/contests/expired",
+            url: "http://localhost:3005/api/v1/contests/expired",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -30,7 +30,7 @@ export const Results = () => {
     const fetchExpiredVideoContests = async() => {
         const expiredVideoContestsResponse = await axios({
             method: "get",
-            url: "https://api.mtbow.com/api/v1/videocontests/expired",
+            url: "http://localhost:3005/api/v1/videocontests/expired",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -38,21 +38,6 @@ export const Results = () => {
         return expiredVideoContestsResponse.data;
     }
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                localStorage.setItem("user_id", res);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
-        fetchExpiredContests()
-            .then((res) => {
-                setExpiredContests(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
         fetchExpiredVideoContests()
             .then((res) => {
                 setExpiredVideoContests(res.allExpiredContests)

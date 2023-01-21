@@ -18,21 +18,13 @@ const AccountVerification = () => {
     const [buttonLoading, setButtonLoading] = useState(false)
 
     useEffect(() => {
-        authenticateUser()
-            .then((res) => {
-                localStorage.setItem("user_id", res);
-            })
-            .catch((error) => {
-                console.log(error);
-                navigate("/login");
-            });
         checkVPA()
     }, []);
 
     const checkVPA = async() => {
         const vpa_info = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/payments/checkVPA`,
+            url: `http://localhost:3005/api/v1/payments/checkVPA`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -50,7 +42,7 @@ const AccountVerification = () => {
         if(!values.Name || !values["UPI Id"]) return 1
         await axios({
             method: "post",
-            url: "https://api.mtbow.com/api/v1/payments/validateVPA",
+            url: "http://localhost:3005/api/v1/payments/validateVPA",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

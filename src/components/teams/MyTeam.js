@@ -17,7 +17,7 @@ const MyTeam = ({ myTeam, creatorsInfo, contestId, event_end_time }) => {
         try {
             const leaderboard_data = await axios({
                 method: "get",
-                url: `https://api.mtbow.com/api/v1/teams/score/${contestId}`,
+                url: `http://localhost:3005/api/v1/teams/score/${contestId}`,
                 headers: {
                     Authorization: localStorage.getItem("token"),
                 },
@@ -109,7 +109,7 @@ const MyTeam = ({ myTeam, creatorsInfo, contestId, event_end_time }) => {
             <div className="col-span-2">
                 <Countdown event_end_time={event_end_time} />
             </div>
-            <div class="flex my-4">
+            <div className="flex my-4">
                 <div
                     className={
                         showStats

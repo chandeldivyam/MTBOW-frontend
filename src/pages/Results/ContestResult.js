@@ -24,7 +24,7 @@ export const ContestResult = () => {
     const teamData = async () => {
         const team_details = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/teams/${contestId}`,
+            url: `http://localhost:3005/api/v1/teams/${contestId}`,
             data: { contest_id: parseInt(contestId) },
             headers: {
                 Authorization: localStorage.getItem("token"),
@@ -36,7 +36,7 @@ export const ContestResult = () => {
     const getAllCreators = async () => {
         const getCreators = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/contests/contestInfo/${contestId}`,
+            url: `http://localhost:3005/api/v1/contests/contestInfo/${contestId}`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

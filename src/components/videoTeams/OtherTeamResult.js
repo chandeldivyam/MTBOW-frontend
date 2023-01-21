@@ -13,7 +13,7 @@ const OtherTeamResult = ({videoInfo, contestId}) => {
     const getLeaderboard = async () => {
         const leaderboard_data = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/videoteams/score/${contestId}`,
+            url: `http://localhost:3005/api/v1/videoteams/score/${contestId}`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -36,7 +36,7 @@ const OtherTeamResult = ({videoInfo, contestId}) => {
                 <Avatar size={60} src={videoInfo[0].image_url} className="mr-2"/>
                 <h1 className="ml-2 text-lg">{videoInfo[0].name}</h1>
             </div>
-            <div class="flex my-4">
+            <div className="flex my-4">
                 <div
                     className={
                         showStats

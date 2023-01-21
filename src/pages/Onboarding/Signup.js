@@ -30,7 +30,7 @@ const Signup = () => {
         }
         axios({
             method: "post",
-            url: "https://api.mtbow.com/api/v1/auth/register",
+            url: "http://localhost:3005/api/v1/auth/register",
             data: {
                 phone,
                 name,
@@ -60,7 +60,7 @@ const Signup = () => {
         }
         axios({
             method: "post",
-            url: "https://api.mtbow.com/api/v1/auth/verifySignup",
+            url: "http://localhost:3005/api/v1/auth/verifySignup",
             data: {
                 otp: otp,
                 userId: localStorage.getItem("userId"),
@@ -131,13 +131,13 @@ const Signup = () => {
                                 </button>
                             </div>
                         </form>
-                        <p class="text-sm font-semibold mt-2 pt-1 mb-2">
+                        <p className="text-sm font-semibold mt-2 pt-1 mb-2">
                             Already have an account?
                             <button
                                 onClick={() => {
                                     navigate("/login");
                                 }}
-                                class="text-[#dc5714] ml-3"
+                                className="text-[#dc5714] ml-3"
                             >
                                 Login
                             </button>
