@@ -230,7 +230,7 @@ const VideoContestInfo = () => {
                     </div>
                 </div>
                 <div className={showRules ? "hidden" : "flex flex-col"}>
-                    <Collapse defaultActiveKey={[videoInfo[0].video_id]} accordion={true}>
+                    <Collapse defaultActiveKey={videoInfo.map((item) => {return item.video_id})}>
                         {videoInfo.map((item) => {
                             return(
                                 <Collapse.Panel 
