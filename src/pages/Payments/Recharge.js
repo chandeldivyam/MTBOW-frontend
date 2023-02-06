@@ -32,7 +32,7 @@ const Recharge = () => {
         setAmountError(false);
         const redirection_url = await axios({
             method: "POST",
-            url: `https://api.mtbow.com/api/v1/payments/recharge`,
+            url: `http://localhost:3005/api/v1/payments/recharge`,
             data: { amount: parseInt(amount) },
             headers: {
                 Authorization: localStorage.getItem("token"),

@@ -5,6 +5,7 @@ import mtbow_logo from "../../Static/mtbow-logo.svg";
 import { MdContactPhone, MdRule, MdLogout } from "react-icons/md";
 import { BsFileRuled } from "react-icons/bs";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import { RiHandCoinFill } from "react-icons/ri";
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     const navigate = useNavigate();
@@ -77,6 +78,16 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                     >
                         <GiTakeMyMoney />
                         <span className="ml-5">Refer & Earn</span>
+                    </button>
+                    <button
+                        onClick={() => {
+                            navigate("/rewards");
+                            setIsSidebarOpen(false);
+                        }}
+                        className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center"
+                    >
+                        <RiHandCoinFill />
+                        <span className="ml-5">Rewards</span>
                     </button>
                     <button
                         className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center mb-7"
