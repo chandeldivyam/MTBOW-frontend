@@ -26,7 +26,7 @@ export const SingleScratchCard = ({id, card_type, reward, is_seen, rewardData, s
     const handleScratch = async () => {
         const scratch_completed = await axios({
             method: "POST",
-            url: `http://localhost:3005/api/v1/scratchcards/scratch`,
+            url: `https://api.mtbow.com/api/v1/scratchcards/scratch`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

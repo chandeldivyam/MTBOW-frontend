@@ -35,7 +35,7 @@ const Login = () => {
         }
         axios({
             method: "post",
-            url: "http://localhost:3005/api/v1/auth/login",
+            url: "https://api.mtbow.com/api/v1/auth/login",
             data: {
                 phone,
             },
@@ -58,7 +58,7 @@ const Login = () => {
         }
         axios({
             method: "post",
-            url: "http://localhost:3005/api/v1/auth/verifyLogin",
+            url: "https://api.mtbow.com/api/v1/auth/verifyLogin",
             data: {
                 otp: otp,
                 userId: localStorage.getItem("userId"),

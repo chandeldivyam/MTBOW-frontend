@@ -13,7 +13,7 @@ export const Rewards = () => {
     const getScratchCards = async() => {
         const scratch_card_info = await axios({
             method: "GET",
-            url: `http://localhost:3005/api/v1/scratchcards/`,
+            url: `https://api.mtbow.com/api/v1/scratchcards/`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

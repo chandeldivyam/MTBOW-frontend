@@ -18,6 +18,7 @@ const VideoContestResult = () => {
     const [isExpired, setIsExpired] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [myTeam, setMyTeam] = useState([]);
+    const [participationFee, setParticipationFee] = useState(false)
     const [myRewards, setMyRewards] = useState("");
     const [myCardType, setMyCardType] = useState("")
     const [contestInfo, setContestInfo] = useState({
@@ -28,27 +29,41 @@ const VideoContestResult = () => {
     });
     const [showPrizeModal, setShowPrizeModal] = useState(false)
 
-    const teamData = async () => {
-        const team_details = await axios({
-            method: "get",
-            url: `http://localhost:3005/api/v1/videoteams/expired/${contestId}`,
-            data: { contest_id: parseInt(contestId) },
-            headers: {
-                Authorization: localStorage.getItem("token"),
-            },
-        });
+    const teamData = async (participation_fee) => {
+        if(participation_fee){
+            var team_details = await axios({
+                method: "get",
+                url: `https://api.mtbow.com/api/v1/videoteams/${contestId}`,
+                data: { contest_id: parseInt(contestId) },
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            });
+        }
+        else{
+            var team_details = await axios({
+                method: "get",
+                url: `https://api.mtbow.com/api/v1/videoteams/expired/${contestId}`,
+                data: { contest_id: parseInt(contestId) },
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            });
+        }
+        console.log(team_details.data)
         return team_details;
     };
 
     const getAllVideos = async () => {
         const getVideos = await axios({
             method: "get",
-            url: `http://localhost:3005/api/v1/videocontests/contestInfo/${contestId}`,
+            url: `https://api.mtbow.com/api/v1/videocontests/contestInfo/${contestId}`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
         })
-        const { is_expired } = getVideos.data.contest_details[0];
+        const { is_expired, participation_fee } = getVideos.data.contest_details[0];
+        if(participation_fee > 0) setParticipationFee(true)
         if (!is_expired) {
             setIsExpired(false);
             setIsLoading(false);
@@ -56,7 +71,7 @@ const VideoContestResult = () => {
             return;
         }
         setIsExpired(true);
-        const team_details = await teamData();
+        const team_details = await teamData(participation_fee);
         // if (team_details.data.rowCount <= 0) {
         //     navigate("/");
         // }
@@ -105,7 +120,7 @@ const VideoContestResult = () => {
                     <h1 className="font-medium text-center leading-tight text-2xl mt-2 mb-2 text-[#dc5714]">
                         {videoInfo.event_name}
                     </h1>
-                    <Modal 
+                    {!participationFee && <Modal 
                         title="Congratulations" 
                         open={showPrizeModal} 
                         footer={null} 
@@ -119,7 +134,7 @@ const VideoContestResult = () => {
                                 icon={<div  className="flex justify-center"><img src={gift_open} alt="gift opening image in modal" className="max-h-[200px]"/></div>}
                                 extra={<Button onClick={() => navigate("/rewards")}>Scratch Now</Button>}
                             />
-                    </Modal>
+                    </Modal>}
                     <MyTeamResult
                         myTeam={myTeam}
                         videoInfo={videoInfo}

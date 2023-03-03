@@ -20,7 +20,7 @@ const Home = () => {
     const fetchLiveContests = async () => {
         const liveContestsResponse = await axios({
             method: "get",
-            url: "http://localhost:3005/api/v1/contests/live",
+            url: "https://api.mtbow.com/api/v1/contests/live",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -31,7 +31,7 @@ const Home = () => {
     const fetchLiveVideoContests = async() => {
         const liveVideoContestsResponse = await axios({
             method: "get",
-            url: "http://localhost:3005/api/v1/videocontests/live",
+            url: "https://api.mtbow.com/api/v1/videocontests/live",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
