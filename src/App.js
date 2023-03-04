@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Withdraw from "./pages/Payments/Withdraw";
 import VideoTeamOther from "./components/videoTeams/VideoTeamOther";
 import Refer from "./pages/Main/Refer";
+import { Rewards } from "./pages/Rewards/Rewards";
 import ProtectedRoute from "./components/utils/ProtectedRoute"
 import { initializeGa } from "./components/utils/gaHelper";
 function App() {
@@ -55,6 +56,7 @@ function App() {
                 <Route path="/account" element={<ProtectedRoute path="/account"><AccountVerification /></ProtectedRoute>} />
                 <Route path="/withdraw" element={<ProtectedRoute path="/withdraw"><Withdraw /></ProtectedRoute>} />
                 <Route path="/refer" element={<ProtectedRoute path="/refer"><Refer /></ProtectedRoute>} />
+                <Route path="/rewards" element={<ProtectedRoute path="/rewards"><Rewards /></ProtectedRoute>} />
             </Routes>
         </Router>
     );

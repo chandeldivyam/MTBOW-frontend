@@ -30,7 +30,7 @@ const AppProvider = ({ children }) => {
         getBalance();
     }, []);
     return (
-        <AppContext.Provider value={{ authenticateUser, balance, getBalance }}>
+        <AppContext.Provider value={{ authenticateUser, balance, getBalance, setBalance }}>
             {children}
         </AppContext.Provider>
     );
