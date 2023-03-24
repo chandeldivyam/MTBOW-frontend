@@ -30,7 +30,7 @@ const Signup = () => {
         }
         axios({
             method: "post",
-            url: "https://api.mtbow.com/api/v1/auth/register",
+            url: "http://localhost:3005/api/v1/auth/register",
             data: {
                 phone,
                 name,
@@ -60,7 +60,7 @@ const Signup = () => {
         }
         axios({
             method: "post",
-            url: "https://api.mtbow.com/api/v1/auth/verifySignup",
+            url: "http://localhost:3005/api/v1/auth/verifySignup",
             data: {
                 otp: otp,
                 userId: localStorage.getItem("userId"),

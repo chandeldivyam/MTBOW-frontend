@@ -44,7 +44,7 @@ const VideoContestInfo = () => {
     const teamData = async () => {
         const team_details = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/videoteams/${videoContestId}`,
+            url: `http://localhost:3005/api/v1/videoteams/${videoContestId}`,
             data: { contest_id: parseInt(videoContestId) },
             headers: {
                 Authorization: localStorage.getItem("token"),
@@ -56,7 +56,7 @@ const VideoContestInfo = () => {
     const getAllVideos = async() => {
         const getVideos = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/videocontests/contestInfo/${videoContestId}`,
+            url: `http://localhost:3005/api/v1/videocontests/contestInfo/${videoContestId}`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -134,7 +134,7 @@ const VideoContestInfo = () => {
         setBalanceError(false);
         axios({
             method: "post",
-            url: `https://api.mtbow.com/api/v1/videoteams/`,
+            url: `http://localhost:3005/api/v1/videoteams/`,
             data: {
                 contest_id: videoContestId,
                 video_ids: myTeam,

@@ -4,6 +4,11 @@ import { useGlobalContext } from "../../context";
 import Navbar from "./Navbar";
 import axios from "axios";
 import Loading from "../Main/Loading";
+import c_1 from "../../Static/onboarding/c1_new.png"
+import c_2 from "../../Static/onboarding/c2_new.png"
+import c_3 from "../../Static/onboarding/c3_new.png"
+import mtbow_logo from "../../Static/mtbow-logo2.svg";
+import { Carousel, Space, Button } from 'antd';
 
 const Login = () => {
     const [phone, setPhone] = useState("");
@@ -35,7 +40,7 @@ const Login = () => {
         }
         axios({
             method: "post",
-            url: "https://api.mtbow.com/api/v1/auth/login",
+            url: "http://localhost:3005/api/v1/auth/login",
             data: {
                 phone,
             },
@@ -58,7 +63,7 @@ const Login = () => {
         }
         axios({
             method: "post",
-            url: "https://api.mtbow.com/api/v1/auth/verifyLogin",
+            url: "http://localhost:3005/api/v1/auth/verifyLogin",
             data: {
                 otp: otp,
                 userId: localStorage.getItem("userId"),
@@ -84,6 +89,41 @@ const Login = () => {
         return <Loading />;
     }
 
+    return(<div className="bg-gradient-to-b from-[#FFFFFF] to-[#F6E8EA] h-screen">
+        <div className="flex justify-center mobile:w-[512px] w-screen mt-8 bg-slate-300">
+        </div>
+        <div className="grid grid-cols-1 gap-4 justify-items-center mb-5">
+            <img src={mtbow_logo} className="w-[50%]" alt="mtbow logo" />
+        </div>
+        <Carousel autoplay={true} dots={false} className="h-3/10">
+            <div className="grid grid-cols-1 mt-2 justify-items-center">
+                <img src={c_1} className="max-h-[350px]"/>
+            </div>
+            <div className="grid grid-cols-1 px-4 justify-items-center">
+                <img src={c_2} className="max-h-[350px]"/>
+            </div>
+            <div className="grid grid-cols-1 pl-3 pr-2 justify-items-center">
+                <img src={c_3} className="max-h-[350px]"/>
+            </div>
+        </Carousel>
+        <div className="grid grid-cols-1 justify-items-center mt-6">
+            <h2 className="text-2xl font-bold">Welcome to MTBOW</h2>
+            <h3>Pridict the virality of videos and win money</h3>
+            <Button className="bg-[#000000] text-white mt-3 w-[90%] min-h-[50px]">
+                REGISTER
+            </Button>
+        </div>
+        <div className="flex justify-between mt-6 mx-3">
+            <div className="grid grid-cols-1 justify-items-start">
+                <h3>Invited by a friend?</h3>
+                <button className="font-bold">Enter Code</button>
+            </div>
+            <div className="grid grid-cols-1 justify-items-end">
+                <h3>Already a user?</h3>
+                <button className="font-bold">Login</button>
+            </div>
+        </div>
+    </div>)
     if (!isOtpSent) {
         return (
             <>

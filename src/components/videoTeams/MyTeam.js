@@ -18,7 +18,7 @@ const MyTeam = ({myTeam, videoInfo, videoContestId, event_end_time}) => {
         try {
             const leaderboard_data = await axios({
                 method: "get",
-                url: `https://api.mtbow.com/api/v1/videoteams/score/${videoContestId}`,
+                url: `http://localhost:3005/api/v1/videoteams/score/${videoContestId}`,
                 headers: {
                     Authorization: localStorage.getItem("token"),
                 },

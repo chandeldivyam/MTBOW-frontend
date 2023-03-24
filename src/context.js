@@ -8,7 +8,7 @@ const AppProvider = ({ children }) => {
     const getBalance = async () => {
         const fetchBalance = await axios({
             method: "get",
-            url: "https://api.mtbow.com/api/v1/wallet/balance",
+            url: "http://localhost:3005/api/v1/wallet/balance",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -18,7 +18,7 @@ const AppProvider = ({ children }) => {
     const authenticateUser = async () => {
         var config = {
             method: "get",
-            url: "https://api.mtbow.com/api/v1/auth/me",
+            url: "http://localhost:3005/api/v1/auth/me",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

@@ -33,7 +33,7 @@ const VideoContestResult = () => {
         if(participation_fee){
             var team_details = await axios({
                 method: "get",
-                url: `https://api.mtbow.com/api/v1/videoteams/${contestId}`,
+                url: `http://localhost:3005/api/v1/videoteams/${contestId}`,
                 data: { contest_id: parseInt(contestId) },
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -43,7 +43,7 @@ const VideoContestResult = () => {
         else{
             var team_details = await axios({
                 method: "get",
-                url: `https://api.mtbow.com/api/v1/videoteams/expired/${contestId}`,
+                url: `http://localhost:3005/api/v1/videoteams/expired/${contestId}`,
                 data: { contest_id: parseInt(contestId) },
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -57,7 +57,7 @@ const VideoContestResult = () => {
     const getAllVideos = async () => {
         const getVideos = await axios({
             method: "get",
-            url: `https://api.mtbow.com/api/v1/videocontests/contestInfo/${contestId}`,
+            url: `http://localhost:3005/api/v1/videocontests/contestInfo/${contestId}`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
