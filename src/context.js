@@ -6,9 +6,10 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
     const [balance, setBalance] = useState({});
     const getBalance = async () => {
+        if(!localStorage.getItem("token")) return
         const fetchBalance = await axios({
             method: "get",
-            url: "http://localhost:3005/api/v1/wallet/balance",
+            url: "https://api.mtbow.com/api/v1/wallet/balance",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -16,9 +17,10 @@ const AppProvider = ({ children }) => {
         setBalance({ ...balance, ...fetchBalance.data });
     };
     const authenticateUser = async () => {
+        if(!localStorage.getItem("token")) throw new Error("Auth Token not present")
         var config = {
             method: "get",
-            url: "http://localhost:3005/api/v1/auth/me",
+            url: "https://api.mtbow.com/api/v1/auth/me",
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

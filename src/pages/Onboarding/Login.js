@@ -8,7 +8,7 @@ import c_1 from "../../Static/onboarding/c1_new.png"
 import c_2 from "../../Static/onboarding/c2_new.png"
 import c_3 from "../../Static/onboarding/c3_new.png"
 import mtbow_logo from "../../Static/mtbow-logo2.svg";
-import { Carousel, Space, Button } from 'antd';
+import { Carousel, Space, Button, message, Input } from 'antd';
 
 const Login = () => {
     const [phone, setPhone] = useState("");
@@ -18,6 +18,7 @@ const Login = () => {
     const [optRegexError, setOtpRegexError] = useState(false);
     const [badLoginRequest, setBadLoginRequest] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [genericPage, setGenericPage] = useState(true)
     const { authenticateUser } = useGlobalContext();
 
     useEffect(() => {
@@ -35,12 +36,16 @@ const Login = () => {
     const requestOtp = async (e) => {
         e.preventDefault();
         if (!phone.match(/^\d{10}$/)) {
-            setPhoneRegexError(true);
+            message.info({
+                className: "mt-[100px] z-10",
+                duration: 4,
+                content: "Please enter a valid 10 digit phone number",
+            })
             return;
         }
         axios({
             method: "post",
-            url: "http://localhost:3005/api/v1/auth/login",
+            url: "https://api.mtbow.com/api/v1/auth/login",
             data: {
                 phone,
             },
@@ -51,19 +56,26 @@ const Login = () => {
                 setIsOtpSent(!isOtpSent);
             })
             .catch((error) => {
-                console.log(error);
-                setBadLoginRequest(true);
+                message.info({
+                    className: "mt-[100px] z-10",
+                    duration: 4,
+                    content: "The User does not exist. Please sign up!",
+                })
                 return;
             });
     };
     const verifyOtp = async (e) => {
         e.preventDefault();
         if (!otp.match(/^\d{6}$/)) {
-            setOtpRegexError(true);
+            message.info({
+                className: "mt-[100px] z-10",
+                duration: 4,
+                content: "Please enter Valid OTP",
+            })
         }
         axios({
             method: "post",
-            url: "http://localhost:3005/api/v1/auth/verifyLogin",
+            url: "https://api.mtbow.com/api/v1/auth/verifyLogin",
             data: {
                 otp: otp,
                 userId: localStorage.getItem("userId"),
@@ -79,9 +91,11 @@ const Login = () => {
                 navigate("/");
             })
             .catch((error) => {
-                console.log("I am in the catch");
-                console.log(error);
-                setOtpRegexError(true);
+                message.info({
+                    className: "mt-[100px] z-10",
+                    duration: 4,
+                    content: "Please enter Valid OTP",
+                })
             });
     };
 
@@ -89,47 +103,57 @@ const Login = () => {
         return <Loading />;
     }
 
-    return(<div className="bg-gradient-to-b from-[#FFFFFF] to-[#F6E8EA] h-screen">
-        <div className="flex justify-center mobile:w-[512px] w-screen mt-8 bg-slate-300">
+    if(genericPage){
+        return(
+        <div className="bg-gradient-to-b from-[#FFFFFF] to-[#F6E8EA] h-screen">
+            <div className="flex justify-center mobile:w-[512px] w-screen mt-8 bg-slate-300">
+            </div>
+            <div className="grid grid-cols-1 gap-4 justify-items-center mb-5">
+                <img src={mtbow_logo} className="w-[50%]" alt="mtbow logo" />
+            </div>
+            <Carousel autoplay={true} dots={false} className="h-3/10">
+                <div className="grid grid-cols-1 mt-2 justify-items-center">
+                    <img src={c_1} className="max-h-[350px]"/>
+                </div>
+                <div className="grid grid-cols-1 px-4 justify-items-center">
+                    <img src={c_2} className="max-h-[350px]"/>
+                </div>
+                <div className="grid grid-cols-1 pl-3 pr-2 justify-items-center">
+                    <img src={c_3} className="max-h-[350px]"/>
+                </div>
+            </Carousel>
+            <div className="grid grid-cols-1 justify-items-center mt-6">
+                <h2 className="text-2xl font-bold">Welcome to MTBOW</h2>
+                <h3>Pridict the virality of videos and win money</h3>
+                <Button 
+                    className="bg-[#000000] text-white mt-3 w-[90%] min-h-[50px]"
+                    onClick={() => navigate("/signup")}
+                >
+                    REGISTER
+                </Button>
+            </div>
+            <div className="flex justify-between mt-6 mx-3">
+                <div className="grid grid-cols-1 justify-items-start">
+                    <h3>Invited by a friend?</h3>
+                    <button className="font-bold" onClick={() => navigate("/signup")}>Enter Code</button>
+                </div>
+                <div className="grid grid-cols-1 justify-items-end">
+                    <h3>Already a user?</h3>
+                    <button className="font-bold" onClick={() => setGenericPage(false)}>Login</button>
+                </div>
+            </div>
         </div>
-        <div className="grid grid-cols-1 gap-4 justify-items-center mb-5">
-            <img src={mtbow_logo} className="w-[50%]" alt="mtbow logo" />
-        </div>
-        <Carousel autoplay={true} dots={false} className="h-3/10">
-            <div className="grid grid-cols-1 mt-2 justify-items-center">
-                <img src={c_1} className="max-h-[350px]"/>
-            </div>
-            <div className="grid grid-cols-1 px-4 justify-items-center">
-                <img src={c_2} className="max-h-[350px]"/>
-            </div>
-            <div className="grid grid-cols-1 pl-3 pr-2 justify-items-center">
-                <img src={c_3} className="max-h-[350px]"/>
-            </div>
-        </Carousel>
-        <div className="grid grid-cols-1 justify-items-center mt-6">
-            <h2 className="text-2xl font-bold">Welcome to MTBOW</h2>
-            <h3>Pridict the virality of videos and win money</h3>
-            <Button className="bg-[#000000] text-white mt-3 w-[90%] min-h-[50px]">
-                REGISTER
-            </Button>
-        </div>
-        <div className="flex justify-between mt-6 mx-3">
-            <div className="grid grid-cols-1 justify-items-start">
-                <h3>Invited by a friend?</h3>
-                <button className="font-bold">Enter Code</button>
-            </div>
-            <div className="grid grid-cols-1 justify-items-end">
-                <h3>Already a user?</h3>
-                <button className="font-bold">Login</button>
-            </div>
-        </div>
-    </div>)
-    if (!isOtpSent) {
-        return (
-            <>
-                <Navbar />
-                <div className="flex justify-center mobile:w-[512px] w-screen mt-8">
-                    <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+        )
+    }
+    if(!isOtpSent){
+        return(
+            <div className="bg-gradient-to-b from-[#FFFFFF] to-[#F6E8EA] h-screen">
+                <div className="flex justify-center mobile:w-[512px] w-screen mt-8 bg-slate-300"></div>
+                <div className="grid grid-cols-1 gap-4 justify-items-center mb-5">
+                    <img src={mtbow_logo} className="w-[70%] mobile:w-[50%]" alt="mtbow logo" />
+                </div>
+                <div className="flex justify-center">
+                    <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md mt-[50px]">
                         <form onSubmit={requestOtp}>
                             <div className="flex flex-col">
                                 <h2 className="font-bold text-xl">
@@ -138,13 +162,13 @@ const Login = () => {
                                 <h2 className="text-slate-400 my-3">
                                     We will send an OTP
                                 </h2>
-                                <input
+                                <Input
                                     type="text"
                                     placeholder="Phone number"
-                                    className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
+                                    addonBefore="+91"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
-                                ></input>
+                                ></Input>
                             </div>
                             <div className="form-group mb-6">
                                 <button
@@ -186,14 +210,16 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-            </>
-        );
+            </div>
+        )
     }
-    console.log(isOtpSent);
-    return (
-        <>
-            <Navbar />
-            <div className="flex justify-center mobile:w-[512px] w-screen mt-8">
+    return(
+        <div className="bg-gradient-to-b from-[#FFFFFF] to-[#F6E8EA] h-screen">
+            <div className="flex justify-center mobile:w-[512px] w-screen mt-8 bg-slate-300"></div>
+            <div className="grid grid-cols-1 gap-4 justify-items-center mb-5">
+                <img src={mtbow_logo} className="w-[70%] mobile:w-[50%]" alt="mtbow logo" />
+            </div>
+            <div className="flex justify-center mt-[40px]">
                 <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
                     <form>
                         <div className="flex flex-col">
@@ -232,8 +258,8 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </>
-    );
+        </div>
+    )
 };
 
 export default Login;

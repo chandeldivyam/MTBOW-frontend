@@ -21,7 +21,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 className="ml-2"
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >
-                <FaBars />
+                <FaBars size={24}/>
             </button>
         );
     }

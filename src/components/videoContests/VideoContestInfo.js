@@ -44,7 +44,7 @@ const VideoContestInfo = () => {
     const teamData = async () => {
         const team_details = await axios({
             method: "get",
-            url: `http://localhost:3005/api/v1/videoteams/${videoContestId}`,
+            url: `https://api.mtbow.com/api/v1/videoteams/${videoContestId}`,
             data: { contest_id: parseInt(videoContestId) },
             headers: {
                 Authorization: localStorage.getItem("token"),
@@ -56,7 +56,7 @@ const VideoContestInfo = () => {
     const getAllVideos = async() => {
         const getVideos = await axios({
             method: "get",
-            url: `http://localhost:3005/api/v1/videocontests/contestInfo/${videoContestId}`,
+            url: `https://api.mtbow.com/api/v1/videocontests/contestInfo/${videoContestId}`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },
@@ -134,7 +134,7 @@ const VideoContestInfo = () => {
         setBalanceError(false);
         axios({
             method: "post",
-            url: `http://localhost:3005/api/v1/videoteams/`,
+            url: `https://api.mtbow.com/api/v1/videoteams/`,
             data: {
                 contest_id: videoContestId,
                 video_ids: myTeam,
@@ -435,7 +435,7 @@ const VideoContestInfo = () => {
                         dataSource={rewards_data_under5}
                     />
                 </div>
-                <div className="flex justify-center mt-2 sticky bottom-0 z-10 pb-10">
+                <div className="flex justify-center mt-2 bottom-0 z-10 fixed mobile:w-[512px] w-screen">
                     <Button
                         className={
                             showRules

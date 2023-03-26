@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import { message } from "antd"
+import { message, Input } from "antd"
+import mtbow_logo from "../../Static/mtbow-logo2.svg";
 
 const Signup = () => {
     let navigate = useNavigate();
@@ -19,18 +20,24 @@ const Signup = () => {
     const requestOtp = async (e) => {
         e.preventDefault();
         if (!phone.match(/^\d{10}$/)) {
-            setIsOtpSent(false);
-            setPhoneRegexError(true);
+            message.info({
+                className: "mt-[100px] z-10",
+                duration: 4,
+                content: "Please enter a valid 10 digit phone number",
+            })
             return;
         }
         if (!name) {
-            setIsOtpSent(false);
-            setNameRegexError(true);
+            message.info({
+                className: "mt-[100px] z-10",
+                duration: 4,
+                content: "Name can not be empty",
+            })
             return;
         }
         axios({
             method: "post",
-            url: "http://localhost:3005/api/v1/auth/register",
+            url: "https://api.mtbow.com/api/v1/auth/register",
             data: {
                 phone,
                 name,
@@ -57,10 +64,16 @@ const Signup = () => {
         e.preventDefault();
         if (!otp.match(/^\d{6}$/)) {
             setOtpRegexError(true);
+            message.info({
+                className: "mt-[100px] z-10",
+                duration: 4,
+                content: "Please enter a six digit numeric OTP",
+            })
+            return
         }
         axios({
             method: "post",
-            url: "http://localhost:3005/api/v1/auth/verifySignup",
+            url: "https://api.mtbow.com/api/v1/auth/verifySignup",
             data: {
                 otp: otp,
                 userId: localStorage.getItem("userId"),
@@ -87,39 +100,43 @@ const Signup = () => {
                 setOtpRegexError(true);
             });
     };
-    if (!isOtpSent) {
-        return (
-            <>
-                <Navbar />
-                <div className="flex justify-center mobile:w-[512px] w-screen mt-8">
+    if(!isOtpSent){
+        return(
+            <div className="bg-gradient-to-b from-[#FFFFFF] to-[#F6E8EA] h-screen">
+                <div className="flex justify-center mobile:w-[512px] w-screen mt-8 bg-slate-300"></div>
+                <div className="grid grid-cols-1 gap-4 justify-items-center mb-5">
+                    <img src={mtbow_logo} className="w-[70%] mobile:w-[50%]" alt="mtbow logo" />
+                </div>
+                <div className="flex justify-center mt-[75px]">
                     <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
                         <form onSubmit={requestOtp}>
                             <div className="flex flex-col">
-                                <input
+                                <Input
                                     type="text"
                                     placeholder="Name"
                                     value={name}
-                                    className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
+                                    className="my-2"
                                     onChange={(e) => setName(e.target.value)}
-                                ></input>
+                                ></Input>
                             </div>
                             <div className="flex flex-col">
-                                <input
+                                <Input
                                     type="text"
                                     placeholder="Phone Number"
-                                    className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
                                     value={phone}
+                                    className="my-2"
+                                    addonBefore="+91"
                                     onChange={(e) => setPhone(e.target.value)}
-                                ></input>
+                                ></Input>
                             </div>
                             <div className="flex flex-col">
-                                <input
+                                <Input
                                     type="text"
                                     placeholder="Referral Code (Optional)"
-                                    className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
+                                    className="my-2"
                                     value={referralCodeUsed}
                                     onChange={(e) => setReferralCodeUsed(e.target.value)}
-                                ></input>
+                                ></Input>
                             </div>
                             <div className="form-group mb-6">
                                 <button
@@ -162,44 +179,47 @@ const Signup = () => {
                         </div>
                     </div>
                 </div>
-            </>
-        );
+            </div>
+        )
     }
-    return (
-        <>
-            <Navbar />
-            <div className="flex justify-center mobile:w-[512px] w-screen mt-8">
+    return(
+        <div className="bg-gradient-to-b from-[#FFFFFF] to-[#F6E8EA] h-screen">
+            <div className="flex justify-center mobile:w-[512px] w-screen mt-8 bg-slate-300"></div>
+            <div className="grid grid-cols-1 gap-4 justify-items-center mb-5">
+                <img src={mtbow_logo} className="w-[70%] mobile:w-[50%]" alt="mtbow logo" />
+            </div>
+            <div className="flex justify-center mt-[75px]">
                 <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-                    <form>
-                        <div className="flex flex-col">
-                            <h2 className="font-bold text-xl">
-                                Verify Phone Number
-                            </h2>
-                            <h2 className="text-slate-400 my-3">
-                                OTP has been sent to +91-{phone}
-                            </h2>
-                            <input
-                                type="text"
-                                placeholder="XXXXXX"
-                                value={otp}
-                                className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
-                                onChange={(e) => setOtp(e.target.value)}
-                            ></input>
-                        </div>
-                        <div className="form-group mb-6">
-                            <button
-                                onClick={verifyOtp}
-                                type="submit"
-                                className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded shadow-md "
-                            >
-                                Verify OTP
-                            </button>
-                        </div>
-                    </form>
+                        <form>
+                            <div className="flex flex-col">
+                                <h2 className="font-bold text-xl">
+                                    Verify Phone Number
+                                </h2>
+                                <h2 className="text-slate-400 my-3">
+                                    OTP has been sent to +91-{phone}
+                                </h2>
+                                <input
+                                    type="text"
+                                    placeholder="XXXXXX"
+                                    value={otp}
+                                    className="my-1.5 px-5 py-2 bg-gray-50 rounded-xl"
+                                    onChange={(e) => setOtp(e.target.value)}
+                                ></input>
+                            </div>
+                            <div className="form-group mb-6">
+                                <button
+                                    onClick={verifyOtp}
+                                    type="submit"
+                                    className="inline-block px-6 py-2.5 my-2.5 bg-[#dc5714] text-white font-medium text-xs leading-tight uppercase rounded shadow-md "
+                                >
+                                    Verify OTP
+                                </button>
+                            </div>
+                        </form>
                 </div>
             </div>
-        </>
-    );
+        </div>
+    )
 };
 
 export default Signup;

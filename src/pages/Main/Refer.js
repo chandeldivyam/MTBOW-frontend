@@ -47,7 +47,7 @@ const Refer = () => {
     const getInfo = async() => {
         const referral_info = await axios({
             method: "GET",
-            url: `http://localhost:3005/api/v1/refer/info`,
+            url: `https://api.mtbow.com/api/v1/refer/info`,
             headers: {
                 Authorization: localStorage.getItem("token"),
             },

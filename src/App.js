@@ -19,6 +19,8 @@ import Refer from "./pages/Main/Refer";
 import { Rewards } from "./pages/Rewards/Rewards";
 import ProtectedRoute from "./components/utils/ProtectedRoute"
 import { initializeGa } from "./components/utils/gaHelper";
+import Footer from "./pages/Main/Footer";
+import Leaderboard from "./pages/Leaderboard/Leaderboard";
 function App() {
     initializeGa()
     return (
@@ -57,7 +59,9 @@ function App() {
                 <Route path="/withdraw" element={<ProtectedRoute path="/withdraw"><Withdraw /></ProtectedRoute>} />
                 <Route path="/refer" element={<ProtectedRoute path="/refer"><Refer /></ProtectedRoute>} />
                 <Route path="/rewards" element={<ProtectedRoute path="/rewards"><Rewards /></ProtectedRoute>} />
+                <Route path="/leaderboard" element={<ProtectedRoute path="/leaderboard"><Leaderboard /></ProtectedRoute>} />
             </Routes>
+            <Footer />
         </Router>
     );
 }
