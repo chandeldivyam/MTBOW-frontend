@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#000000" />
         <meta name="MTBOW" content="Play MTBOW" />
@@ -10,7 +10,7 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        <link rel="manifest" href="manifest.json" />
         <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -31,7 +31,6 @@
                 max-width: 512px;
                 background-color: white;
                 overflow: scroll;
-                height: 100vh;
             }
             @media screen and (min-width: 512px) {
                 .backgroundDiv {
@@ -42,6 +41,22 @@
                 }
             }
         </style>
+        <script>
+            function updateMainContainerHeight() {
+                const windowHeight = window.innerHeight;
+                const mainContainer = document.getElementById('root');
+
+                if (mainContainer) {
+                    mainContainer.style.height = windowHeight + 'px';
+                }
+            }
+
+            // Calculate the available visible height when the page is loaded
+            window.addEventListener('load', updateMainContainerHeight);
+
+            // Update the available visible height whenever the window is resized
+            window.addEventListener('resize', updateMainContainerHeight);
+        </script>
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
