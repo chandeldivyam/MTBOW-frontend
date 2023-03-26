@@ -67,7 +67,7 @@ const Refer = () => {
         return(<Loading />)
     }
     return(
-        <div className="text-center mobile:w-[512px] w-screen text-slate-400">
+        <div className="text-center mobile:w-[512px] w-screen text-slate-400 pb-[99px]">
             <div className="pl-6 mt-1 pt-3 pr-2 bg-slate-100">
                 <h2 className="text-lg">How to Refer?</h2>
                 <Steps 

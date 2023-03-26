@@ -125,12 +125,20 @@ const Login = () => {
             <div className="grid grid-cols-1 justify-items-center mt-6">
                 <h2 className="text-2xl font-bold">Welcome to MTBOW</h2>
                 <h3>Pridict the virality of videos and win money</h3>
-                <Button 
-                    className="bg-[#000000] text-white mt-3 w-[90%] min-h-[50px]"
-                    onClick={() => navigate("/signup")}
-                >
-                    REGISTER
-                </Button>
+                <div className="flex justify-around w-[50%]">
+                    <Button 
+                        className="bg-[#000000] text-white mt-3 min-h-[50px]"
+                        onClick={() => navigate("/signup")}
+                    >
+                        REGISTER
+                    </Button>
+                    <Button
+                        className="bg-[#000000] text-white mt-3 min-h-[50px]"
+                        onClick={() => setGenericPage(false)}
+                    >
+                        LOGIN
+                    </Button>
+                </div>
             </div>
             <div className="flex justify-between mt-6 mx-3">
                 <div className="grid grid-cols-1 justify-items-start">

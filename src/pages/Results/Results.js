@@ -95,7 +95,7 @@ export const Results = () => {
     return (
         <div className="flex justify-center bg-gray-200 min-h-screen">
             <div className="flex flex-col max-w-lg bg-white pb-3">
-                <div>
+                <div className="pb-[99px]">
                     <div className="mobile:w-[512px] w-screen">
                     </div>
                     <Tabs 
