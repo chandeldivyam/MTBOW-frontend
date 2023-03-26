@@ -70,13 +70,12 @@ const Home = () => {
             </div>
         }
     ]
-
     return (
         <>
             <div className="pb-[99px]">
                 <div className="mt-4 text-center text-2xl font-bold underline mobile:w-[512px] w-screen">
                 </div>
-                <HomeCarousel />
+                <HomeCarousel videoContestId={liveVideoContests.liveVideoContest.filter(item => new Date(item.event_start_time) > new Date())[0]?.id}/>
                 <Tabs
                     defaultActiveKey="upcoming"
                     centered={true}
