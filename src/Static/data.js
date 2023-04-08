@@ -72,18 +72,43 @@ export const rewards_data = [
     {
         key: "1",
         rank: "#1",
-        winning: "40% of total pool",
+        winning: "₹300",
     },
     {
         key: "2",
         rank: "#2",
-        winning: "20% of total pool",
+        winning: "₹150",
     },
     {
         key: "3",
-        rank: "Top 50 percentile",
-        winning: "40% of total pool distributed equally",
+        rank: "#3",
+        winning: "₹100",
     },
+    {
+        key: "4",
+        rank: "#4-#5",
+        winning: "₹50",
+    },
+    {
+        key: "5",
+        rank: "#6-#10",
+        winning: "₹25",
+    },
+    {
+        key: "6",
+        rank: "#11-#20",
+        winning: "₹15",
+    },
+    {
+        key: "7",
+        rank: "#21-#30",
+        winning: "₹10",
+    },
+    {
+        key: "8",
+        rank: "#31-#50",
+        winning: "₹5",
+    }
 ];
 
 export const rewards_data_under5 = [

@@ -79,6 +79,8 @@ const VideoContestInfo = () => {
             event_end_time,
             event_start_time,
             participation_fee,
+            prize_pool,
+            max_participants
         } = getVideos.data.contest_details[0];
         const participants = parseInt(getVideos.data.participants);
         setContestInfo({
@@ -89,6 +91,8 @@ const VideoContestInfo = () => {
             event_end_time: event_end_time,
             participation_fee,
             participants,
+            prize_pool,
+            max_participants
         });
         if (Date.now() >= Date.parse(event_end_time)) {
             setIsExpired(true);
@@ -229,8 +233,18 @@ const VideoContestInfo = () => {
                         </div>
                     </div>
                 </div>
-                <div className={showRules ? "hidden" : "flex flex-col"}>
-                    <Collapse defaultActiveKey={videoInfo.map((item) => {return item.video_id})}>
+                <div className={showRules ? "hidden" : "flex flex-col px-[15px]"}>
+                    <center><p>Click on the thumbnail to watch the video</p></center>
+                    {videoInfo.map((item) => {
+                        return(<VideoCard 
+                            key={item.video_id}
+                            {...item}
+                            addToTeam={addToTeam}
+                            removeFromTeam={removeFromTeam}
+                            myTeam={myTeam}
+                        />)
+                    })}
+                    {/* <Collapse defaultActiveKey={videoInfo.map((item) => {return item.video_id})}>
                         {videoInfo.map((item) => {
                             return(
                                 <Collapse.Panel 
@@ -252,7 +266,7 @@ const VideoContestInfo = () => {
                                 </Collapse.Panel>
                             )
                         })}
-                    </Collapse>
+                    </Collapse> */}
                     <div className="flex justify-center mt-2 sticky bottom-0 z-10 pb-10">
                         <div className="inline-flex max-h-[32px]">
                             <div className="bg-white rounded-full">
@@ -283,7 +297,7 @@ const VideoContestInfo = () => {
                                 />
                             </div>
                             <Popconfirm
-                                title="Participate with current selection?"
+                                title="You can't change the team once created"
                                 onConfirm={createTeam}
                             >
                                 <Button
@@ -297,7 +311,7 @@ const VideoContestInfo = () => {
                                         myTeam.length === 11 ? false : true
                                     }
                                 >
-                                    PARTICIPATE
+                                    Create Now!
                                 </Button>
                             </Popconfirm>
                         </div>
@@ -326,9 +340,9 @@ const VideoContestInfo = () => {
                                     </p>
                                     <p className="text-sm font-semibold text-gray-700 smobile:text-lg">
                                         ₹{" "}
-                                        {(contestInfo.participants < 5 || Number(contestInfo.participation_fee) === 0 )
+                                        {(Number(contestInfo.participation_fee) === 0 )
                                             ? "300"
-                                            : `${(contestInfo.participants + 1) * contestInfo.participation_fee}`}
+                                            : `${contestInfo.prize_pool}`}
                                     </p>
                                 </div>
                             </div>
@@ -384,9 +398,7 @@ const VideoContestInfo = () => {
                                         Participants
                                     </p>
                                     <p className="text-sm font-semibold text-gray-700 smobile:text-lg">
-                                        {contestInfo.participants < 5
-                                            ? "5 / 100"
-                                            : `${contestInfo.participants} / 100`}
+                                        {`${contestInfo.participants} / ${contestInfo.max_participants}`}
                                     </p>
                                 </div>
                             </div>
@@ -416,8 +428,8 @@ const VideoContestInfo = () => {
                     <Divider>Rewards</Divider>
                     <Table
                         className={
-                            (contestInfo.participants >= 5 && Number(contestInfo.participation_fee) > 0)
-                                ? "ml-5 mr-2"
+                            (Number(contestInfo.participation_fee) > 0)
+                                ? "ml-5 mr-2 mb-8"
                                 : "hidden"
                         }
                         columns={rewards_columns}
@@ -426,7 +438,7 @@ const VideoContestInfo = () => {
                     />
                     <Table
                         className={
-                            (Number(contestInfo.participation_fee) === 0 || contestInfo.participants < 5)
+                            (Number(contestInfo.participation_fee) === 0)
                                 ? "ml-5 mr-2"
                                 : "hidden"
                         }

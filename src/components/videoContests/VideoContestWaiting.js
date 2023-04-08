@@ -5,12 +5,17 @@ import { isCompositeComponent } from "react-dom/test-utils";
 
 export const VideoContestWaiting = ({myTeam, videoInfo}) => {
     const {Countdown} = Statistic
+
+    const handleCountdownFinish = () => {
+        window.location.reload();
+    };
+
     return(
         <div className="flex justify-center min-h-screen mobile:w-[512px] w-screen">
             <div className="flex flex-col max-w-lg bg-white pb-3 justify-center justify-items-center">
                 <div>
                     <div className="grid grid-cols-2 justify-items-center">
-                    <Countdown className="mt-3 col-span-2" title="Starting in:" value={new Date(videoInfo[0].event_start_time)} />
+                    <Countdown className="mt-3 col-span-2" onFinish={handleCountdownFinish} title="Starting in:" value={new Date(videoInfo[0].event_start_time)} />
                         {myTeam.map((item) => {
                             const player_info = videoInfo.filter((info) => info.video_id === item)
                             const {video_thumbnail, video_title} = player_info[0]

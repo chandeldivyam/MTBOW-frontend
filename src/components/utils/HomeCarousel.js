@@ -7,7 +7,7 @@ import { Carousel } from 'antd';
 const HomeCarousel = ({videoContestId}) => {
     let navigate = useNavigate();
     return(
-        <Carousel autoplay={true} dots={true}>
+        <Carousel autoplay={true} dots={false}>
             <div 
                 className="grid grid-cols-1 justify-items-center" 
                 onClick={() => {
