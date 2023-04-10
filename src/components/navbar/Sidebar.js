@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaTimes, FaBars, FaHome } from "react-icons/fa";
 import { GiPodiumWinner, GiWallet, GiTakeMyMoney } from "react-icons/gi";
-import mtbow_logo from "../../Static/mtbow-logo2.svg";
+import mtbow_logo from "../../Static/mtbow-logo.png";
 import { MdContactPhone, MdRule, MdLogout } from "react-icons/md";
 import { BsFileRuled } from "react-icons/bs";
 import { useNavigate, Link, useLocation } from "react-router-dom";

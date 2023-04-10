@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { message, Input } from "antd"
-import mtbow_logo from "../../Static/mtbow-logo2.svg";
+import mtbow_logo from "../../Static/mtbow-logo.png";
 
 const Signup = () => {
     let navigate = useNavigate();

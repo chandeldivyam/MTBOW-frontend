@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import mtbow_logo from "../../Static/mtbow-logo2.svg";
+import mtbow_logo from "../../Static/mtbow-logo.png";
 import Sidebar from "../../components/navbar/Sidebar";
 import { useGlobalContext } from "../../context";
 import { AiOutlineWallet } from "react-icons/ai";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import mtbow_logo from "../../Static/mtbow-logo2.svg";
+import mtbow_logo from "../../Static/mtbow-logo.png";
 
 const Navbar = () => {
     return (

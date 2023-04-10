@@ -7,7 +7,7 @@ import Loading from "../Main/Loading";
 import c_1 from "../../Static/onboarding/c1_new.png"
 import c_2 from "../../Static/onboarding/c2_new.png"
 import c_3 from "../../Static/onboarding/c3_new.png"
-import mtbow_logo from "../../Static/mtbow-logo2.svg";
+import mtbow_logo from "../../Static/mtbow-logo.png";
 import { Carousel, Space, Button, message, Input } from 'antd';
 
 const Login = () => {
