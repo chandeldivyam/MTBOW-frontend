@@ -78,17 +78,35 @@ const VideoTeamOther = () => {
                 Total Points: {_.sum(_.values(teamScore))}
             </h1>
         <div className={"grid grid-cols-1 gap-y-4 pb-8"}>
-            {_.keys(teamScore).map((item) => {
-                const player_info = videoInfo.filter((info) => info.video_id === item)
-                const {video_thumbnail, video_title, video_id, extra_details} = player_info[0]
-                return(<VideoStats 
+        {_.keys(teamScore)
+            .map((item) => {
+                const player_info = videoInfo.find((info) => info.video_id === item);
+                return player_info;
+            })
+            .sort((a, b) => {
+                const totalPointsA =
+                a.extra_details["like_points"] +
+                a.extra_details["view_points"] +
+                a.extra_details["comment_points"];
+                const totalPointsB =
+                b.extra_details["like_points"] +
+                b.extra_details["view_points"] +
+                b.extra_details["comment_points"];
+                return totalPointsB - totalPointsA;
+            })
+            .map((player) => {
+                const { video_thumbnail, video_title, video_id, extra_details } = player;
+                return (
+                <VideoStats
                     key={video_id}
-                    video_id={video_id} 
-                    video_title={video_title} 
+                    video_id={video_id}
+                    video_title={video_title}
                     video_thumbnail={video_thumbnail}
                     like_points={extra_details["like_points"]}
                     view_points={extra_details["view_points"]}
-                    comment_points={extra_details["comment_points"]}/>)
+                    comment_points={extra_details["comment_points"]}
+                />
+                );
             })}
         </div>
     </div>)

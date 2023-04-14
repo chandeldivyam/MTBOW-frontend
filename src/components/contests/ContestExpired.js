@@ -5,8 +5,7 @@ export const ContestExpired = () => {
     return (
         <div>
             <h1 className="text-center m-5 text-l font-bold">
-                Event Expired, Please visit "My Result" section to view the
-                results!
+                Scored are settling and money getting deposited to the winners!
             </h1>
             <Link to="/myResults/">
                 <div className="flex justify-center">

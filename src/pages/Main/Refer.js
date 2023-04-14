@@ -111,7 +111,7 @@ const Refer = () => {
                 message={
                     <div>
                         <h1 className="ml-3 text-left text-lg">Refer and Earn</h1>
-                        <h2 className="ml-3 mt-[-10px] text-left text-gray-500">Make money everytime your referral participates</h2>
+                        <h2 className="ml-3 mt-[-10px] text-left text-gray-500">Make money everytime your referral participates. To get the benefits, first you need to get KYC!</h2>
                     </div>
                 } 
                 className="bg-white m-1 border-[2px] shadow-lg"

@@ -12,6 +12,7 @@ export const Results = () => {
     const [expiredContests, setExpiredContests] = useState([]);
     const [expiredVideoContests, setExpiredVideoContests] = useState([]);
     const [myExpiredVideoContests, setMyExpiredVideoContests] = useState([]);
+    const [myLiveVideoContests, setMyLiveVideoContests] = useState([]);
     const { authenticateUser } = useGlobalContext();
     const [myTabIndex, setMyTabIndex] = useState(1)
     const [allTabIndex, setAllTabIndex] = useState(1)
@@ -42,6 +43,7 @@ export const Results = () => {
             .then((res) => {
                 setExpiredVideoContests(res.allExpiredContests)
                 setMyExpiredVideoContests(res.myExpiredContests)
+                setMyLiveVideoContests(res.myLiveContests)
                 setIsLoading(false);
             })
     }, []);
@@ -68,6 +70,22 @@ export const Results = () => {
                             className="items-center" 
                             defaultCurrent={1} 
                             total={myExpiredVideoContests.length} 
+                            defaultPageSize={5}
+                            onChange={handleMyPageChange}
+                        />
+                    </div>
+                </>
+        },
+        {
+            label: "Live", 
+            key: "live", 
+            children: <>
+                    <AllExpiredVideoContest isLive={true} expiredVideoContests={myLiveVideoContests.slice(5*myTabIndex-5, 5*myTabIndex)} />
+                    <div align="center" className="mt-2">
+                        <Pagination 
+                            className="items-center" 
+                            defaultCurrent={1} 
+                            total={myLiveVideoContests.length} 
                             defaultPageSize={5}
                             onChange={handleMyPageChange}
                         />

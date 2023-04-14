@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import _ from "lodash";
+import { Tabs } from "antd";
 import Loading from "../../pages/Main/Loading";
 import Countdown from "../teams/Countdown";
 import VideoStats from "./VideoStats";
@@ -55,63 +56,76 @@ const MyTeam = ({myTeam, videoInfo, videoContestId, event_end_time}) => {
         }, 15000);
         return () => clearInterval(interval);
     });
+
+    const playerInfoMemo = useMemo(
+        () =>
+          myTeam.map((item) => {
+            return videoInfo.filter((info) => info.video_id === item)[0];
+          }),
+        [myTeam, videoInfo]
+      );
+
     if (isLoading) {
         return <Loading />;
     }
 
-    return(
-        <div>
-            <div className="col-span-2">
-                <Countdown event_end_time={event_end_time} />
-            </div>
-            <div className="flex my-4">
-                <div
-                    className={
-                        showStats
-                            ? "w-1/2 border-b-4 border-[#dc5714] text-[#dc5714] text-center text-lg pb-2"
-                            : "w-1/2 border-b-4 border-gray-400 text-gray-400 text-center text-lg pb-2"
-                    }
-                    onClick={() => setShowStats(true)}
-                >
-                    Stats
-                </div>
-                <div
-                    className={
-                        !showStats
-                            ? "w-1/2 border-b-4 border-[#dc5714] text-[#dc5714] text-center text-lg pb-2"
-                            : "w-1/2 border-b-4 border-gray-400 text-gray-400 text-center text-lg pb-2"
-                    }
-                    onClick={() => setShowStats(false)}
-                >
-                    Leaderboard
-                </div>
-            </div>
-            <div className={showStats ? "flex justify-center" : "hidden"}>
+    const tabsItems = [
+        {
+          key: "1",
+          label: "Stats",
+          children: (
+            <>
+              <div className="flex justify-center">
                 <h1 className="m-2.5 font-semibold py-2 px-4 rounded bg-[#dc5714] text-white">
-                    Total Points: {_.sum(_.values(teamScore))}
+                  Total Points: {_.sum(_.values(teamScore))}
                 </h1>
                 <h1 className="m-2.5 font-semibold py-2 px-4 rounded bg-[#dc5714] text-white">
-                    Rank: {userRank}
+                  Rank: {userRank}
                 </h1>
-            </div>
-            <div className={showStats ? "grid grid-cols-1 gap-y-4" : "hidden"}>
-                {myTeam.map((item) => {
-                    const player_info = videoInfo.filter((info) => info.video_id === item)
-                    const {video_thumbnail, video_title, video_id, extra_details} = player_info[0]
-                    return(<VideoStats 
-                        video_id={video_id} 
-                        video_title={video_title} 
-                        video_thumbnail={video_thumbnail}
-                        like_points={extra_details["like_points"]}
-                        view_points={extra_details["view_points"]}
-                        comment_points={extra_details["comment_points"]}/>)
+              </div>
+              <div className="grid grid-cols-1 gap-y-4">
+                {playerInfoMemo.sort((a, b) => {
+                        const totalPointsA =
+                        a.extra_details["like_points"] +
+                        a.extra_details["view_points"] +
+                        a.extra_details["comment_points"];
+                        const totalPointsB =
+                        b.extra_details["like_points"] +
+                        b.extra_details["view_points"] +
+                        b.extra_details["comment_points"];
+                        return totalPointsB - totalPointsA;
+                    }).map((player) => {
+                  const { video_thumbnail, video_title, video_id, extra_details } = player;
+                  return (
+                    <VideoStats
+                      video_id={video_id}
+                      video_title={video_title}
+                      video_thumbnail={video_thumbnail}
+                      like_points={extra_details["like_points"]}
+                      view_points={extra_details["view_points"]}
+                      comment_points={extra_details["comment_points"]}
+                    />
+                  );
                 })}
-            </div>
-            <div className={showStats ? "hidden" : "mt-4"}>
-                <Leaderboard contest_id={videoContestId} leaderboard={leaderboard} />
-            </div>
+              </div>
+            </>
+          ),
+        },
+        {
+          key: "2",
+          label: "Leaderboard",
+          children: <Leaderboard contest_id={videoContestId} leaderboard={leaderboard} />,
+        },
+      ];
+
+    return (
+        <div>
+        <div className="col-span-2">
+            <Countdown event_end_time={event_end_time} />
         </div>
-    )
+        <Tabs defaultActiveKey="1" items={tabsItems} centered/>
+        </div>
+    );
 }
 
 export default MyTeam;
