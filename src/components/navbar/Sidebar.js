@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { FaTimes, FaBars, FaHome } from "react-icons/fa";
 import { GiPodiumWinner, GiWallet, GiTakeMyMoney } from "react-icons/gi";
 import mtbow_logo from "../../Static/mtbow-logo.png";
-import { MdContactPhone, MdRule, MdLogout } from "react-icons/md";
+import { MdContactPhone, MdRule, MdLogout, MdAddCircleOutline } from "react-icons/md";
 import { BsFileRuled } from "react-icons/bs";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { RiHandCoinFill } from "react-icons/ri";
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
+    const [deferredPrompt, setDeferredPrompt] = useState(null);
     const navigate = useNavigate();
     const logout = () => {
         localStorage.removeItem("token");
@@ -15,6 +16,23 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         localStorage.removeItem("userId");
         navigate("/login");
     };
+    
+    const handleBeforeInstallPrompt = (e) => {
+        e.preventDefault();
+        setDeferredPrompt(e);
+      };
+    
+      useEffect(() => {
+        window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    
+        return () => {
+          window.removeEventListener(
+            "beforeinstallprompt",
+            handleBeforeInstallPrompt
+          );
+        };
+      }, []);
+
     if (!isSidebarOpen) {
         return (
             <button
@@ -25,6 +43,20 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             </button>
         );
     }
+    
+    const addToHomeScreen = () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+            console.log("User accepted the prompt");
+        } else {
+            console.log("User dismissed the prompt");
+        }
+        setDeferredPrompt(null);
+        });
+    }
+    };
     return (
         <div className="bg-white text-black mobile:w-[512px] w-[100%] h-screen fixed z-40">
             <div className="flex justify-between h-[10%] mx-3">
@@ -88,6 +120,13 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                     >
                         <RiHandCoinFill />
                         <span className="ml-5">Rewards</span>
+                    </button>
+                    <button
+                        onClick={addToHomeScreen}
+                        className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center"
+                    >
+                        <MdAddCircleOutline />
+                        <span className="ml-5">Add to Home Screen</span>
                     </button>
                     <button
                         className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center mb-7"
