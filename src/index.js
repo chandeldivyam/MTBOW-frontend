@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { AppProvider } from "./context";
 import App from "./App";
 import "./index.less";
+import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
     <AppProvider>
@@ -10,3 +11,5 @@ ReactDOM.render(
     </AppProvider>,
     document.getElementById("root")
 );
+
+serviceWorker.register();
