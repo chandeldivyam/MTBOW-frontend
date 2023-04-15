@@ -1,5 +1,5 @@
 import ReactGA from "react-ga4";
-const GA_MID = ""
+const GA_MID = "G-0F9LXVEJKC"
 
 export function initializeGa(){
     if(GA_MID){
