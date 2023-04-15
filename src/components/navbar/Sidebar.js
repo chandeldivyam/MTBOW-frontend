@@ -6,15 +6,27 @@ import { MdContactPhone, MdRule, MdLogout } from "react-icons/md";
 import { BsFileRuled } from "react-icons/bs";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { RiHandCoinFill } from "react-icons/ri";
+import { useGlobalContext } from "../../context";
+import { GrInstallOption } from "react-icons/gr";
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     const navigate = useNavigate();
+    const {deferredInstallEvent} = useGlobalContext()
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user_id");
         localStorage.removeItem("userId");
         navigate("/login");
     };
+    const installPrompt = async () => {
+        deferredInstallEvent.prompt()
+        const { outcome } = await deferredInstallEvent.userChoice;
+        if (outcome === 'accepted') {
+            console.log('User accepted the install prompt.');
+        } else if (outcome === 'dismissed') {
+            console.log('User dismissed the install prompt');
+        }
+    }
     if (!isSidebarOpen) {
         return (
             <button
@@ -89,6 +101,13 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <RiHandCoinFill />
                         <span className="ml-5">Rewards</span>
                     </button>
+                    {deferredInstallEvent && <button
+                        className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center"
+                        onClick={installPrompt}
+                    >
+                        <GrInstallOption />
+                        <span className="ml-5">Install</span>
+                    </button>}
                     <button
                         className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center mb-7"
                         onClick={logout}

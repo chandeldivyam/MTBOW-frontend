@@ -8,6 +8,7 @@ import VideoContestResult from "./pages/Results/VideoContestResult";
 import { Results } from "./pages/Results/Results";
 import Payments from "./pages/Payments/Pyaments";
 import Navbar from "./pages/Main/Navbar";
+import React, { useState, useContext, useEffect } from "react";
 import Recharge from "./pages/Payments/Recharge";
 import Transactions from "./pages/Payments/Transactions";
 import PanKyc from "./pages/Payments/PanKyc";
@@ -21,8 +22,18 @@ import ProtectedRoute from "./components/utils/ProtectedRoute"
 import { initializeGa } from "./components/utils/gaHelper";
 import Footer from "./pages/Main/Footer";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
+import { useGlobalContext } from "./context";
 function App() {
     initializeGa()
+    const {setDeferredInstallEvent} = useGlobalContext()
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        // Stash the event so it can be triggered later.
+        e.preventDefault()
+        setDeferredInstallEvent(e);
+        // Update UI notify the user they can install the PWA
+        // Optionally, send analytics event that PWA install promo was shown.
+    });
     return (
         <Router>
             <Navbar />

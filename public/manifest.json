@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MTBOW",
+  "name": "Mtbow Gaming",
+  "description": "Welcome to India's First Youtube Fantasy - MTBOW, this is a Dream 11 for Youtube videos. Here we support our favourite creators!",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +21,11 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "screenshots": [
+    {"src": "screenshot_home.png", "sizes": "320x640", "type": "image/png"},
+    {"src": "screenshot_team.png", "sizes": "320x640", "type": "image/png"},
+    {"src": "screenshot_leaderboard.png", "sizes": "320x640", "type": "image/png"}
+  ],
+  "theme_color": "#DC5714",
   "background_color": "#ffffff"
 }

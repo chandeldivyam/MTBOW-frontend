@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { AppProvider } from "./context";
 import App from "./App";
 import "./index.less";
+import swDev from "./swDev";
 
 ReactDOM.render(
     <AppProvider>
@@ -10,3 +11,4 @@ ReactDOM.render(
     </AppProvider>,
     document.getElementById("root")
 );
+swDev()

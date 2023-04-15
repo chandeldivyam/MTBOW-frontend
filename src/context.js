@@ -5,6 +5,7 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
     const [balance, setBalance] = useState({});
+    const [deferredInstallEvent, setDeferredInstallEvent] = useState(null)
     const getBalance = async () => {
         if(!localStorage.getItem("token")) return
         const fetchBalance = await axios({
@@ -32,7 +33,7 @@ const AppProvider = ({ children }) => {
         getBalance();
     }, []);
     return (
-        <AppContext.Provider value={{ authenticateUser, balance, getBalance, setBalance }}>
+        <AppContext.Provider value={{ authenticateUser, balance, getBalance, setBalance, setDeferredInstallEvent, deferredInstallEvent }}>
             {children}
         </AppContext.Provider>
     );

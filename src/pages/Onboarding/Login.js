@@ -19,7 +19,7 @@ const Login = () => {
     const [badLoginRequest, setBadLoginRequest] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [genericPage, setGenericPage] = useState(true)
-    const { authenticateUser } = useGlobalContext();
+    const { authenticateUser, deferredInstallEvent } = useGlobalContext();
 
     useEffect(() => {
         authenticateUser()
@@ -31,6 +31,16 @@ const Login = () => {
                 setIsLoading(false);
             });
     }, []);
+
+    const installPrompt = async () => {
+        deferredInstallEvent.prompt()
+        const { outcome } = await deferredInstallEvent.userChoice;
+        if (outcome === 'accepted') {
+            console.log('User accepted the install prompt.');
+        } else if (outcome === 'dismissed') {
+            console.log('User dismissed the install prompt');
+        }
+    }
 
     let navigate = useNavigate();
     const requestOtp = async (e) => {
@@ -139,6 +149,14 @@ const Login = () => {
                         LOGIN
                     </Button>
                 </div>
+                {deferredInstallEvent && <div className="flex justify-around w-[50%] mt-1">
+                    <Button
+                        className="bg-[#000000] text-white min-h-[50px]"
+                        onClick={() => installPrompt()}
+                    >
+                        <span className="align-middle">INSTALL</span>
+                    </Button>
+                </div>}
             </div>
             <div className="flex justify-between mt-6 mx-3">
                 <div className="grid grid-cols-1 justify-items-start">
