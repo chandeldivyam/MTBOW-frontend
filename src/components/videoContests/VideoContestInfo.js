@@ -19,6 +19,7 @@ import {
 import VideoCard from "./VideoCard";
 import { VideoContestWaiting } from "./VideoContestWaiting";
 import MyTeam from "../videoTeams/MyTeam";
+import WatchLiveGame from "../videoTeams/WatchLiveGame";
 
 const VideoContestInfo = () => {
     let navigate = useNavigate();
@@ -198,7 +199,7 @@ const VideoContestInfo = () => {
         return <ContestExpired />;
     }
     if (!teamExist && eventStarted) {
-        return <h1>Sorry, you have not participated</h1>;
+        return <WatchLiveGame videoInfo={videoInfo} videoContestId={videoContestId} event_end_time={videoInfo[0].event_end_time} />
     }
     if (teamExist) {
         if(eventStarted){
