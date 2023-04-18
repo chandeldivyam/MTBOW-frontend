@@ -17,7 +17,7 @@ const referral_steps_items = [
     },
     {
         title: "Performs KYC",
-        description: "You both get ₹10 on their KYC verification",
+        description: "You both get ₹15 on their KYC verification",
         icon: <FcApproval size={28}/>
     },
     {
@@ -36,7 +36,7 @@ const Refer = () => {
     const [referralBonus, setReferralBonus] = useState("")
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(referralCode)
+        navigator.clipboard.writeText(`1. Install the MTBOW app from here: play.mtbow.com\n2. Use my Invite Code ${referralCode}\n3. Get cash of ₹30 on sign up in your wallet\n`);
         message.success({
             duration: 3,
             className: "mt-[100px]",
