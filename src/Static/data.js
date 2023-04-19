@@ -72,22 +72,22 @@ export const rewards_data = [
     {
         key: "1",
         rank: "#1",
-        winning: "₹300",
+        winning: "₹250",
     },
     {
         key: "2",
         rank: "#2",
-        winning: "₹150",
+        winning: "₹125",
     },
     {
         key: "3",
         rank: "#3",
-        winning: "₹100",
+        winning: "₹70",
     },
     {
         key: "4",
         rank: "#4-#5",
-        winning: "₹50",
+        winning: "₹40",
     },
     {
         key: "5",
