@@ -17,7 +17,7 @@ const referral_steps_items = [
     },
     {
         title: "Performs KYC",
-        description: "You both get ₹15 on their KYC verification",
+        description: "You get ₹15 on their KYC verification",
         icon: <FcApproval size={28}/>
     },
     {
