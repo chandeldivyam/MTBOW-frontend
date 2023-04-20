@@ -40,15 +40,15 @@ const VideoContest = ({ id, name, image_url, event_start_time, participation_fee
                     <div className="col-span-1 row-span-2 font-medium rounded-lg text-sm px-2 text-center flex flex-col items-center">
                         <div className="flex items-center text-black">
                             <GiMoneyStack className="mr-2" style={{ color: '#85BB65' }}/>
-                            <div>₹{prize_pool * 0.3}</div>
+                            <div>₹{prize_pool * 0.25}</div>
                         </div>
                         <div className="flex items-center text-black">
                             <GiMoneyStack className="mr-2" style={{ color: '#85BB65' }}/>
-                            <div>₹{prize_pool * 0.15}</div>
+                            <div>₹{prize_pool * 0.125}</div>
                         </div>
                         <div className="flex items-center text-black">
                             <GiMoneyStack className="mr-2" style={{ color: '#85BB65' }}/>
-                            <div>₹{prize_pool * 0.1}</div>
+                            <div>₹{prize_pool * 0.07}</div>
                         </div>
                     </div>
                     <div className="text-center col-span-2 flex items-center">
