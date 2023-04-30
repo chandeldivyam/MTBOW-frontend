@@ -22,6 +22,8 @@ import ProtectedRoute from "./components/utils/ProtectedRoute"
 import { initializeGa } from "./components/utils/gaHelper";
 import Footer from "./pages/Main/Footer";
 import Leaderboard from "./pages/Leaderboard/Leaderboard";
+import Contact from "./pages/Main/Contact";
+import Rules from "./pages/Main/Rules";
 import { useGlobalContext } from "./context";
 function App() {
     initializeGa()
@@ -71,6 +73,8 @@ function App() {
                 <Route path="/refer" element={<ProtectedRoute path="/refer"><Refer /></ProtectedRoute>} />
                 <Route path="/rewards" element={<ProtectedRoute path="/rewards"><Rewards /></ProtectedRoute>} />
                 <Route path="/leaderboard" element={<ProtectedRoute path="/leaderboard"><Leaderboard /></ProtectedRoute>} />
+                <Route path="/contact" element={<ProtectedRoute path="/contact"><Contact /></ProtectedRoute>} />
+                <Route path="/rules" element={<ProtectedRoute path="/rules"><Rules /></ProtectedRoute>} />
             </Routes>
             <Footer />
         </Router>

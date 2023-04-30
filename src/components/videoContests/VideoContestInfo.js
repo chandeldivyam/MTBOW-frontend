@@ -245,29 +245,6 @@ const VideoContestInfo = () => {
                             myTeam={myTeam}
                         />)
                     })}
-                    {/* <Collapse defaultActiveKey={videoInfo.map((item) => {return item.video_id})}>
-                        {videoInfo.map((item) => {
-                            return(
-                                <Collapse.Panel 
-                                    key={item.video_id} 
-                                    header={<Meta
-                                        avatar={<Avatar src={item.channel_thumbnail} />}
-                                        title={item.channel_title}
-                                        className="pt-2"
-                                        />}
-                                    extra={collapseButtonHandler(item.video_id)}
-                                >
-                                    <VideoCard 
-                                        key={item.video_id}
-                                        {...item}
-                                        addToTeam={addToTeam}
-                                        removeFromTeam={removeFromTeam}
-                                        myTeam={myTeam}
-                                    />  
-                                </Collapse.Panel>
-                            )
-                        })}
-                    </Collapse> */}
                     <div className="flex justify-center mt-2 sticky bottom-0 z-10 pb-10">
                         <div className="inline-flex max-h-[32px]">
                             <div className="bg-white rounded-full">

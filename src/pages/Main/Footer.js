@@ -7,12 +7,13 @@ import { Tabs } from 'antd';
 import { AiOutlineHome } from "react-icons/ai";
 import { GiDiamondTrophy, GiPodium } from "react-icons/gi";
 import { IoPeopleOutline } from "react-icons/io5";
+import { BsListStars } from "react-icons/bs";
 
 const Footer = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const allowed_paths = ['/refer', '/', '/leaderboard', '/myResults']
+    const allowed_paths = ['/refer', '/', '/rules', '/myResults']
     if(!allowed_paths.includes(location.pathname)) return
 
     const tab_items = [
@@ -37,11 +38,11 @@ const Footer = () => {
         {
             label: 
                 <div className="grid grid-cols-1 gap-[4px] justify-items-center">
-                    <GiPodium size={28}/>
-                    <h4 className="smobile:text-sm text-[8px]">Leaderboard</h4>
+                    <BsListStars size={28}/>
+                    <h4 className="smobile:text-sm text-[8px]">How to Play</h4>
                 </div>
             ,
-            key: 'leaderboard'
+            key: 'rules'
         },
         {
             label: 
@@ -65,8 +66,8 @@ const Footer = () => {
             case 'refer':
                 navigate('/refer')
                 break
-            case 'leaderboard':
-                navigate('/leaderboard')
+            case 'rules':
+                navigate('/rules')
                 break
         }
     }

@@ -8,6 +8,9 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { RiHandCoinFill } from "react-icons/ri";
 import { useGlobalContext } from "../../context";
 import { GrInstallOption } from "react-icons/gr";
+import { AiOutlinePhone } from 'react-icons/ai';
+import { BsListStars } from "react-icons/bs";
+import { FaWhatsapp } from 'react-icons/fa';
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     const navigate = useNavigate();
@@ -100,6 +103,23 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                     >
                         <RiHandCoinFill />
                         <span className="ml-5">Rewards</span>
+                    </button>
+                    <button
+                        onClick={() => {
+                            navigate("/contact");
+                            setIsSidebarOpen(false);
+                        }}
+                        className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center"
+                    >
+                        <AiOutlinePhone />
+                        <span className="ml-5">Contact</span>
+                    </button>
+                    <button
+                        onClick={() => window.open("https://chat.whatsapp.com/Egqmis94D5EJ4dNYeaGovE", "_blank")}
+                        className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center"
+                    >
+                        <FaWhatsapp />
+                        <span className="ml-5">Whatsapp Community</span>
                     </button>
                     {deferredInstallEvent && <button
                         className="bg-grey-light hover:bg-gray-300 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center"
