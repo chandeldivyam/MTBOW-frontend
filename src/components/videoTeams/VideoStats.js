@@ -66,7 +66,7 @@ const VideoStats = ({video_id, video_title, video_thumbnail, like_points, view_p
               allow="fullscreen" >
             </iframe>
           </Tabs.TabPane>
-          <Tabs.TabPane tab="Stats" key="stats">
+          <Tabs.TabPane tab="Points" key="points">
                 <Space>
                     <h1 className="text-center">Views:</h1>
                     <div
