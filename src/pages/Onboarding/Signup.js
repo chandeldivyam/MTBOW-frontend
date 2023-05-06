@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import { message, Input } from "antd"
+import { message, Input, Statistic } from "antd"
 import mtbow_logo from "../../Static/mtbow-logo.png";
 
 const Signup = () => {
@@ -16,6 +16,8 @@ const Signup = () => {
     const [nameRegexError, setNameRegexError] = useState(false);
     const [optRegexError, setOtpRegexError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [ resendOtpTime, setResendOtpTime ] = useState(null)
+    const { Countdown } = Statistic;
 
     const requestOtp = async (e) => {
         e.preventDefault();
@@ -47,6 +49,56 @@ const Signup = () => {
             .then((response) => {
                 localStorage.setItem("userId", response.data.data.userId);
                 setIsOtpSent(true);
+                setResendOtpTime(new Date().getTime() + 45000);
+            })
+            .catch((error) => {
+                if(error.response.data.success === false){
+                    message.info({
+                        className: "mt-[100px] z-10",
+                        duration: 4,
+                        content: error.response.data.message,
+                    });
+                }
+                setIsOtpSent(false);
+                return
+            });
+    };
+    const resendOtp = async (e) => {
+        e.preventDefault();
+        if (!phone.match(/^\d{10}$/)) {
+            message.info({
+                className: "mt-[100px] z-10",
+                duration: 4,
+                content: "Please enter a valid 10 digit phone number",
+            })
+            return;
+        }
+        if (!name) {
+            message.info({
+                className: "mt-[100px] z-10",
+                duration: 4,
+                content: "Name can not be empty",
+            })
+            return;
+        }
+        axios({
+            method: "post",
+            url: "https://api.mtbow.com/api/v1/auth/register",
+            data: {
+                phone,
+                name,
+                referral_code_used: referralCodeUsed.trim()
+            },
+        })
+            .then((response) => {
+                localStorage.setItem("userId", response.data.data.userId);
+                setIsOtpSent(true);
+                setResendOtpTime(new Date().getTime() + 60000)
+                message.info({
+                        className: "mt-[100px] z-10",
+                        duration: 1,
+                        content: "Please check your SMS section for OTP ",
+                    });
             })
             .catch((error) => {
                 if(error.response.data.success === false){
@@ -215,6 +267,27 @@ const Signup = () => {
                                     Verify OTP
                                 </button>
                             </div>
+                            {
+                                resendOtpTime && 
+                                <div className="flex flex-col text-slate-400">
+                                    <Countdown title="Resend OTP in" value={resendOtpTime} format="mm:ss" onFinish={() => setResendOtpTime(null)}/>
+                                </div>
+                            }
+                            {
+                                !resendOtpTime &&
+                                <p>
+                                    Didn't receive the OTP?{""}
+                                    <button
+                                        onClick={resendOtp}
+                                        disabled={resendOtpTime}
+                                        className={`${
+                                        !resendOtpTime ? "text-[#dc5714]" : "text-gray-300"
+                                        } ml-1`}
+                                    >
+                                        Resend
+                                    </button>
+                                </p>
+                            }
                         </form>
                 </div>
             </div>

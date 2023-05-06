@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Statistic } from "antd";
 import { FaWhatsapp } from "react-icons/fa";
-import { Card, Tooltip, Modal } from "antd";
+import { Card, Tooltip, Modal, Progress } from "antd";
 import { EyeOutlined, LikeOutlined, CommentOutlined } from "@ant-design/icons";
 
 
@@ -133,7 +133,7 @@ const VideoCard = ({video_id, channel_title, video_title, video_thumbnail, chann
     );
   }
 
-export const VideoContestWaiting = ({ myTeam, videoInfo }) => {
+export const VideoContestWaiting = ({ myTeam, videoInfo, max_participants, participants }) => {
   const { Countdown } = Statistic;
 
   const handleCountdownFinish = () => {
@@ -156,12 +156,15 @@ export const VideoContestWaiting = ({ myTeam, videoInfo }) => {
             </a>
             </div>
           <div className="grid grid-cols-1 justify-items-center">
-            <Countdown
-              className="mt-3 col-span-1"
-              onFinish={handleCountdownFinish}
-              title="Starting in:"
-              value={new Date(videoInfo[0].event_start_time)}
-            />
+            <div className="flex justify-around w-4/5">
+              <Countdown
+                className="mt-3 col-span-1"
+                onFinish={handleCountdownFinish}
+                title="Starting in:"
+                value={new Date(videoInfo[0].event_start_time)}
+              />
+              {max_participants !== participants ? <Progress type="circle" percent={participants} format={percent => `${participants}/${max_participants}`} /> : <Progress type="circle" percent={100} format={() => `${participants}/${max_participants}`} />}
+            </div>
             {myTeam.map((item) => {
               const player_info = videoInfo.filter(
                 (info) => info.video_id === item

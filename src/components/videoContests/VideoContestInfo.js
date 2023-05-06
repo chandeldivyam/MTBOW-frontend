@@ -8,7 +8,9 @@ import { GiTargetPrize, GiHumanPyramid } from "react-icons/gi";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import Loading from "../../pages/Main/Loading";
 import { ContestExpired } from "../contests/ContestExpired";
-import { message, Button, Divider, Table, Progress, Popconfirm, Collapse, Avatar, Card } from "antd";
+import { message, Button, Divider, Table, Progress, Popconfirm, Collapse, Avatar, Card, Menu, Dropdown } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+
 import {
     contest_points_data,
     contest_points_columns,
@@ -113,6 +115,13 @@ const VideoContestInfo = () => {
         setMyTeam(newTeam);
     };
 
+    const sortVideos = (key, order) => {
+        const sortedVideos = [...videoInfo].sort((a, b) => {
+          return order === "asc" ? a[key] - b[key] : b[key] - a[key];
+        });
+        setVideoInfo(sortedVideos);
+    };
+
     const createTeam = async () => {
         if (myTeam.length !== 11) {
             setIsTeamError(true);
@@ -205,8 +214,21 @@ const VideoContestInfo = () => {
         if(eventStarted){
             return(<MyTeam myTeam={myTeam} videoInfo={videoInfo} videoContestId={videoContestId} event_end_time={videoInfo[0].event_end_time}/>)
         }
-        return(<VideoContestWaiting myTeam={myTeam} videoInfo={videoInfo}/>)
+        return(<VideoContestWaiting myTeam={myTeam} videoInfo={videoInfo} participants={contestInfo.participants} max_participants={contestInfo.max_participants}/>)
     }
+    const sortMenu = (
+        <Menu>
+          <Menu.Item key="1" onClick={() => sortVideos("video_views", "desc")}>
+            Views
+          </Menu.Item>
+          <Menu.Item key="2" onClick={() => sortVideos("video_likes", "desc")}>
+            Likes
+          </Menu.Item>
+          <Menu.Item key="3" onClick={() => sortVideos("video_comments", "desc")}>
+            Comments
+          </Menu.Item>
+        </Menu>
+      );      
     return(
         <div className="flex justify-center bg-gray-200 min-h-screen">
             <div className="max-w-lg bg-white">
@@ -236,6 +258,17 @@ const VideoContestInfo = () => {
                 </div>
                 <div className={showRules ? "hidden" : "flex flex-col px-[15px]"}>
                     <center><p>Click on the thumbnail to watch the video</p></center>
+                    <div className="flex justify-center">
+                        <Dropdown overlay={sortMenu} className="mb-4">
+                        <a
+                            className="ant-dropdown-link text-blue-600 flex items-center"
+                            onClick={(e) => e.preventDefault()}
+                        >
+                            Sort By Most <DownOutlined className="ml-2" />
+                        </a>
+                        </Dropdown>
+                        {/* Your video elements rendering */}
+                    </div>
                     {videoInfo.map((item) => {
                         return(<VideoCard 
                             key={item.video_id}

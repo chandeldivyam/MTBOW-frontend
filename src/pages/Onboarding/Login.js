@@ -8,7 +8,7 @@ import c_1 from "../../Static/onboarding/c1_new.png"
 import c_2 from "../../Static/onboarding/c2_new.png"
 import c_3 from "../../Static/onboarding/c3_new.png"
 import mtbow_logo from "../../Static/mtbow-logo.png";
-import { Carousel, Space, Button, message, Input } from 'antd';
+import { Carousel, Space, Button, message, Input, Statistic } from 'antd';
 
 const Login = () => {
     const [phone, setPhone] = useState("");
@@ -20,6 +20,8 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [genericPage, setGenericPage] = useState(true)
     const { authenticateUser, deferredInstallEvent } = useGlobalContext();
+    const [ resendOtpTime, setResendOtpTime ] = useState(null)
+    const { Countdown } = Statistic;
 
     useEffect(() => {
         authenticateUser()
@@ -64,6 +66,43 @@ const Login = () => {
                 localStorage.setItem("userId", response.data.data.userId);
                 setPhoneRegexError(false);
                 setIsOtpSent(!isOtpSent);
+                setResendOtpTime(new Date().getTime() + 45000)
+            })
+            .catch((error) => {
+                message.info({
+                    className: "mt-[100px] z-10",
+                    duration: 4,
+                    content: "The User does not exist. Please sign up!",
+                })
+                return;
+            });
+    };
+    const resendOtp = async (e) => {
+        e.preventDefault();
+        if (!phone.match(/^\d{10}$/)) {
+            message.info({
+                className: "mt-[100px] z-10",
+                duration: 4,
+                content: "Please enter a valid 10 digit phone number",
+            })
+            return;
+        }
+        axios({
+            method: "post",
+            url: "https://api.mtbow.com/api/v1/auth/login",
+            data: {
+                phone,
+            },
+        })
+            .then((response) => {
+                localStorage.setItem("userId", response.data.data.userId);
+                setPhoneRegexError(false);
+                setResendOtpTime(new Date().getTime() + 60000)
+                message.info({
+                    className: "mt-[100px] z-10",
+                    duration: 1,
+                    content: "Please check your SMS section for OTP ",
+                });
             })
             .catch((error) => {
                 message.info({
@@ -272,6 +311,27 @@ const Login = () => {
                                 Verify OTP
                             </button>
                         </div>
+                        {
+                            resendOtpTime && 
+                            <div className="flex flex-col text-slate-400">
+                                <Countdown title="Resend OTP in" value={resendOtpTime} format="mm:ss" onFinish={() => setResendOtpTime(null)}/>
+                            </div>
+                        }
+                        {
+                            !resendOtpTime &&
+                            <p>
+                                Didn't receive the OTP?{""}
+                                <button
+                                    onClick={resendOtp}
+                                    disabled={resendOtpTime}
+                                    className={`${
+                                    !resendOtpTime ? "text-[#dc5714]" : "text-gray-300"
+                                    } ml-1`}
+                                >
+                                    Resend
+                                </button>
+                            </p>
+                        }
                     </form>
                     <div
                         className={`${
