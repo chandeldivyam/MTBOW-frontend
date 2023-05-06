@@ -22,7 +22,7 @@ const referral_steps_items = [
     },
     {
         title: "Make more money",
-        description: "Everytime your referral participate in a contest, you get extra ₹5",
+        description: "Everytime your referral participate in a contest, you get extra 10% of participation amount",
         icon: <FaUmbrellaBeach size={28} color={"#B19CD9"}/>
     }
 ]
