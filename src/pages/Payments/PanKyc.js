@@ -71,6 +71,13 @@ const PanKyc = () => {
             if(verify_response.data.success === true && verify_response.data.status === "PENDING"){
                 setApiResult(true)
             }
+            if(verify_response.data.success === true && verify_response.data.reason){
+                message.error({
+                    className: "mt-[50px] z-10",
+                    duration: 4,
+                    content: verify_response.data.reason,
+                });
+            }
         })
         .catch((error) => {
             console.log(error)
