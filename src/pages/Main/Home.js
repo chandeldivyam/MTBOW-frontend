@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Contests from "../../components/contests/Contests";
 import Navbar from "./Navbar";
 import Loading from "./Loading";
-import { GiCrown } from "react-icons/gi";
 import VideoContests from "../../components/videoContests/VideoContests";
-import { Alert, Tabs } from 'antd';
+import { Tabs } from 'antd';
 import HomeCarousel from "../../components/utils/HomeCarousel";
 
 const Home = () => {
@@ -81,15 +80,9 @@ const Home = () => {
                     centered={true}
                     items={tab_items}
                 />
-                <Alert message={<span className="align-middle">Would you dare to challenge <span className="font-semibold">{liveVideoContests.previousWinner}</span>? Our Current champion!</span>} 
-                    type="success" 
-                    showIcon
-                    icon={<GiCrown size={32}/>}
-                    />
             </div>
         </>
     );
-    // return <h1>home</h1>;
 };
 
 export default Home;

@@ -161,7 +161,13 @@ const VideoContestInfo = () => {
                 window.location.reload();
             })
             .catch((err) => {
-                console.log("Team not created");
+                if(err.response.data.success === false && err.response.data.message){
+                    message.error({
+                        className: "mt-[100px] z-10",
+                        duration: 4,
+                        content: err.response.data.message,
+                    });
+                }
             });
     };
 
