@@ -52,7 +52,7 @@ const Leaderboard = ({leaderboard, contest_id}) => {
                   ? `bg-[${colorObject[item.card_type]}]`
                   : ""
               } border-2 ${
-                item.rank <= 50 && !item.card_type ? "border-green-500" : "border-gray-200"
+                item.prize && !item.card_type ? "border-green-500" : "border-gray-200"
               } m-2.5 p-2`}
               onClick={() => {
                 navigate(`/videoTeamOther/${contest_id}/${item.user_id}`);
@@ -87,9 +87,9 @@ const Leaderboard = ({leaderboard, contest_id}) => {
                     }`}
                   >
                     Total Points: {item.total_points}
-                    {item.rank <= 50 && !item.card_type && (
+                    {item.prize && !item.card_type && (
                       <span className="ml-2 text-green-500">
-                        (Winning)
+                        (₹{item.prize})
                       </span>
                     )}
                   </div>

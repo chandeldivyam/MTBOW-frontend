@@ -173,7 +173,7 @@ const Login = () => {
             </Carousel>
             <div className="grid grid-cols-1 justify-items-center mt-6">
                 <h2 className="text-2xl font-bold">Welcome to MTBOW</h2>
-                <h3>Pridict the virality of videos and win money</h3>
+                <h3>Predict the virality of videos and win money</h3>
                 <div className="flex justify-around w-[50%]">
                     <Button 
                         className="bg-[#000000] text-white mt-3 min-h-[50px]"

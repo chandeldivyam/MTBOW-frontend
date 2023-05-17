@@ -22,13 +22,6 @@ const Rules = () => {
                 pagination={false}
                 dataSource={contest_points_data}
             />
-            <Divider>Rewards</Divider>
-            <Table
-                className="ml-5 mr-2 mb-8"
-                columns={rewards_columns}
-                pagination={false}
-                dataSource={rewards_data}
-            />
         </div>
     );
 };

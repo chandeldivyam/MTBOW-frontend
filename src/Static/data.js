@@ -20,13 +20,13 @@ export const contest_points_data = [
     {
         key: "1",
         type: "Views",
-        change: "+30",
+        change: "+20",
         points: "+1",
     },
     {
         key: "2",
         type: "Views",
-        change: "-30",
+        change: "-20",
         points: "-1",
     },
     {

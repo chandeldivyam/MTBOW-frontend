@@ -83,7 +83,8 @@ const VideoContestInfo = () => {
             event_start_time,
             participation_fee,
             prize_pool,
-            max_participants
+            max_participants,
+            prizepool_array
         } = getVideos.data.contest_details[0];
         const participants = parseInt(getVideos.data.participants);
         setContestInfo({
@@ -95,7 +96,8 @@ const VideoContestInfo = () => {
             participation_fee,
             participants,
             prize_pool,
-            max_participants
+            max_participants,
+            prizepool_array
         });
         if (Date.now() >= Date.parse(event_end_time)) {
             setIsExpired(true);
@@ -435,13 +437,6 @@ const VideoContestInfo = () => {
                             {new Date(contestInfo.event_end_time).toLocaleString()}
                         </li>
                     </ul>
-                    <Divider>Scoring</Divider>
-                    <Table
-                        className="ml-5 mr-2"
-                        columns={contest_points_columns}
-                        pagination={false}
-                        dataSource={contest_points_data}
-                    />
                     <Divider>Rewards</Divider>
                     <Table
                         className={
@@ -449,9 +444,20 @@ const VideoContestInfo = () => {
                                 ? "ml-5 mr-2 mb-8"
                                 : "hidden"
                         }
-                        columns={rewards_columns}
+                        columns={[
+                            {
+                                title: "Rank",
+                                dataIndex: "rank",
+                                key: "rank",
+                            },
+                            {
+                                title: "Win (₹)",
+                                dataIndex: "amount",
+                                key: "amount",
+                            },
+                        ]}
                         pagination={false}
-                        dataSource={rewards_data}
+                        dataSource={contestInfo.prizepool_array}
                     />
                     <Table
                         className={
@@ -462,6 +468,13 @@ const VideoContestInfo = () => {
                         columns={rewards_columns}
                         pagination={false}
                         dataSource={rewards_data_under5}
+                    />
+                    <Divider>Scoring</Divider>
+                    <Table
+                        className="ml-5 mr-2"
+                        columns={contest_points_columns}
+                        pagination={false}
+                        dataSource={contest_points_data}
                     />
                 </div>
                 <div className="flex justify-center mt-2 bottom-0 z-10 fixed mobile:w-[512px] w-screen">
